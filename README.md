@@ -3,7 +3,7 @@
 
 ## Overview
 This repository contains course materials, lecture slides, and syllabus documentation for the **Industry Oriented Course (IoC)** titled *Scalable Enterprise Architectural Deployments of Agentic AI Solutions*.  
-The course is designed and delivered by **Chandravadhana T.K.**, Senior AI/ML Architect at Optum.AI (UHG), under the guidance of **Dr. K. Saravanan**, Department of Information and Communication Engineering, Anna University (CEG, Guindy).
+The course is designed and delivered by **Chandravadhana T.K.**, Senior AI/ML Architect, under the guidance of **Dr. K. Saravanan**, Department of Information and Communication Engineering, Anna University (CEG, Guindy).
 
 The course provides a **15-hour structured learning path** to equip participants with the knowledge and hands-on skills required to design, deploy, govern, and scale enterprise-grade Agentic AI systems.
 
