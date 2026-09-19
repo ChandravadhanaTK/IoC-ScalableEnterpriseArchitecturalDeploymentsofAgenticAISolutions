@@ -1,0 +1,65 @@
+# The governed business API runs as its own Deployment so the copilot reaches
+# the system of record only over the network, with a token, like any client.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: business-api
+  namespace: opscopilot
+  labels: { app: business-api }
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: business-api }
+  template:
+    metadata:
+      labels: { app: business-api }
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8001"
+        prometheus.io/path: "/metrics"
+    spec:
+      serviceAccountName: copilot
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        fsGroup: 10001
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: business-api
+          image: opscopilot:local
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: [ALL] }
+          command: ["python", "-m", "uvicorn", "opscopilot.integration.business_api:app", "--host", "0.0.0.0", "--port", "8001"]
+          ports: [{ containerPort: 8001, name: http }]
+          envFrom:
+            - configMapRef: { name: copilot-config }
+            - secretRef: { name: copilot-secrets }
+          volumeMounts:
+            - { name: data, mountPath: /data }
+            - { name: tmp, mountPath: /tmp }
+          readinessProbe:
+            httpGet: { path: /healthz, port: http }
+            periodSeconds: 5
+          livenessProbe:
+            httpGet: { path: /healthz, port: http }
+            periodSeconds: 15
+          resources:
+            requests: { cpu: "50m", memory: "128Mi" }
+            limits: { cpu: "500m", memory: "256Mi" }
+      volumes:
+        - name: data
+          persistentVolumeClaim: { claimName: copilot-data }
+        - name: tmp
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: business-api
+  namespace: opscopilot
+spec:
+  selector: { app: business-api }
+  ports: [{ port: 8001, targetPort: http }]

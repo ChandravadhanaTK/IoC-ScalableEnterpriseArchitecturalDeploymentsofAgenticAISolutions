@@ -1,0 +1,40 @@
+# One-shot job: seed the operations DB (only if absent, so a redeploy keeps the
+# audit log and events) and rebuild the retrieval indexes on the shared volume.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: copilot-init
+  namespace: opscopilot
+spec:
+  backoffLimit: 2
+  template:
+    spec:
+      restartPolicy: Never
+      serviceAccountName: copilot
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        fsGroup: 10001
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: init
+          image: opscopilot:local
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: [ALL] }
+          command: ["sh", "-c", "[ -f /data/ops.db ] || python scripts/seed_db.py && python -m opscopilot.knowledge.ingest"]
+          envFrom:
+            - configMapRef: { name: copilot-config }
+          volumeMounts:
+            - { name: data, mountPath: /data }
+            - { name: tmp, mountPath: /tmp }
+          resources:
+            requests: { cpu: "100m", memory: "256Mi" }
+            limits: { cpu: "500m", memory: "512Mi" }
+      volumes:
+        - name: data
+          persistentVolumeClaim: { claimName: copilot-data }
+        - name: tmp
+          emptyDir: {}
