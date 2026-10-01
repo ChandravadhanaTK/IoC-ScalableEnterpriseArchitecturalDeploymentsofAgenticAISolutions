@@ -178,11 +178,13 @@ flowchart TB
 
 &#x20;   DASH --> ADMIN
 
+```
 
 
 
 
-```text
+
+
 
 1.3 Architecture Layers
 
@@ -639,6 +641,8 @@ Ticket Updated          IT Administrator
 &#x20;                           v
 
 &#x20;                      Manual Resolution
+
+```
 
 
 
@@ -1154,6 +1158,12 @@ flowchart TD
 
 &#x20;   J --> K
 
+```
+
+
+
+
+
 
 
 2.10 Agent Workflow Summary
@@ -1373,6 +1383,12 @@ flowchart TB
 &#x20;   KNOWLEDGE --> MONITOR
 
 &#x20;   RESOLUTION --> MONITOR
+
+```
+
+
+
+
 
 
 
@@ -2016,6 +2032,12 @@ flowchart TB
 
 &#x20;   AGENTS --> AUDIT
 
+```
+
+
+
+
+
 
 
 4.12 Security Summary
@@ -2178,6 +2200,8 @@ Confidence Evaluation
 
 Resolved / Escalated
 
+```
+
 
 
 The monitoring system should record:
@@ -2203,6 +2227,10 @@ Confidence score
 Escalation reason
 
 Final ticket status
+
+
+
+
 
 5.5 AI Quality Metrics
 
