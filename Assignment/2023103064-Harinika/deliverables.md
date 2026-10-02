@@ -1,3 +1,14 @@
+# AI-Powered IT Helpdesk & Support System
+
+## Deployed Application
+
+**Live Application:** https://io-c-scalable-enterprise-architectu.vercel.app
+
+**Backend API:** https://ioc-wmg2.onrender.com
+
+---
+
+
 DELIVERABLE 1: ARCHITECTURE DIAGRAM
 
 
