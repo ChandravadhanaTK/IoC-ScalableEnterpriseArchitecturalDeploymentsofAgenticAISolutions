@@ -209,7 +209,7 @@ The AI Assistant includes one-click demo scenario chips to test key agent behavi
 ## 🌐 Deployment
 
 ### Deployed Application URL
-- **Production URL**: `https://officeops-mvp.vercel.app` *(Placeholder for deployment)*
+- **Live Deployed Application Link**: [https://harmonious-youtiao-612a10.netlify.app](https://harmonious-youtiao-612a10.netlify.app)
 
 ### Manual Deployment Instructions
 
