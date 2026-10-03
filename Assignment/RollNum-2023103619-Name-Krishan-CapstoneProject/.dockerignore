@@ -1,0 +1,12 @@
+.git
+.gitignore
+*.md
+.env
+frontend/node_modules
+frontend/.env
+frontend/build
+backend/__pycache__
+backend/*.pyc
+backend/.venv
+backend/chatbot.db
+backend/chroma_db

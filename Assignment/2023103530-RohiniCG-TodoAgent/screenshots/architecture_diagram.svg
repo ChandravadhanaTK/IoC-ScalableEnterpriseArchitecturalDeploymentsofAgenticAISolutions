@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700">
+  <rect width="1200" height="700" fill="#0b1120"/>
+  <text x="600" y="45" font-family="system-ui, sans-serif" font-size="24" font-weight="bold" fill="#ffffff" text-anchor="middle">DELIVERABLE 1: SYSTEM ARCHITECTURE BLUEPRINT</text>
+  <text x="600" y="70" font-family="system-ui, sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">5-Tier Enterprise Topology, MicroVM Sandboxing &amp; Zero-Trust Boundaries</text>
+
+  <!-- Layer 1 -->
+  <rect x="50" y="100" width="1100" height="85" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+  <text x="70" y="125" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#60a5fa">LAYER 1: CLIENT &amp; INGESTION LAYER</text>
+  <rect x="70" y="138" width="300" height="35" rx="4" fill="#0f172a" stroke="#475569"/>
+  <text x="220" y="160" font-family="monospace" font-size="12" fill="#cbd5e1" text-anchor="middle">React 19 Enterprise SPA</text>
+  <rect x="400" y="138" width="300" height="35" rx="4" fill="#0f172a" stroke="#475569"/>
+  <text x="550" y="160" font-family="monospace" font-size="12" fill="#cbd5e1" text-anchor="middle">Mobile PWA Offline Sync</text>
+  <rect x="730" y="138" width="300" height="35" rx="4" fill="#0f172a" stroke="#475569"/>
+  <text x="880" y="160" font-family="monospace" font-size="12" fill="#cbd5e1" text-anchor="middle">Inbound Webhooks (Jira/GitHub)</text>
+
+  <!-- Layer 2 -->
+  <rect x="50" y="215" width="1100" height="85" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+  <text x="70" y="240" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#fbbf24">LAYER 2: EDGE GATEWAY &amp; ZERO-TRUST BOUNDARY (DMZ)</text>
+  <rect x="70" y="253" width="460" height="35" rx="4" fill="#0f172a" stroke="#78350f"/>
+  <text x="300" y="275" font-family="monospace" font-size="12" fill="#fde68a" text-anchor="middle">Envoy Proxy &amp; WAF (mTLS &amp; Rate Limiting)</text>
+  <rect x="560" y="253" width="470" height="35" rx="4" fill="#0f172a" stroke="#78350f"/>
+  <text x="795" y="275" font-family="monospace" font-size="12" fill="#fde68a" text-anchor="middle">OIDC / OAuth2 &amp; SAML 2.0 Auth Broker (RS256 JWT)</text>
+
+  <!-- Layer 3 -->
+  <rect x="50" y="330" width="1100" height="85" rx="8" fill="#1e293b" stroke="#818cf8" stroke-width="2"/>
+  <text x="70" y="355" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#a5b4fc">LAYER 3: AGENT ORCHESTRATION ENGINE (PRIVATE VPC)</text>
+  <rect x="70" y="368" width="460" height="35" rx="4" fill="#0f172a" stroke="#312e81"/>
+  <text x="300" y="390" font-family="monospace" font-size="12" fill="#c7d2fe" text-anchor="middle">Task Router &amp; Multi-Factor Eisenhower Planner</text>
+  <rect x="560" y="368" width="470" height="35" rx="4" fill="#0f172a" stroke="#312e81"/>
+  <text x="795" y="390" font-family="monospace" font-size="12" fill="#c7d2fe" text-anchor="middle">NeMo Guardrails Scanner &amp; HITL Gate Enforcer</text>
+
+  <!-- Layer 4 -->
+  <rect x="50" y="445" width="1100" height="85" rx="8" fill="#1e293b" stroke="#c084fc" stroke-width="2"/>
+  <text x="70" y="470" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#e9d5ff">LAYER 4: SANDBOXED TOOL EXECUTION CLUSTER</text>
+  <rect x="70" y="483" width="310" height="35" rx="4" fill="#0f172a" stroke="#581c87"/>
+  <text x="225" y="505" font-family="monospace" font-size="12" fill="#f3e8ff" text-anchor="middle">Firecracker MicroVM (eBPF Seccomp)</text>
+  <rect x="410" y="483" width="310" height="35" rx="4" fill="#0f172a" stroke="#581c87"/>
+  <text x="565" y="505" font-family="monospace" font-size="12" fill="#f3e8ff" text-anchor="middle">GitHub REST &amp; Jira API Connectors</text>
+  <rect x="750" y="483" width="280" height="35" rx="4" fill="#0f172a" stroke="#581c87"/>
+  <text x="890" y="505" font-family="monospace" font-size="12" fill="#f3e8ff" text-anchor="middle">Synthetic k6 Load Runner</text>
+
+  <!-- Layer 5 -->
+  <rect x="50" y="560" width="1100" height="85" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+  <text x="70" y="585" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#6ee7b7">LAYER 5: DATA &amp; TELEMETRY FOUNDATION</text>
+  <rect x="70" y="598" width="310" height="35" rx="4" fill="#0f172a" stroke="#064e3b"/>
+  <text x="225" y="620" font-family="monospace" font-size="12" fill="#a7f3d0" text-anchor="middle">PostgreSQL 16 + pgvector (CMEK)</text>
+  <rect x="410" y="598" width="310" height="35" rx="4" fill="#0f172a" stroke="#064e3b"/>
+  <text x="565" y="620" font-family="monospace" font-size="12" fill="#a7f3d0" text-anchor="middle">Redis 7 Cluster &amp; HashiCorp Vault</text>
+  <rect x="750" y="598" width="280" height="35" rx="4" fill="#0f172a" stroke="#064e3b"/>
+  <text x="890" y="620" font-family="monospace" font-size="12" fill="#a7f3d0" text-anchor="middle">OpenTelemetry &amp; SHA-256 Audit Store</text>
+</svg>

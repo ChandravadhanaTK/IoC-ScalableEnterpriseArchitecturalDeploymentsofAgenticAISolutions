@@ -1,0 +1,42 @@
+openapi: 3.1.0
+info:
+  title: Armor Forge API
+  version: 1.0.0
+servers:
+  - url: /api/v1
+paths:
+  /health: {get: {responses: {'200': {description: OK}}}}
+  /auth/login: {post: {responses: {'200': {description: Login}}}}
+  /auth/refresh: {post: {responses: {'200': {description: Refresh}}}}
+  /auth/logout: {post: {responses: {'204': {description: Logout}}}}
+  /auth/me: {get: {responses: {'200': {description: Current user}}}}
+  /levels: {get: {responses: {'200': {description: Levels}}}}
+  /levels/{id}: {get: {parameters: [{in:path,name:id,required:true,schema:{type:string}}],responses:{'200':{description: Level}}}}
+  /progress/me: {get: {responses: {'200': {description: Progress}}}}
+  /levels/{id}/start: {post: {responses: {'200': {description: Started}}}}
+  /levels/{id}/complete: {post: {responses: {'200': {description: Completed}}}}
+  /levels/{id}/match-set: {get: {responses: {'200': {description: Match set}}}}
+  /levels/{id}/match/submit: {post: {responses: {'200': {description: Match result}}}}
+  /levels/{id}/challenges: {get: {responses: {'200': {description: Challenges}}}}
+  /challenges/{id}/submit: {post: {responses: {'200': {description: Test results}}}}
+  /code/run: {post: {responses: {'200': {description: Code execution}}}}
+  /levels/{id}/boss: {get: {responses: {'200': {description: Boss}}}}
+  /levels/{id}/boss/submit: {post: {responses: {'200': {description: Boss result}}}}
+  /armor: {get: {responses: {'200': {description: Armor}}}}
+  /armor/{pieceId}: {get: {responses: {'200': {description: Armor piece}}}}
+  /glossary: {get: {parameters: [{in:query,name:q,schema:{type:string}}],responses:{'200':{description: Glossary}}}}
+  /agent-runs: {post: {responses: {'200': {description: Agent run}}}}
+  /agent-runs/{id}: {get: {responses: {'200': {description: Trace}}}}
+  /agent-runs/{id}/events: {get: {responses: {'200': {description: SSE trace stream}}}}
+  /chat/messages: {post: {responses: {'200': {description: JARVIS reply}}}}
+  /skip-requests: {get: {responses: {'200': {description: Skip requests}}},post:{responses:{'201':{description: Created}}}}
+  /skip-requests/{id}/decision: {post: {responses: {'200': {description: Decision}}}}
+  /cohort: {get: {responses: {'200': {description: Cohort}}}}
+  /metrics/{metric}: {get: {parameters:[{in:path,name:metric,required:true,schema:{type:string}},{in:query,name:range,schema:{type:string,enum:[24h,7d,30d]}}],responses:{'200':{description: Metrics}}}}
+  /admin/agent-configs: {get: {responses:{'200':{description: Agent configs}}},put:{responses:{'200':{description: Updated}}}}
+  /admin/guardrails: {get: {responses:{'200':{description: Guardrails}}},put:{responses:{'200':{description: Updated}}}}
+  /admin/content/levels/{id}: {get:{responses:{'200':{description: Content}}},put:{responses:{'200':{description: Updated}}}}
+  /audit-log: {get: {responses: {'200': {description: Audit log}}}}
+components:
+  schemas:
+    Error: {type:object,properties:{error:{type:object,properties:{code:{type:string},message:{type:string},details:{type:object},traceId:{type:string}},required:[code,message,traceId]}}}

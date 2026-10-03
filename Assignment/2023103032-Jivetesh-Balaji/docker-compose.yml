@@ -1,0 +1,9 @@
+services:
+  agentic-assistant:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_PATH: /app/data/agent.db
+    volumes:
+      - ./data:/app/data

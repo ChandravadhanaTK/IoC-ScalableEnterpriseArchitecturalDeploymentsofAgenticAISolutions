@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
+  <defs>
+    <linearGradient id="bgGrad7" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="100%" stop-color="#0b1120"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1440" height="900" fill="url(#bgGrad7)"/>
+
+  <!-- Top Nav -->
+  <rect width="1440" height="64" fill="#020617" stroke="#1e293b" stroke-width="1"/>
+  <text x="50" y="38" font-family="system-ui, sans-serif" font-size="16" font-weight="800" fill="#ffffff">🤖 Todo Agent</text>
+  <rect x="180" y="24" width="70" height="20" rx="4" fill="#4f46e5" fill-opacity="0.2" stroke="#6366f1" stroke-width="1"/>
+  <text x="215" y="38" font-family="monospace" font-size="10" font-weight="bold" fill="#a5b4fc" text-anchor="middle">Enterprise</text>
+
+  <!-- Header -->
+  <text x="32" y="115" font-family="monospace" font-size="11" font-weight="bold" fill="#f59e0b">DELIVERABLE 4 • ENTERPRISE GOVERNANCE &amp; TRUST</text>
+  <text x="32" y="145" font-family="system-ui, sans-serif" font-size="24" font-weight="800" fill="#ffffff">Enterprise Security Model &amp; Governance</text>
+  <text x="32" y="165" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">Identity &amp; RBAC authorization, HashiCorp Vault secrets, Presidio PII privacy, NeMo guardrails, and SHA-256 audit chaining.</text>
+
+  <!-- RBAC Matrix Card -->
+  <rect x="32" y="195" width="1376" height="300" rx="14" fill="#0f172a" stroke="#1e293b"/>
+  <text x="56" y="230" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">Role-Based Access Control (RBAC) Matrix</text>
+  <text x="56" y="248" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">Enforced at Envoy Ingress and Agent Task Router using cryptographically signed JWT claims.</text>
+
+  <!-- Table Header -->
+  <rect x="56" y="265" width="1328" height="35" rx="6" fill="#1e293b"/>
+  <text x="76" y="287" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">Permission / Action</text>
+  <text x="800" y="287" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#60a5fa" text-anchor="middle">Admin</text>
+  <text x="960" y="287" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#a855f7" text-anchor="middle">Operator</text>
+  <text x="1120" y="287" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#34d399" text-anchor="middle">Engineer</text>
+  <text x="1280" y="287" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#fbbf24" text-anchor="middle">Auditor</text>
+
+  <!-- Row 1 -->
+  <line x1="56" y1="340" x2="1384" y2="340" stroke="#1e293b"/>
+  <text x="76" y="325" font-family="system-ui, sans-serif" font-size="12" fill="#cbd5e1">View Tasks &amp; Prioritization Matrix</text>
+  <text x="800" y="325" font-family="system-ui, sans-serif" font-size="14" fill="#34d399" text-anchor="middle">✓</text>
+  <text x="960" y="325" font-family="system-ui, sans-serif" font-size="14" fill="#34d399" text-anchor="middle">✓</text>
+  <text x="1120" y="325" font-family="system-ui, sans-serif" font-size="14" fill="#34d399" text-anchor="middle">✓</text>
+  <text x="1280" y="325" font-family="system-ui, sans-serif" font-size="14" fill="#34d399" text-anchor="middle">✓</text>
+
+  <!-- Row 2 -->
+  <line x1="56" y1="380" x2="1384" y2="380" stroke="#1e293b"/>
+  <text x="76" y="365" font-family="system-ui, sans-serif" font-size="12" fill="#cbd5e1">Create &amp; Modify Standard Tasks (P2/P3)</text>
+  <text x="800" y="365" font-family="system-ui, sans-serif" font-size="14" fill="#34d399" text-anchor="middle">✓</text>
+  <text x="960" y="365" font-family="system-ui, sans-serif" font-size="14" fill="#34d399" text-anchor="middle">✓</text>
+  <text x="1120" y="365" font-family="system-ui, sans-serif" font-size="14" fill="#34d399" text-anchor="middle">✓</text>
+  <text x="1280" y="365" font-family="system-ui, sans-serif" font-size="14" fill="#64748b" text-anchor="middle">✗</text>
+
+  <!-- Row 3 -->
+  <line x1="56" y1="420" x2="1384" y2="420" stroke="#1e293b"/>
+  <text x="76" y="405" font-family="system-ui, sans-serif" font-size="12" fill="#cbd5e1">Execute Autonomous Agent Runs</text>
+  <text x="800" y="405" font-family="system-ui, sans-serif" font-size="14" fill="#34d399" text-anchor="middle">✓</text>
+  <text x="960" y="405" font-family="system-ui, sans-serif" font-size="14" fill="#34d399" text-anchor="middle">✓</text>
+  <text x="1120" y="405" font-family="system-ui, sans-serif" font-size="14" fill="#34d399" text-anchor="middle">✓</text>
+  <text x="1280" y="405" font-family="system-ui, sans-serif" font-size="14" fill="#64748b" text-anchor="middle">✗</text>
+
+  <!-- Row 4 -->
+  <line x1="56" y1="460" x2="1384" y2="460" stroke="#1e293b"/>
+  <text x="76" y="445" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#fde68a">Approve P0 Critical / HITL Deployments</text>
+  <text x="800" y="445" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#34d399" text-anchor="middle">✓</text>
+  <text x="960" y="445" font-family="system-ui, sans-serif" font-size="14" fill="#64748b" text-anchor="middle">✗</text>
+  <text x="1120" y="445" font-family="system-ui, sans-serif" font-size="14" fill="#64748b" text-anchor="middle">✗</text>
+  <text x="1280" y="445" font-family="system-ui, sans-serif" font-size="14" fill="#64748b" text-anchor="middle">✗</text>
+
+  <!-- Two Column Bottom Section -->
+  <!-- Left: Live PII Sanitizer -->
+  <rect x="32" y="515" width="676" height="310" rx="14" fill="#0f172a" stroke="#1e293b"/>
+  <text x="56" y="545" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">Live PII &amp; Data Privacy Sanitizer</text>
+  <text x="56" y="565" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">Sensitive personal data and IP addresses are masked before LLM prompting.</text>
+
+  <rect x="56" y="585" width="628" height="60" rx="8" fill="#020617" stroke="#334155"/>
+  <text x="72" y="610" font-family="monospace" font-size="11" fill="#cbd5e1">Input: Deploy hotfix for client John Doe (SSN: 123-45-6789,</text>
+  <text x="72" y="630" font-family="monospace" font-size="11" fill="#cbd5e1">email: john.doe@acme.corp) on server IP 192.168.1.45.</text>
+
+  <rect x="56" y="660" width="628" height="60" rx="8" fill="#020617" stroke="#10b981"/>
+  <text x="72" y="685" font-family="monospace" font-size="11" fill="#a7f3d0">Output: Deploy hotfix for client [ANONYMIZED_PERSONA]</text>
+  <text x="72" y="705" font-family="monospace" font-size="11" fill="#a7f3d0">(SSN: [REDACTED_SSN], [REDACTED_EMAIL]) on [MASKED_IP].</text>
+
+  <text x="56" y="750" font-family="monospace" font-size="11" fill="#10b981">✓ Presidio v2.2 Engine Active • Zero Data Leakage</text>
+
+  <!-- Right: Cryptographic SHA-256 Chained Audit Trail -->
+  <rect x="732" y="515" width="676" height="310" rx="14" fill="#0f172a" stroke="#1e293b"/>
+  <text x="756" y="545" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">Cryptographic SHA-256 Audit Trail</text>
+  <text x="756" y="565" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">Sequential hash chaining guarantees tamper-evident ledger integrity.</text>
+
+  <rect x="756" y="585" width="628" height="65" rx="8" fill="#020617" stroke="#1e293b"/>
+  <text x="772" y="608" font-family="monospace" font-size="11" font-weight="bold" fill="#ffffff">BLOCK #3: HITL_APPROVAL_GRANTED (Alex Mercer)</text>
+  <text x="772" y="626" font-family="monospace" font-size="10" fill="#64748b">Prev: a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e</text>
+  <text x="772" y="642" font-family="monospace" font-size="10" fill="#10b981">Hash: 7b22736166657479223a747275652c2268617368223a22386634326162393322</text>
+
+  <rect x="756" y="660" width="628" height="65" rx="8" fill="#020617" stroke="#1e293b"/>
+  <text x="772" y="683" font-family="monospace" font-size="11" font-weight="bold" fill="#ffffff">BLOCK #2: POLICY_ENFORCED (HITL Gate Mandatory for P0)</text>
+  <text x="772" y="701" font-family="monospace" font-size="10" fill="#64748b">Prev: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</text>
+  <text x="772" y="717" font-family="monospace" font-size="10" fill="#10b981">Hash: a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e</text>
+
+  <rect x="756" y="740" width="180" height="28" rx="6" fill="#065f46"/>
+  <text x="846" y="758" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#a7f3d0" text-anchor="middle">✓ Chain 100% Valid</text>
+</svg>

@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><title>AgroMitra Monitoring</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{font-family:system-ui;background:#141b3a;color:#e8ecff;margin:0;padding:24px}
+h1{margin:0 0 12px}input,button{padding:8px;border-radius:6px;border:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:16px 0}
+.card{background:#1b2a55;border-radius:10px;padding:14px}.card b{display:block;font-size:26px;margin-top:6px}
+table{width:100%;border-collapse:collapse}td,th{padding:6px;border-bottom:1px solid #2c3b70;text-align:left;font-size:14px}</style></head>
+<body><h1>AgroMitra Monitoring Dashboard</h1>
+<input id="k" value="key-officer" placeholder="API key"> <button onclick="load()">Refresh</button>
+<div class="grid" id="g"></div><h3>Recent claims</h3><table id="t"></table>
+<script>
+async function load(){const h={'X-API-Key':document.getElementById('k').value};
+const m=await (await fetch('/api/metrics',{headers:h})).json();
+const c=m.counters,items=[['Health',m.health],['Claims',c.claims_total||0],['Auto-approval rate',m.auto_approval_rate],
+['Rejection rate',m.rejection_rate],['Failure rate',m.failure_rate],['p95 latency (ms)',m.latency_p95_ms],
+['Pending human',c.pending_human||0],['Guardrail blocks',m.guardrail_blocks],['Payout (INR)',m.total_payout_inr]];
+document.getElementById('g').innerHTML=items.map(i=>`<div class="card">${i[0]}<b>${i[1]}</b></div>`).join('');
+const l=await (await fetch('/api/claims',{headers:h})).json();
+document.getElementById('t').innerHTML='<tr><th>ID</th><th>Crop</th><th>Status</th><th>Risk</th><th>Payable</th></tr>'+
+l.slice(-10).reverse().map(r=>`<tr><td>${r.id}</td><td>${r.claim.crop}</td><td>${r.status}</td><td>${r.risk_score??''}</td><td>${r.payable_amount??''}</td></tr>`).join('');}
+load();setInterval(load,5000);</script></body></html>

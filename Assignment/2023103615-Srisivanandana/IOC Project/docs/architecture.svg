@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="840" viewBox="0 0 1200 840" role="img" aria-labelledby="title description">
+  <title id="title">Campus Copilot multi-user architecture</title>
+  <desc id="description">Supabase Auth identifies each student. Streamlit passes the authenticated session to the central agent orchestrator. The agent uses OpenAI for optional language-model reasoning or a deterministic local fallback, then calls policy-safe campus tools. Tools read and update that user's Supabase PostgreSQL records protected by Row Level Security. Tool results return through the agent and UI to the student.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#91a8cc"/>
+    </marker>
+    <marker id="arrow-start" markerWidth="10" markerHeight="10" refX="2" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M10,0 L0,5 L10,10 z" fill="#91a8cc"/>
+    </marker>
+    <style>
+      text { font-family: Segoe UI, Arial, sans-serif; fill: #eef3ff; }
+      .title { font-size: 27px; font-weight: 700; }
+      .subtitle { font-size: 15px; fill: #aab9d3; }
+      .node-title { font-size: 18px; font-weight: 700; }
+      .node-detail { font-size: 13px; fill: #c1cee2; }
+      .boundary-label { font-size: 13px; fill: #aab9d3; }
+      .arrow-label { font-size: 12px; fill: #b9c7dc; }
+      .flow { fill: none; stroke: #91a8cc; stroke-width: 2.5; marker-end: url(#arrow); }
+      .return-flow { fill: none; stroke: #91a8cc; stroke-width: 2.5; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1200" height="840" rx="18" fill="#101a3a"/>
+  <text x="54" y="58" class="title">Campus Copilot | System Architecture</text>
+  <text x="54" y="85" class="subtitle">Multi-user Streamlit application · Supabase Auth · PostgreSQL with RLS</text>
+
+  <g transform="translate(0 75)">
+  <rect x="55" y="132" width="800" height="592" rx="16" fill="#121f43" stroke="#3c5d91" stroke-width="2" stroke-dasharray="9 7"/>
+  <rect x="76" y="118" width="204" height="28" rx="6" fill="#101a3a"/>
+  <text x="87" y="137" class="boundary-label">APPLICATION TRUST BOUNDARY</text>
+
+  <rect x="329" y="20" width="270" height="58" rx="10" fill="#172d55" stroke="#4385e2" stroke-width="2"/>
+  <text x="464" y="45" text-anchor="middle" class="node-title">Student</text>
+  <text x="464" y="65" text-anchor="middle" class="node-detail">authenticated campus workspace</text>
+  <path class="flow" d="M464 79 L464 151"/>
+  <text x="478" y="111" class="arrow-label">user request</text>
+
+  <rect x="299" y="155" width="330" height="66" rx="10" fill="#172d55" stroke="#4385e2" stroke-width="2"/>
+  <text x="464" y="183" text-anchor="middle" class="node-title">Streamlit UI</text>
+  <text x="464" y="204" text-anchor="middle" class="node-detail">app.py · dashboard, Copilot, student pages</text>
+  <path class="flow" d="M464 222 L464 267"/>
+  <text x="478" y="250" class="arrow-label">query + context</text>
+
+  <rect x="299" y="271" width="330" height="76" rx="10" fill="#29204e" stroke="#9672e2" stroke-width="2"/>
+  <text x="464" y="302" text-anchor="middle" class="node-title">Agent Orchestrator</text>
+  <text x="464" y="326" text-anchor="middle" class="node-detail">agent.py · central decision-making component</text>
+
+  <path class="flow" d="M629 294 C735 262 815 226 906 226"/>
+  <text x="731" y="247" class="arrow-label">LLM reasoning</text>
+  <path class="return-flow" d="M906 267 C815 294 732 319 630 319"/>
+  <text x="737" y="305" class="arrow-label">reasoning / tool selection</text>
+  <rect x="912" y="190" width="244" height="88" rx="10" fill="#123c3b" stroke="#28aa91" stroke-width="2"/>
+  <text x="1034" y="224" text-anchor="middle" class="node-title">OpenAI API</text>
+  <text x="1034" y="248" text-anchor="middle" class="node-detail">LLM reasoning + tool selection</text>
+  <text x="1034" y="266" text-anchor="middle" class="node-detail">external service · no campus database</text>
+
+  <path class="flow" d="M335 333 C290 350 244 359 224 389"/>
+  <text x="116" y="359" class="arrow-label">fallback planning</text>
+  <rect x="83" y="393" width="282" height="76" rx="10" fill="#49391d" stroke="#d69b35" stroke-width="2"/>
+  <text x="224" y="423" text-anchor="middle" class="node-title">Deterministic Fallback</text>
+  <text x="224" y="447" text-anchor="middle" class="node-detail">local rules for supported requests</text>
+
+  <path class="flow" d="M464 348 L464 432"/>
+  <text x="478" y="394" class="arrow-label">tool calls</text>
+  <path class="flow" d="M365 431 C386 440 396 448 414 456"/>
+  <text x="349" y="414" class="arrow-label">rule-based plan</text>
+
+  <rect x="299" y="461" width="330" height="96" rx="10" fill="#123f43" stroke="#26aaa1" stroke-width="2"/>
+  <text x="464" y="491" text-anchor="middle" class="node-title">Campus Tools</text>
+  <text x="464" y="514" text-anchor="middle" class="node-detail">policy-safe campus data access</text>
+  <text x="464" y="537" text-anchor="middle" class="node-detail">Schedule · Assignments · Exams · Placements</text>
+  <text x="464" y="553" text-anchor="middle" class="node-detail">Study Progress · Tasks · Events</text>
+
+  <path class="flow" d="M630 485 L897 485"/>
+  <text x="699" y="475" class="arrow-label">retrieve / update user data</text>
+  <path class="return-flow" d="M897 536 L630 536"/>
+  <text x="721" y="554" class="arrow-label">user-scoped data</text>
+
+  <rect x="903" y="454" width="270" height="112" rx="10" fill="#173d34" stroke="#4cba82" stroke-width="2"/>
+  <text x="1038" y="485" text-anchor="middle" class="node-title">Supabase</text>
+  <text x="1038" y="509" text-anchor="middle" class="node-detail">Auth + PostgreSQL + Row Level Security</text>
+  <text x="1038" y="532" text-anchor="middle" class="node-detail">user-scoped data · auth.uid()</text>
+  <text x="1038" y="552" text-anchor="middle" class="node-detail">authenticated persistent data layer</text>
+
+  <path class="return-flow" d="M630 549 C714 610 757 453 630 342"/>
+  <text x="713" y="601" class="arrow-label">tool results</text>
+  <path class="return-flow" d="M299 321 C258 301 257 257 299 190"/>
+  <text x="100" y="276" class="arrow-label">personalized recommendation / action result</text>
+  <path class="return-flow" d="M299 169 C268 142 270 101 329 62"/>
+  <text x="94" y="112" class="arrow-label">response to student</text>
+
+  <text x="903" y="692" class="subtitle">Supabase enforces ownership with RLS</text>
+  </g>
+</svg>

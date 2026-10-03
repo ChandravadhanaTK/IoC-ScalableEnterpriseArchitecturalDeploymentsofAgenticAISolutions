@@ -1,0 +1,10 @@
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.profiles TO authenticated;
+GRANT ALL ON public.profiles TO service_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.workout_sessions TO authenticated;
+GRANT ALL ON public.workout_sessions TO service_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.meals TO authenticated;
+GRANT ALL ON public.meals TO service_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.coach_threads TO authenticated;
+GRANT ALL ON public.coach_threads TO service_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.coach_messages TO authenticated;
+GRANT ALL ON public.coach_messages TO service_role;

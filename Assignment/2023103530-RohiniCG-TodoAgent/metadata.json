@@ -1,0 +1,6 @@
+{
+  "name": "Todo Agent - Enterprise Architecture & Task Platform",
+  "description": "Scalable enterprise agentic AI solution with user authentication, intelligent task prioritization, and the complete 5-part architecture capstone deliverables.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

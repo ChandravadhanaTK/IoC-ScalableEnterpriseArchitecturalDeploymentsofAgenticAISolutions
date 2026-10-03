@@ -1,0 +1,6 @@
+Demo Candidate
+Computer Science Engineering student targeting Software Engineer roles.
+Skills: Java, Python, JavaScript, React, Node.js, MongoDB, MySQL, SQL, Git, GitHub.
+Projects: Timetable Auto Scheduler using React, Node.js and MongoDB; AI Exam Evaluator using Python, FastAPI, OCR and NLP.
+Education: B.E. Computer Science Engineering.
+Certifications: Data Analytics Job Simulation.

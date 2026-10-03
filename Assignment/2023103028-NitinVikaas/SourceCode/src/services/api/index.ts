@@ -1,0 +1,1 @@
+import type {ApiClient} from '../../types/api'; import {mockApi} from './mockApi'; import {httpApi} from './httpApi'; export const api:ApiClient=(import.meta.env.VITE_API_MODE||'mock')==='http'?httpApi:mockApi; export const apiMode=(import.meta.env.VITE_API_MODE||'mock')==='http'?'Live API':'Mock';

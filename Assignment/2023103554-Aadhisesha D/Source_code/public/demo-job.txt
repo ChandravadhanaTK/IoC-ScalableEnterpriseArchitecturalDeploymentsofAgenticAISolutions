@@ -1,0 +1,6 @@
+Software Engineer — Entry Level
+We are looking for an early-career software engineer to build APIs and backend services.
+Required: Java, SQL, REST APIs, Git, data structures and problem solving.
+Preferred: React, Docker, cloud fundamentals.
+Responsibilities: build backend services, debug issues, collaborate with engineers, write maintainable code and participate in code reviews.
+Strong communication and ownership are valued.

@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@theme { --color-card:#111; --color-alt:#1a1a1a; --color-primary:#00E676; --color-hover:#33FF99; --color-muted:#9CA3AF; --color-bad:#EF4444; --color-warn:#EAB308; }
+body{background:#000;color:#fff;font-family:system-ui,sans-serif}
+.card{background:#111;border:1px solid #00e67622;border-radius:1.5rem;padding:1.25rem;box-shadow:0 0 24px #00e67610;transition:transform .3s,box-shadow .3s}
+.card:hover{transform:translateY(-3px);box-shadow:0 0 32px #00e67626}
+.input{background:#000;border:1px solid #ffffff22;border-radius:.75rem;padding:.6rem .8rem;width:100%;color:#fff}.input:focus{outline:2px solid #00E676}
+.btn{background:#00E676;color:#000;border-radius:.75rem;padding:.6rem 1.2rem;font-weight:700;transition:transform .2s,background .2s}.btn:hover{background:#33FF99;transform:scale(1.03)}
+.btn:disabled{opacity:.5}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:none}}@keyframes countUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes glowPulse{50%{box-shadow:0 0 28px #00e67666}}@keyframes successBounce{40%{transform:scale(1.12)}70%{transform:scale(.97)}}
+.fade-in{animation:fadeIn .3s both}.up{animation:slideUp .4s both}.scale-in{animation:scaleIn .3s both}.count-up{animation:countUp .5s both}.glow{animation:glowPulse 2s infinite}.bounce-ok{animation:successBounce .5s}

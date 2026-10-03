@@ -1,0 +1,10 @@
+{
+  "functions": {
+    "api/*.ts": {
+      "maxDuration": 60
+    }
+  },
+  "rewrites": [
+    { "source": "/favicon.ico", "destination": "/favicon.svg" }
+  ]
+}

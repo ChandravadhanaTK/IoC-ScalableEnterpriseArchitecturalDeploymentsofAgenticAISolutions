@@ -1,0 +1,39 @@
+{
+  "orders": [
+    {
+      "id": "ORD001",
+      "customer": "Arun Kumar",
+      "product": "Laptop Pro",
+      "amount": 75999,
+      "status": "Delivered"
+    },
+    {
+      "id": "ORD002",
+      "customer": "Priya S",
+      "product": "Smartphone X",
+      "amount": 45999,
+      "status": "Processing"
+    },
+    {
+      "id": "ORD003",
+      "customer": "Rahul M",
+      "product": "Wireless Headphones",
+      "amount": 8999,
+      "status": "Shipped"
+    },
+    {
+      "id": "ORD004",
+      "customer": "Karthik R",
+      "product": "Gaming Console",
+      "amount": 52999,
+      "status": "Pending"
+    },
+    {
+      "id": "ORD005",
+      "customer": "Divya P",
+      "product": "Smart Watch",
+      "amount": 12999,
+      "status": "Delivered"
+    }
+  ]
+}

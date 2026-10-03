@@ -1,0 +1,193 @@
+/**
+ * AllConversations Component Styles
+ * 
+ * Styles for the conversation list component in the sidebar
+ */
+
+/* ===== CONVERSATIONS LIST COMPONENTS ===== */
+/**
+ * Conversations List - Scrollable container for conversation items
+ * 
+ * Features:
+ * - Flexible height to fill available space
+ * - Vertical scrolling when content overflows
+ * - Zero padding for edge-to-edge items
+ */
+.conversations-sidebar-panel .conversations-list {
+  flex: 1;                                /* Grow to fill available space */
+  overflow-y: auto;                       /* Vertical scroll when needed */
+  padding: 0;                             /* No internal padding */
+  min-height: 0;                          /* Allow flex shrinking */
+}
+
+/**
+ * Individual Conversation Item
+ * 
+ * Represents a single conversation in the sidebar list
+ * Features:
+ * - Hover effects for interactivity
+ * - Flexbox layout for content organization
+ * - Smooth transitions for state changes
+ * - Delete button integration
+ */
+.conversations-sidebar-panel .conversation-item {
+  padding: 16px 20px;                     /* Comfortable internal spacing */
+  border-bottom: 1px solid #f1f5f9;       /* Subtle separator between items */
+  cursor: pointer;                        /* Indicate clickable element */
+  transition: all 0.2s ease;              /* Smooth state transitions */
+  
+  /* Flexbox layout for content organization */
+  display: flex;
+  align-items: center;                    /* Vertical center alignment */
+  justify-content: space-between;         /* Space between content and actions */
+  position: relative;                     /* For absolute positioned children */
+}
+
+/**
+ * Conversation Item Hover State
+ * 
+ * Provides visual feedback when user hovers over conversation items
+ * Reveals delete button and applies subtle background change
+ */
+.conversations-sidebar-panel .conversation-item:hover {
+  /* Subtle gradient background on hover */
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+/**
+ * Show delete button on hover
+ * Reveals the delete action when user hovers over conversation item
+ */
+.conversations-sidebar-panel .conversation-item:hover .delete-conversation-btn {
+  opacity: 1;                             /* Make delete button visible */
+}
+
+/* Alternative selector for better specificity */
+.conversation-item:hover .delete-conversation-btn {
+  opacity: 1 !important;                  /* Make delete button visible with higher specificity */
+}
+
+/**
+ * Active Conversation Item State
+ * 
+ * Visual indicator for the currently selected/active conversation
+ * Uses brand colors and left border accent
+ */
+.conversations-sidebar-panel .conversation-item.active {
+  /* Blue tinted background for active state */
+  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+  
+  /* Left accent border using brand color */
+  border-left: 4px solid #6366f1;
+}
+
+/**
+ * Conversation Preview - Main content area of conversation item
+ * 
+ * Contains the conversation title, preview text, and metadata
+ * Uses flexible layout to fill available space
+ */
+.conversation-preview {
+  flex: 1;                                /* Grow to fill available space */
+  min-width: 0;                           /* Allow text truncation */
+}
+
+/**
+ * Delete Conversation Button - Hidden action button
+ * 
+ * Features:
+ * - Hidden by default (opacity: 0)
+ * - Revealed on parent hover
+ * - Rounded appearance with hover effects
+ * - Prevents accidental clicks with proper sizing
+ */
+.delete-conversation-btn {
+  background: none;                       /* Transparent background */
+  border: none;                           /* Remove default button border */
+  padding: 8px;                           /* Comfortable click target */
+  cursor: pointer;                        /* Pointer cursor on hover */
+  opacity: 0;                             /* Hidden by default */
+  transition: all 0.2s ease;              /* Smooth visibility transition */
+  border-radius: 6px;                     /* Rounded corners */
+  margin-left: 8px;                       /* Space from conversation content */
+  flex-shrink: 0;                         /* Don't shrink when space is limited */
+  font-size: 1rem;                        /* Readable emoji size */
+  color: #6b7280;                         /* Gray color for emoji */
+  display: flex;                          /* Flexbox for centering */
+  align-items: center;                    /* Center vertically */
+  justify-content: center;                /* Center horizontally */
+  min-width: 32px;                        /* Minimum width for click target */
+  height: 32px;                           /* Fixed height for consistency */
+}
+
+/**
+ * Delete Button Hover State
+ * 
+ * Provides visual feedback with red tint and slight scale animation
+ * Clearly indicates destructive action
+ */
+.delete-conversation-btn:hover {
+  background: rgba(239, 68, 68, 0.1);     /* Light red background */
+  transform: scale(1.1);                  /* Slightly larger on hover */
+}
+
+/**
+ * Delete Button Active State
+ * 
+ * Brief scale-down effect when button is clicked
+ * Provides tactile feedback for user action
+ */
+.delete-conversation-btn:active {
+  transform: scale(0.95);                 /* Slightly smaller when pressed */
+}
+
+/**
+ * Conversation Text Preview
+ * 
+ * Shows a preview of the conversation content
+ */
+.conversations-sidebar-panel .conversation-text {
+  color: #374151;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/**
+ * Conversation Metadata
+ * 
+ * Contains timestamp and other conversation information
+ */
+.conversations-sidebar-panel .conversation-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* ===== SCROLLBAR STYLING ===== */
+/**
+ * Custom scrollbar for conversations list
+ * 
+ * Provides a sleek, custom-styled scrollbar that matches the design
+ */
+.conversations-sidebar-panel .conversations-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.conversations-sidebar-panel .conversations-list::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.conversations-sidebar-panel .conversations-list::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.conversations-sidebar-panel .conversations-list::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

@@ -1,0 +1,414 @@
+/**
+ * Login Component Styles
+ * 
+ * This stylesheet provides styling for the Login authentication component including:
+ * - Responsive layout for login/register forms
+ * - Form styling with validation states
+ * - Button animations and interactions
+ * - Error message display
+ * - Mode toggle functionality
+ * - Mobile-responsive design
+ * 
+ * Design System:
+ * - Primary colors: Blue tones for branding and actions
+ * - Error states: Red for validation errors
+ * - Success states: Green for positive feedback
+ * - Neutral grays: For text and borders
+ * - Shadows and animations: For modern UI feel
+ * 
+ * Layout Structure:
+ * - Full viewport height centering
+ * - Card-based design with shadow
+ * - Form groups with proper spacing
+ * - Responsive breakpoints for mobile
+ */
+
+/* =============================================================================
+   LOGIN CONTAINER & LAYOUT
+   ============================================================================= */
+
+/**
+ * Main container for login page
+ * Centers the login card in the viewport with a subtle background
+ */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+}
+
+/**
+ * Login card container
+ * Card-style layout with shadow and rounded corners for modern appearance
+ */
+.login-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  padding: 40px;
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+}
+
+/* =============================================================================
+   HEADER & MODE TOGGLE
+   ============================================================================= */
+
+/**
+ * Header section containing title and mode toggle buttons
+ */
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.login-header h1 {
+  color: #2d3748;
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0 0 20px 0;
+  letter-spacing: -0.025em;
+}
+
+/**
+ * Mode toggle buttons container
+ * Allows switching between login and register modes
+ */
+.mode-toggle {
+  display: flex;
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.mode-button {
+  flex: 1;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #4a5568;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.mode-button:hover {
+  color: #2d3748;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.mode-button.active {
+  background: white;
+  color: #4c51bf;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* =============================================================================
+   FORM STYLING
+   ============================================================================= */
+
+/**
+ * Main form container
+ */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/**
+ * Form group containing label and input
+ * Provides consistent spacing and layout for form fields
+ */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  color: #2d3748;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+/**
+ * Input field styling
+ * Consistent appearance with focus states and validation feedback
+ */
+.form-group input {
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  background: white;
+  color: #2d3748;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #4c51bf;
+  box-shadow: 0 0 0 3px rgba(76, 81, 191, 0.1);
+}
+
+.form-group input::placeholder {
+  color: #a0aec0;
+}
+
+/**
+ * Disabled input state
+ * Visual feedback when form is being submitted
+ */
+.form-group input:disabled {
+  background: #f7fafc;
+  color: #a0aec0;
+  cursor: not-allowed;
+}
+
+/**
+ * Error state styling for inputs
+ * Red border and background tint for validation errors
+ */
+.form-group input.error {
+  border-color: #e53e3e;
+  background: rgba(229, 62, 62, 0.05);
+}
+
+.form-group input.error:focus {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+}
+
+/* =============================================================================
+   ERROR MESSAGES
+   ============================================================================= */
+
+/**
+ * Error message styling
+ * Consistent error display for validation feedback
+ */
+.error-message {
+  color: #e53e3e;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/**
+ * General error message (for API errors)
+ * More prominent styling for server-side errors
+ */
+.general-error {
+  background: rgba(229, 62, 62, 0.1);
+  border: 1px solid rgba(229, 62, 62, 0.2);
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* =============================================================================
+   SUBMIT BUTTON
+   ============================================================================= */
+
+/**
+ * Primary submit button styling
+ * Prominent call-to-action with hover and loading states
+ */
+.submit-button {
+  background: linear-gradient(135deg, #4c51bf 0%, #667eea 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(76, 81, 191, 0.4);
+}
+
+.submit-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/**
+ * Disabled button state
+ * Visual feedback during form submission or when form is invalid
+ */
+.submit-button:disabled {
+  background: #cbd5e0;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* =============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================= */
+
+/**
+ * Mobile responsiveness
+ * Adjustments for smaller screens and touch interfaces
+ */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 16px;
+    align-items: flex-start;
+    padding-top: 60px;
+  }
+  
+  .login-card {
+    padding: 30px 24px;
+    max-width: 100%;
+    border-radius: 8px;
+  }
+  
+  .login-header h1 {
+    font-size: 24px;
+  }
+  
+  .mode-button {
+    padding: 12px 16px;
+    font-size: 15px;
+  }
+  
+  .form-group input {
+    padding: 14px 16px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  .submit-button {
+    padding: 16px 24px;
+    font-size: 16px;
+  }
+}
+
+/**
+ * Tablet landscape adjustments
+ */
+@media (max-width: 768px) and (orientation: landscape) {
+  .login-container {
+    align-items: flex-start;
+    padding-top: 40px;
+  }
+  
+  .login-card {
+    padding: 32px;
+  }
+}
+
+/* =============================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ============================================================================= */
+
+/**
+ * High contrast mode support
+ * Ensures visibility in high contrast accessibility modes
+ */
+@media (prefers-contrast: high) {
+  .login-card {
+    border: 2px solid #000;
+  }
+  
+  .form-group input {
+    border-width: 2px;
+  }
+  
+  .submit-button {
+    background: #000;
+    border: 2px solid #000;
+  }
+}
+
+/**
+ * Reduced motion preference
+ * Respects user preference for reduced animations
+ */
+@media (prefers-reduced-motion: reduce) {
+  .mode-button,
+  .form-group input,
+  .submit-button {
+    transition: none;
+  }
+  
+  .submit-button:hover:not(:disabled) {
+    transform: none;
+  }
+}
+
+/**
+ * Focus management for keyboard navigation
+ * Enhanced focus indicators for accessibility
+ */
+.mode-button:focus-visible,
+.form-group input:focus-visible,
+.submit-button:focus-visible {
+  outline: 2px solid #4c51bf;
+  outline-offset: 2px;
+}
+
+/* =============================================================================
+   ANIMATION ENHANCEMENTS
+   ============================================================================= */
+
+/**
+ * Subtle animations for improved user experience
+ */
+.login-card {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/**
+ * Loading state animation for submit button
+ */
+.submit-button:disabled::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid transparent;
+  border-top: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

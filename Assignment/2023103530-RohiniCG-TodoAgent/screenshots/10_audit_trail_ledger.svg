@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
+  <defs>
+    <linearGradient id="bgGrad10" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="100%" stop-color="#0b1120"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1440" height="900" fill="url(#bgGrad10)"/>
+
+  <!-- Top Nav -->
+  <rect width="1440" height="64" fill="#020617" stroke="#1e293b" stroke-width="1"/>
+  <text x="50" y="38" font-family="system-ui, sans-serif" font-size="16" font-weight="800" fill="#ffffff">🤖 Todo Agent</text>
+  <rect x="180" y="24" width="70" height="20" rx="4" fill="#4f46e5" fill-opacity="0.2" stroke="#6366f1" stroke-width="1"/>
+  <text x="215" y="38" font-family="monospace" font-size="10" font-weight="bold" fill="#a5b4fc" text-anchor="middle">Enterprise</text>
+
+  <rect x="460" y="14" width="520" height="36" rx="10" fill="#0f172a" stroke="#1e293b"/>
+  <text x="506" y="36" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">Tasks</text>
+  <text x="610" y="36" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">Eisenhower Matrix</text>
+  <text x="740" y="36" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">Capstone Deliverables (5)</text>
+  <rect x="850" y="18" width="115" height="28" rx="8" fill="#4f46e5"/>
+  <text x="907" y="36" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">🛡️ Audit Trail</text>
+
+  <!-- Header -->
+  <text x="32" y="115" font-family="monospace" font-size="11" font-weight="bold" fill="#10b981">SOC 2 / ISO 27001 COMPLIANCE LEDGER</text>
+  <text x="32" y="145" font-family="system-ui, sans-serif" font-size="24" font-weight="800" fill="#ffffff">Cryptographic Audit Trail</text>
+  <text x="32" y="165" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">Tamper-evident SHA-256 hash-chained log recording all agent actions, HITL approvals, and automated prioritizations.</text>
+
+  <!-- Header Action Buttons -->
+  <rect x="1060" y="110" width="140" height="36" rx="8" fill="#059669"/>
+  <text x="1130" y="132" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">✓ Verify Hashes</text>
+
+  <rect x="1215" y="110" width="120" height="36" rx="8" fill="#dc2626"/>
+  <text x="1275" y="132" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">⚠ Test Tamper</text>
+
+  <rect x="1350" y="110" width="58" height="36" rx="8" fill="#1e293b"/>
+  <text x="1379" y="132" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1" text-anchor="middle">JSON</text>
+
+  <!-- Verification Status Banner -->
+  <rect x="32" y="185" width="1376" height="42" rx="10" fill="#064e3b" fill-opacity="0.4" stroke="#10b981"/>
+  <text x="50" y="211" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#a7f3d0">✓ All 4 blocks mathematically verified. Zero hash collisions or tampering found. (Standard: SHA-256 Chained)</text>
+
+  <!-- Audit Entry 1 -->
+  <rect x="32" y="245" width="1376" height="110" rx="12" fill="#0f172a" stroke="#1e293b"/>
+  <text x="52" y="275" font-family="monospace" font-size="11" font-weight="bold" fill="#94a3b8">#3</text>
+  <rect x="75" y="260" width="180" height="22" rx="4" fill="#1e293b"/>
+  <text x="165" y="275" font-family="monospace" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">HITL_APPROVAL_GRANTED</text>
+  <text x="270" y="275" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">by <tspan fill="#818cf8" font-weight="bold">Alex Mercer</tspan> (ADMIN)</text>
+  <text x="1350" y="275" font-family="monospace" font-size="11" fill="#64748b" text-anchor="end">2026-10-03 00:15:30 UTC • IP: 192.168.1.104 (Corporate VPN)</text>
+  
+  <text x="52" y="305" font-family="system-ui, sans-serif" font-size="13" fill="#cbd5e1">Manual Human-In-The-Loop approval granted for task-101 patch deployment on vector ingestion gateway.</text>
+  <line x1="52" y1="320" x2="1388" y2="320" stroke="#1e293b"/>
+  <text x="52" y="340" font-family="monospace" font-size="10" fill="#64748b">Prev Hash: a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e</text>
+  <text x="750" y="340" font-family="monospace" font-size="10" fill="#10b981">Current Hash: 7b22736166657479223a747275652c2268617368223a22386634326162393322</text>
+
+  <!-- Audit Entry 2 -->
+  <rect x="32" y="370" width="1376" height="110" rx="12" fill="#0f172a" stroke="#1e293b"/>
+  <text x="52" y="400" font-family="monospace" font-size="11" font-weight="bold" fill="#94a3b8">#2</text>
+  <rect x="75" y="385" width="230" height="22" rx="4" fill="#1e293b"/>
+  <text x="190" y="400" font-family="monospace" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">AUTO_PRIORITIZATION_EXECUTED</text>
+  <text x="320" y="400" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">by <tspan fill="#a855f7" font-weight="bold">Todo Autonomous Agent v3</tspan></text>
+  <text x="1350" y="400" font-family="monospace" font-size="11" fill="#64748b" text-anchor="end">2026-10-02 20:12:15 UTC • IP: 10.240.12.8 (Internal VPC)</text>
+  
+  <text x="52" y="430" font-family="system-ui, sans-serif" font-size="13" fill="#cbd5e1">Evaluated 6 tasks across Impact, Urgency, and DAG dependencies. Reclassified 4 tasks into optimal Eisenhower quadrants.</text>
+  <line x1="52" y1="445" x2="1388" y2="445" stroke="#1e293b"/>
+  <text x="52" y="465" font-family="monospace" font-size="10" fill="#64748b">Prev Hash: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</text>
+  <text x="750" y="465" font-family="monospace" font-size="10" fill="#10b981">Current Hash: a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e</text>
+
+  <!-- Audit Entry 3 -->
+  <rect x="32" y="495" width="1376" height="110" rx="12" fill="#0f172a" stroke="#1e293b"/>
+  <text x="52" y="525" font-family="monospace" font-size="11" font-weight="bold" fill="#94a3b8">#1</text>
+  <rect x="75" y="510" width="140" height="22" rx="4" fill="#1e293b"/>
+  <text x="145" y="525" font-family="monospace" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">TASK_CREATED</text>
+  <text x="230" y="525" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">by <tspan fill="#38bdf8" font-weight="bold">Samantha Vance</tspan> (OPERATOR)</text>
+  <text x="1350" y="525" font-family="monospace" font-size="11" fill="#64748b" text-anchor="end">2026-10-02 11:30:00 UTC • IP: 10.240.14.22</text>
+  
+  <text x="52" y="555" font-family="system-ui, sans-serif" font-size="13" fill="#cbd5e1">Registered task-102 "Deploy Dynamic Token Rate-Limiter" with P1 High priority assigned to Todo Autonomous Agent.</text>
+  <line x1="52" y1="570" x2="1388" y2="570" stroke="#1e293b"/>
+  <text x="52" y="590" font-family="monospace" font-size="10" fill="#64748b">Prev Hash: 0000000000000000000000000000000000000000000000000000000000000000 (Genesis Block)</text>
+  <text x="750" y="590" font-family="monospace" font-size="10" fill="#10b981">Current Hash: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</text>
+
+  <!-- Footer -->
+  <rect y="845" width="1440" height="55" fill="#020617" stroke="#1e293b" stroke-width="1"/>
+  <text x="48" y="878" font-family="system-ui, sans-serif" font-size="12" fill="#64748b">Candidate: Rohini C G (2023103530) • Cryptographic Ledger Verification Active</text>
+</svg>

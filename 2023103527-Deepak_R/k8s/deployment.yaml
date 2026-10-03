@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: agromitra}
+spec:
+  replicas: 2
+  selector: {matchLabels: {app: agromitra}}
+  template:
+    metadata: {labels: {app: agromitra}}
+    spec:
+      containers:
+      - name: api
+        image: agromitra:1.0
+        ports: [{containerPort: 8000}]
+        envFrom: [{secretRef: {name: agromitra-secrets}}]
+        readinessProbe: {httpGet: {path: /health, port: 8000}}
+        livenessProbe: {httpGet: {path: /health, port: 8000}}
+        resources: {requests: {cpu: 100m, memory: 128Mi}, limits: {cpu: 500m, memory: 256Mi}}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: agromitra}
+spec: {selector: {app: agromitra}, ports: [{port: 80, targetPort: 8000}]}
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata: {name: agromitra}
+spec:
+  scaleTargetRef: {apiVersion: apps/v1, kind: Deployment, name: agromitra}
+  minReplicas: 2
+  maxReplicas: 6
+  metrics: [{type: Resource, resource: {name: cpu, target: {type: Utilization, averageUtilization: 70}}}]

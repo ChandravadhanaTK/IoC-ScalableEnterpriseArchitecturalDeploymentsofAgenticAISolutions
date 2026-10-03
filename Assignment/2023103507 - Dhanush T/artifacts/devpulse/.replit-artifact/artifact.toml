@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "DevPulse"
+description = "A role-based ticket management system for reporters, developers, and admins. Track issues through a strict status workflow, collaborate with comments, and review recent activity."
+version = "1.0.0"
+id = "artifacts/devpulse"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21976
+
+[services.development]
+run = "pnpm --filter @workspace/devpulse run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/devpulse", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/devpulse/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21976"
+BASE_PATH = "/"

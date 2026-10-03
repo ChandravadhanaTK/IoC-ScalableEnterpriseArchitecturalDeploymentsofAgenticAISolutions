@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
+  <defs>
+    <linearGradient id="bgGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="100%" stop-color="#0b1120"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1440" height="900" fill="url(#bgGrad5)"/>
+
+  <!-- Top Nav -->
+  <rect width="1440" height="64" fill="#020617" stroke="#1e293b" stroke-width="1"/>
+  <text x="50" y="38" font-family="system-ui, sans-serif" font-size="16" font-weight="800" fill="#ffffff">🤖 Todo Agent</text>
+  <rect x="180" y="24" width="70" height="20" rx="4" fill="#4f46e5" fill-opacity="0.2" stroke="#6366f1" stroke-width="1"/>
+  <text x="215" y="38" font-family="monospace" font-size="10" font-weight="bold" fill="#a5b4fc" text-anchor="middle">Enterprise</text>
+
+  <!-- Sub-nav tabs -->
+  <rect x="32" y="80" width="1376" height="42" rx="10" fill="#0f172a" stroke="#1e293b"/>
+  <text x="50" y="106" font-family="monospace" font-size="11" fill="#64748b">DELIVERABLES:</text>
+  <text x="160" y="106" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">Overview</text>
+  <text x="250" y="106" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">1. Architecture</text>
+  <text x="375" y="106" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">2. Workflow</text>
+  <text x="480" y="106" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">3. Deployment</text>
+  <text x="600" y="106" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">4. Security Model</text>
+  <rect x="715" y="86" width="170" height="30" rx="6" fill="#4f46e5"/>
+  <text x="800" y="106" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">5. Monitoring Dashboard</text>
+
+  <!-- Header -->
+  <text x="32" y="160" font-family="monospace" font-size="11" font-weight="bold" fill="#06b6d4">DELIVERABLE 5 • OBSERVABILITY &amp; TELEMETRY</text>
+  <text x="32" y="190" font-family="system-ui, sans-serif" font-size="24" font-weight="800" fill="#ffffff">Enterprise Monitoring &amp; Telemetry Dashboard</text>
+  <text x="32" y="210" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">The 6 core pillars: System Health, Distributed Tracing, Agent Quality, AI Safety, Token Cost &amp; Business Outcomes.</text>
+
+  <!-- 6 Metric Pillar Cards -->
+  <!-- 1. Health -->
+  <rect x="32" y="235" width="216" height="130" rx="12" fill="#0f172a" stroke="#1e293b"/>
+  <text x="48" y="262" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#94a3b8">1. HEALTH</text>
+  <text x="48" y="305" font-family="system-ui, sans-serif" font-size="28" font-weight="900" fill="#ffffff">99.98%</text>
+  <text x="48" y="330" font-family="monospace" font-size="11" fill="#10b981">✓ SLO Met (Target: 99.95%)</text>
+  <text x="48" y="348" font-family="monospace" font-size="10" fill="#64748b">p95 Latency: 185ms</text>
+
+  <!-- 2. Traces -->
+  <rect x="264" y="235" width="216" height="130" rx="12" fill="#0f172a" stroke="#1e293b"/>
+  <text x="280" y="262" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#94a3b8">2. TRACES</text>
+  <text x="280" y="305" font-family="system-ui, sans-serif" font-size="28" font-weight="900" fill="#ffffff">42,810</text>
+  <text x="280" y="330" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">OTel Spans Processed</text>
+  <text x="280" y="348" font-family="monospace" font-size="10" fill="#60a5fa">100% Context Propagated</text>
+
+  <!-- 3. Quality -->
+  <rect x="496" y="235" width="216" height="130" rx="12" fill="#0f172a" stroke="#1e293b"/>
+  <text x="512" y="262" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#94a3b8">3. QUALITY</text>
+  <text x="512" y="305" font-family="system-ui, sans-serif" font-size="28" font-weight="900" fill="#ffffff">96.8%</text>
+  <text x="512" y="330" font-family="system-ui, sans-serif" font-size="11" fill="#a855f7">↗ Task Success Rate</text>
+  <text x="512" y="348" font-family="monospace" font-size="10" fill="#64748b">Hallucination Index: 0.3%</text>
+
+  <!-- 4. Safety -->
+  <rect x="728" y="235" width="216" height="130" rx="12" fill="#0f172a" stroke="#1e293b"/>
+  <text x="744" y="262" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#94a3b8">4. SAFETY</text>
+  <text x="744" y="305" font-family="system-ui, sans-serif" font-size="28" font-weight="900" fill="#ffffff">38</text>
+  <text x="744" y="330" font-family="system-ui, sans-serif" font-size="11" fill="#f59e0b">Injections Neutralized</text>
+  <text x="744" y="348" font-family="monospace" font-size="10" fill="#64748b">142 PII Tokens Redacted</text>
+
+  <!-- 5. Cost -->
+  <rect x="960" y="235" width="216" height="130" rx="12" fill="#0f172a" stroke="#1e293b"/>
+  <text x="976" y="262" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#94a3b8">5. COST</text>
+  <text x="976" y="305" font-family="system-ui, sans-serif" font-size="28" font-weight="900" fill="#ffffff">$14.82</text>
+  <text x="976" y="330" font-family="system-ui, sans-serif" font-size="11" fill="#10b981">↘ -34% Prompt Caching</text>
+  <text x="976" y="348" font-family="monospace" font-size="10" fill="#64748b">$0.0034 / Task Avg</text>
+
+  <!-- 6. Outcomes -->
+  <rect x="1192" y="235" width="216" height="130" rx="12" fill="#0f172a" stroke="#1e293b"/>
+  <text x="1208" y="262" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#94a3b8">6. OUTCOMES</text>
+  <text x="1208" y="305" font-family="system-ui, sans-serif" font-size="28" font-weight="900" fill="#ffffff">-64%</text>
+  <text x="1208" y="330" font-family="system-ui, sans-serif" font-size="11" fill="#06b6d4">Cycle Time Reduction</text>
+  <text x="1208" y="348" font-family="monospace" font-size="10" fill="#64748b">4.2x Dev Throughput</text>
+
+  <!-- OpenTelemetry Trace Waterfall Explorer -->
+  <rect x="32" y="385" width="1376" height="440" rx="14" fill="#0f172a" stroke="#1e293b"/>
+  <text x="56" y="420" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">OpenTelemetry Distributed Trace Waterfall</text>
+  <text x="56" y="440" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">End-to-end trace span flame graph showing LLM thought latency, tool sandbox execution, and HITL gate evaluation.</text>
+
+  <!-- Root Span -->
+  <rect x="56" y="465" width="1328" height="55" rx="8" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5"/>
+  <text x="75" y="492" font-family="monospace" font-size="12" font-weight="bold" fill="#67e8f9">agent.prioritize_and_execute_task</text>
+  <text x="1350" y="492" font-family="monospace" font-size="12" fill="#67e8f9" text-anchor="end">384ms</text>
+  <rect x="75" y="500" width="1290" height="8" rx="4" fill="#020617"/>
+  <rect x="75" y="500" width="1290" height="8" rx="4" fill="#06b6d4"/>
+
+  <!-- Span Child 1 -->
+  <rect x="90" y="530" width="1294" height="48" rx="6" fill="#0b1120" stroke="#334155"/>
+  <text x="110" y="555" font-family="monospace" font-size="11" fill="#cbd5e1">↳ guardrails.pii_and_injection_check [nemo-guardrail-proxy]</text>
+  <text x="1350" y="555" font-family="monospace" font-size="11" fill="#94a3b8" text-anchor="end">24ms</text>
+  <rect x="110" y="562" width="1255" height="5" rx="2" fill="#020617"/>
+  <rect x="110" y="562" width="120" height="5" rx="2" fill="#6366f1"/>
+
+  <!-- Span Child 2 -->
+  <rect x="120" y="588" width="1264" height="48" rx="6" fill="#0b1120" stroke="#334155"/>
+  <text x="140" y="613" font-family="monospace" font-size="11" fill="#cbd5e1">↳ reasoning.eisenhower_matrix_calculation [priority-planner]</text>
+  <text x="1350" y="613" font-family="monospace" font-size="11" fill="#94a3b8" text-anchor="end">142ms</text>
+  <rect x="140" y="620" width="1225" height="5" rx="2" fill="#020617"/>
+  <rect x="140" y="620" width="520" height="5" rx="2" fill="#6366f1"/>
+
+  <!-- Span Child 3 -->
+  <rect x="150" y="646" width="1234" height="48" rx="6" fill="#0b1120" stroke="#334155"/>
+  <text x="170" y="671" font-family="monospace" font-size="11" fill="#cbd5e1">↳ tool.execute_test_harness [sandbox-firecracker-vm]</text>
+  <text x="1350" y="671" font-family="monospace" font-size="11" fill="#94a3b8" text-anchor="end">186ms</text>
+  <rect x="170" y="678" width="1195" height="5" rx="2" fill="#020617"/>
+  <rect x="170" y="678" width="680" height="5" rx="2" fill="#a855f7"/>
+
+  <!-- Span Child 4 (HITL Alert) -->
+  <rect x="180" y="704" width="1204" height="48" rx="6" fill="#451a03" stroke="#f59e0b"/>
+  <text x="200" y="729" font-family="monospace" font-size="11" font-weight="bold" fill="#fde68a">↳ security.hitl_gate_evaluator [policy-enforcer: APPROVAL_REQUIRED]</text>
+  <text x="1350" y="729" font-family="monospace" font-size="11" fill="#fde68a" text-anchor="end">32ms</text>
+  <rect x="200" y="736" width="1165" height="5" rx="2" fill="#020617"/>
+  <rect x="200" y="736" width="180" height="5" rx="2" fill="#f59e0b"/>
+
+  <!-- Footer -->
+  <rect y="845" width="1440" height="55" fill="#020617" stroke="#1e293b" stroke-width="1"/>
+  <text x="48" y="878" font-family="system-ui, sans-serif" font-size="12" fill="#64748b">Candidate: Rohini C G (2023103530) • Observability Platform Active</text>
+</svg>

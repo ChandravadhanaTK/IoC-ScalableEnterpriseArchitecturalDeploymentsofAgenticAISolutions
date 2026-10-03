@@ -1,0 +1,1 @@
+"""CampusFix AI backend package."""

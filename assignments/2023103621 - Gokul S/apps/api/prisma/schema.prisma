@@ -1,0 +1,113 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id              String   @id @default(uuid())
+  username        String   @unique
+  email           String   @unique
+  password_hash   String
+  display_name    String
+  bio             String?
+  avatar_url      String?
+  is_private      Boolean  @default(false)
+  unit_preference String   @default("kg") // "kg" or "lb"
+  created_at      DateTime @default(now())
+
+  workouts          Workout[]
+  custom_exercises  Exercise[]
+  followers         Follow[]   @relation("FollowingUser")
+  following         Follow[]   @relation("FollowerUser")
+  likes             Like[]
+
+  @@map("users")
+}
+
+model Exercise {
+  id           String   @id @default(uuid())
+  name         String
+  muscle_group String   // Chest, Back, Legs, Shoulders, Arms, Core, Cardio, Full Body
+  equipment    String   // Barbell, Dumbbell, Cable, Machine, Bodyweight, Other
+  created_by   String?  // null = built-in, else user_id
+
+  user             User?             @relation(fields: [created_by], references: [id], onDelete: Cascade)
+  workout_exercises WorkoutExercise[]
+
+  @@map("exercises")
+}
+
+model Workout {
+  id         String    @id @default(uuid())
+  user_id    String
+  title      String
+  notes      String?
+  started_at DateTime  @default(now())
+  ended_at   DateTime?
+  is_shared  Boolean   @default(false)
+  created_at DateTime  @default(now())
+
+  user             User              @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  workout_exercises WorkoutExercise[]
+  likes            Like[]
+
+  @@index([user_id, started_at])
+  @@index([is_shared, created_at])
+  @@map("workouts")
+}
+
+model WorkoutExercise {
+  id          String @id @default(uuid())
+  workout_id  String
+  exercise_id String
+  position    Int    @default(0)
+
+  workout  Workout  @relation(fields: [workout_id], references: [id], onDelete: Cascade)
+  exercise Exercise @relation(fields: [exercise_id], references: [id], onDelete: Cascade)
+  sets     Set[]
+
+  @@map("workout_exercises")
+}
+
+model Set {
+  id                  String @id @default(uuid())
+  workout_exercise_id String
+  set_number          Int
+  weight_kg           Float
+  reps                Int
+  set_type            String @default("normal") // normal | warmup | drop
+
+  workout_exercise WorkoutExercise @relation(fields: [workout_exercise_id], references: [id], onDelete: Cascade)
+
+  @@index([workout_exercise_id])
+  @@map("sets")
+}
+
+model Follow {
+  follower_id  String
+  following_id String
+  created_at   DateTime @default(now())
+
+  follower  User @relation("FollowerUser", fields: [follower_id], references: [id], onDelete: Cascade)
+  following User @relation("FollowingUser", fields: [following_id], references: [id], onDelete: Cascade)
+
+  @@id([follower_id, following_id])
+  @@index([following_id])
+  @@map("follows")
+}
+
+model Like {
+  user_id    String
+  workout_id String
+  created_at DateTime @default(now())
+
+  user    User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  workout Workout @relation(fields: [workout_id], references: [id], onDelete: Cascade)
+
+  @@id([user_id, workout_id])
+  @@map("likes")
+}

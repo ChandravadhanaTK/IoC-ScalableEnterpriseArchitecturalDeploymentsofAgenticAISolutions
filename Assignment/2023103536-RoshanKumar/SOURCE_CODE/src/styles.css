@@ -1,0 +1,161 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-crit: var(--crit);
+  --color-agent: var(--agent);
+  --color-idle: var(--idle);
+  --color-grid: var(--grid);
+  --color-chart-1: var(--agent);
+  --color-chart-2: var(--ok);
+  --color-chart-3: var(--warn);
+  --color-chart-4: var(--crit);
+  --color-chart-5: var(--idle);
+  --color-sidebar: var(--card);
+  --color-sidebar-foreground: var(--foreground);
+  --color-sidebar-primary: var(--primary);
+  --color-sidebar-primary-foreground: var(--primary-foreground);
+  --color-sidebar-accent: var(--accent);
+  --color-sidebar-accent-foreground: var(--foreground);
+  --color-sidebar-border: var(--border);
+  --color-sidebar-ring: var(--ring);
+}
+
+:root {
+  --radius: 0.5rem;
+  --background: oklch(0.145 0.012 245);
+  --foreground: oklch(0.93 0.01 230);
+  --card: oklch(0.18 0.014 245);
+  --card-foreground: oklch(0.93 0.01 230);
+  --popover: oklch(0.19 0.015 245);
+  --popover-foreground: oklch(0.93 0.01 230);
+  --primary: oklch(0.78 0.13 210);
+  --primary-foreground: oklch(0.15 0.02 240);
+  --secondary: oklch(0.23 0.015 245);
+  --secondary-foreground: oklch(0.9 0.01 230);
+  --muted: oklch(0.22 0.014 245);
+  --muted-foreground: oklch(0.64 0.02 240);
+  --accent: oklch(0.25 0.02 240);
+  --accent-foreground: oklch(0.95 0.01 230);
+  --destructive: oklch(0.64 0.21 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.3 0.018 245 / 70%);
+  --input: oklch(0.3 0.018 245);
+  --ring: oklch(0.78 0.13 210);
+  --ok: oklch(0.76 0.16 155);
+  --warn: oklch(0.8 0.15 75);
+  --crit: oklch(0.65 0.22 25);
+  --agent: oklch(0.72 0.14 235);
+  --idle: oklch(0.55 0.015 245);
+  --grid: oklch(0.6 0.05 220 / 7%);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { color-scheme: dark; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Ambient moving HUD grid with parallax via --scroll */
+@utility hud-grid {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+  animation: grid-drift 40s linear infinite;
+}
+@keyframes grid-drift {
+  from { background-position: 0 calc(var(--scroll, 0) * -0.3px); }
+  to { background-position: 48px calc(48px + var(--scroll, 0) * -0.3px); }
+}
+
+@utility hud-panel {
+  background: color-mix(in oklab, var(--card) 88%, transparent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(6px);
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+@keyframes shockwave {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(3.2); opacity: 0; }
+}
+@utility shockwave {
+  animation: shockwave 1.8s ease-out infinite;
+}
+@keyframes ring-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, currentColor 50%, transparent); }
+  50% { box-shadow: 0 0 0 6px color-mix(in oklab, currentColor 0%, transparent); }
+}
+@utility ring-pulse {
+  animation: ring-pulse 2s ease-in-out infinite;
+}
+@keyframes draw-path {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+@utility draw-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw-path 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+@keyframes border-glow {
+  0%, 100% { box-shadow: 0 0 0 1px var(--warn), 0 0 24px -4px var(--warn); }
+  50% { box-shadow: 0 0 0 1px var(--warn), 0 0 42px 0 var(--warn); }
+}
+@utility glow-warn {
+  animation: border-glow 2.2s ease-in-out infinite;
+}
+@keyframes coord-drift {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+@utility coord-drift {
+  animation: coord-drift 60s linear infinite;
+}
+
+.react-flow__attribution { display: none; }
+.react-flow { --xy-background-color: transparent; }

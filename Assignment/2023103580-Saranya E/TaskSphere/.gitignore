@@ -1,0 +1,7 @@
+node_modules
+.env
+.prisma
+.next
+dist
+build
+coverage

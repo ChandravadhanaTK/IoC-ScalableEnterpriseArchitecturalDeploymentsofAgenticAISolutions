@@ -1,0 +1,28 @@
+/**
+* INDEX.CSS - Main Stylesheet Entry Point
+* 
+* This file imports all component-specific stylesheets for the chatbot application.
+* Component styles are now organized in separate files for better maintainability.
+* 
+* File Structure:
+* - global.css: Base styles, resets, and design system foundations
+* - ChatBot.css: Main layout and container styles
+* - AllConversations.css: Sidebar conversation list styles
+* - MessageBubble.css: Individual message bubble styles
+* - MessageInput.css: Message input form styles
+* - Messages.css: Messages container and welcome screen styles
+* - Animations.css: Loading indicators and animations
+* - ConfirmDialog.css: Modal dialog styles
+* - Login.css: Authentication form styles (already exists)
+*/
+
+/* Import all component styles */
+@import './styles/global.css';
+@import './styles/ChatBot.css';
+@import './styles/AllConversations.css';
+@import './styles/MessageBubble.css';
+@import './styles/MessageInput.css';
+@import './styles/Messages.css';
+@import './styles/Animations.css';
+@import './styles/ConfirmDialog.css';
+@import './styles/Login.css';

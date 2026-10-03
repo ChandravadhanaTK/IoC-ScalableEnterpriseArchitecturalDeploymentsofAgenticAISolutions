@@ -1,0 +1,351 @@
+/**
+ * MessageBubble Component Styles
+ * 
+ * Styles for individual chat message bubbles and their content
+ */
+
+/* ===== MESSAGE BUBBLE SYSTEM ===== */
+/**
+ * Message Bubble Container
+ * 
+ * Base container for individual chat messages (both user and assistant)
+ * Features:
+ * - Flexbox layout for avatar and content alignment
+ * - Smooth fade-in animation when messages appear
+ * - Consistent spacing between messages
+ * - Flexible positioning for different message types
+ */
+.message-bubble {
+  display: flex;                          /* Flexbox for avatar and content */
+  align-items: flex-end;                  /* Align to bottom for natural chat flow */
+  margin-bottom: 16px;                    /* Consistent spacing between messages */
+  gap: 12px;                              /* Space between avatar and content */
+  animation: fadeInUp 0.3s ease-out;      /* Smooth entrance animation */
+}
+
+/**
+ * Message Avatar Container
+ * 
+ * Circular avatar display for message senders (user or assistant)
+ * Features:
+ * - Fixed size for consistency
+ * - Centered content (emoji or icon)
+ * - Prevents shrinking in flex layout
+ */
+.message-avatar {
+  width: 40px;                            /* Fixed avatar width */
+  height: 40px;                           /* Fixed avatar height (perfect circle) */
+  border-radius: 50%;                     /* Perfect circle shape */
+  
+  /* Flexbox for centering avatar content */
+  display: flex;
+  align-items: center;                    /* Vertical center */
+  justify-content: center;                /* Horizontal center */
+  
+  font-size: 20px;                        /* Readable emoji/icon size */
+  flex-shrink: 0;                         /* Don't shrink in flex layout */
+}
+
+/**
+ * Assistant Avatar Styling
+ * 
+ * Brand-colored avatar for AI assistant messages
+ * Features gradient background and subtle shadow
+ */
+.assistant-avatar {
+  /* Brand gradient background */
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  
+  color: white;                           /* White text/emoji for contrast */
+  
+  /* Subtle shadow with brand color */
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+/**
+ * User Avatar Styling
+ * 
+ * Green-themed avatar for user messages
+ * Distinguishes user messages from assistant responses
+ */
+.user-avatar {
+  /* Green gradient background */
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  
+  color: white;                           /* White text/emoji for contrast */
+  
+  /* Subtle shadow with green tint */
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+/**
+ * Fade In Up Animation Keyframes
+ * 
+ * Creates smooth entrance effect for new messages
+ * Combines opacity and upward movement for natural feel
+ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;                           /* Start invisible */
+    transform: translateY(10px);          /* Start slightly below final position */
+  }
+  to {
+    opacity: 1;                           /* End fully visible */
+    transform: translateY(0);             /* End at final position */
+  }
+}
+
+/**
+ * User Message Bubble Layout
+ * 
+ * Aligns user messages to the right side of the chat
+ * Creates typical chat app layout where user messages appear on right
+ */
+.message-bubble.user {
+  justify-content: flex-end;              /* Align user messages to right */
+}
+
+/**
+ * Assistant Message Bubble Layout
+ * 
+ * Aligns assistant messages to the left side of the chat
+ * Standard position for bot/assistant responses
+ */
+.message-bubble.assistant {
+  justify-content: flex-start;            /* Align assistant messages to left */
+}
+
+/**
+ * Message Content Container
+ * 
+ * The actual content bubble containing the message text
+ * Features:
+ * - Responsive width with maximum constraint
+ * - Comfortable padding for readability
+ * - Rounded corners for modern appearance
+ * - Word wrapping for long messages
+ */
+.message-content {
+  max-width: 70%;                         /* Limit width for readability */
+  padding: 16px 20px;                     /* Comfortable internal spacing */
+  border-radius: 20px;                    /* Rounded bubble appearance */
+  
+  /* Typography settings */
+  font-size: 1rem;                        /* Standard readable size */
+  line-height: 1.5;                       /* Comfortable line spacing */
+  word-wrap: break-word;                  /* Handle long words gracefully */
+  position: relative;
+  text-align: left;
+}
+
+.message-content.user {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  border-bottom-right-radius: 8px;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
+}
+
+.message-content.assistant {
+  background: #ffffff;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  border-bottom-left-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  text-align: left;
+}
+
+.message-content p {
+  margin: 0;
+}
+
+/* ===== MARKDOWN CONTENT STYLING ===== */
+.markdown-content {
+  margin: 0;
+}
+
+.markdown-content p {
+  margin: 0 0 8px 0;
+}
+
+.markdown-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== TABLE STYLING ===== */
+.markdown-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 0.9rem;
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.markdown-content th,
+.markdown-content td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.markdown-content th {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 2px solid #d1d5db;
+}
+
+.markdown-content tr:hover {
+  background: #f9fafb;
+}
+
+.markdown-content tr:last-child td {
+  border-bottom: none;
+}
+
+/* For tables in user messages */
+.message-content.user .markdown-content table {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.message-content.user .markdown-content th {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+.message-content.user .markdown-content td {
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.message-content.user .markdown-content tr:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== CODE AND PRE STYLING ===== */
+.markdown-content code {
+  background: #f3f4f6;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85em;
+}
+
+.message-content.user .markdown-content code {
+  background: rgba(255, 255, 255, 0.2);
+  color: #e5e7eb;
+}
+
+.markdown-content pre {
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 12px 0;
+  border-left: 4px solid #6366f1;
+}
+
+.message-content.user .markdown-content pre {
+  background: rgba(255, 255, 255, 0.1);
+  border-left-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ===== LISTS STYLING ===== */
+.markdown-content ul,
+.markdown-content ol {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.markdown-content li {
+  margin: 4px 0;
+}
+
+/* ===== BLOCKQUOTE STYLING ===== */
+.markdown-content blockquote {
+  border-left: 4px solid #6366f1;
+  margin: 12px 0;
+  padding: 8px 16px;
+  background: #f8fafc;
+  font-style: italic;
+}
+
+.message-content.user .markdown-content blockquote {
+  border-left-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== MATH EQUATION STYLES ===== */
+.katex-display {
+  margin: 16px 0 !important;
+  text-align: center;
+}
+
+.katex {
+  font-size: 1.1em !important;
+}
+
+/* Remove underline from math equations */
+.katex, .katex * {
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
+.katex-display, .katex-display * {
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
+/* ===== CODE BLOCK STYLES ===== */
+.code-block {
+  border-radius: 8px !important;
+  margin: 12px 0 !important;
+  overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.inline-code {
+  background-color: #f1f5f9;
+  color: #374151;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.9em;
+  border: 1px solid #e2e8f0;
+}
+
+/* Dark theme inline code for user messages */
+.message.user .inline-code {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.markdown-content .katex-display .katex {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Math in user messages */
+.message-content.user .markdown-content .katex {
+  color: white;
+}
+
+.message-content.user .markdown-content .katex .mord {
+  color: white;
+}
+
+.message-content.user .markdown-content .katex .mrel {
+  color: #e5e7eb;
+}
+
+.message-content.user .markdown-content .katex .mop {
+  color: #f3f4f6;
+}
+
+.message-content.user .markdown-content .katex .mbin {
+  color: #f9fafb;
+}

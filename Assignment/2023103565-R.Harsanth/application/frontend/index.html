@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AegisDesk | Agentic IT Support</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+<div class="app-shell">
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-mark">A</div>
+            <div>
+                <div class="brand-name">AegisDesk</div>
+                <div class="brand-subtitle">IT OPERATIONS AI</div>
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-label">WORKSPACE</div>
+
+            <button class="nav active" data-view="assistant">
+                <span class="nav-icon">+</span>
+                <span>Assistant</span>
+            </button>
+
+            <button class="nav" data-view="operations">
+                <span class="nav-icon">O</span>
+                <span>Operations</span>
+            </button>
+        </div>
+
+        <div class="sidebar-bottom">
+            <div class="environment">
+                <span class="online-dot"></span>
+                <span>Demo environment</span>
+                <span class="local-pill">LOCAL</span>
+            </div>
+        </div>
+
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+                <div class="eyebrow">ENTERPRISE SERVICE DESK</div>
+                <h1 id="page-title">How can I help?</h1>
+            </div>
+
+            <div class="user-chip">
+                <div class="avatar">RH</div>
+                <div>
+                    <strong>R. Harsanth</strong>
+                    <span>Employee / Demo</span>
+                </div>
+            </div>
+
+        </header>
+
+        <!-- ASSISTANT -->
+
+        <section id="assistant-view" class="view">
+
+            <div class="hero">
+
+                <div class="hero-icon">✦</div>
+
+                <h2>Your IT support copilot</h2>
+
+                <p>
+                    Describe the issue. I will search internal guidance,
+                    run safe diagnostics, and route sensitive actions
+                    for approval.
+                </p>
+
+                <div class="suggestions">
+
+                    <button
+                        class="suggestion"
+                        data-prompt="My Wi-Fi keeps disconnecting and internet is intermittent"
+                    >
+                        <span>Wi-Fi connection issue</span>
+                        <span class="arrow">→</span>
+                    </button>
+
+                    <button
+                        class="suggestion"
+                        data-prompt="My corporate VPN is not connecting"
+                    >
+                        <span>VPN not connecting</span>
+                        <span class="arrow">→</span>
+                    </button>
+
+                    <button
+                        class="suggestion"
+                        data-prompt="Please unlock my account"
+                    >
+                        <span>Account unlock</span>
+                        <span class="arrow">→</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div id="conversation" class="conversation">
+
+                <div class="welcome-card">
+
+                    <div class="welcome-icon">✦</div>
+
+                    <div>
+                        <strong>Ready when you are</strong>
+                        <p>
+                            Try a suggested prompt or describe an IT issue below.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <form id="chat-form" class="composer">
+
+                <textarea
+                    id="message"
+                    rows="1"
+                    placeholder="Describe your IT issue..."
+                    required
+                    minlength="3"
+                    maxlength="2000"
+                ></textarea>
+
+                <button id="send" type="submit">
+                    <span>Run assistant</span>
+                    <span class="send-arrow">↑</span>
+                </button>
+
+                <div class="composer-footer">
+
+                    <span>
+                        AI can make mistakes. Verify important information.
+                    </span>
+
+                    <span>
+                        Enter to send / Shift+Enter for new line
+                    </span>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- OPERATIONS -->
+
+        <section id="operations-view" class="view hidden">
+
+            <div class="section-heading">
+
+                <div>
+                    <div class="eyebrow">SYSTEM OBSERVABILITY</div>
+                    <h2>Operations overview</h2>
+                    <p>
+                        Workflow health, approvals, and recent activity.
+                    </p>
+                </div>
+
+                <button class="outline" id="refresh">
+                    Refresh
+                </button>
+
+            </div>
+
+
+            <div id="metrics" class="metric-grid"></div>
+
+
+            <div class="two-column">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h3>Approval queue</h3>
+                            <p>Human review requests</p>
+                        </div>
+
+                        <span class="tag">HUMAN REVIEW</span>
+                    </div>
+
+                    <div id="approval-list" class="list"></div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h3>Recent requests</h3>
+                            <p>Latest agent executions</p>
+                        </div>
+
+                        <span class="tag">LIVE DATA</span>
+                    </div>
+
+                    <div id="recent-list" class="list"></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel audit-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h3>Audit activity</h3>
+                        <p>Agent workflow events</p>
+                    </div>
+
+                    <span class="tag">TRACE</span>
+
+                </div>
+
+                <div id="audit-list" class="audit-list"></div>
+
+            </div>
+
+        </section>
+
+
+        <footer>
+
+            <span>AEGISDESK</span>
+            <span class="footer-separator">•</span>
+            <span>Agentic IT Support Demonstrator</span>
+
+            <span class="footer-status">
+                API
+                <span class="healthy">
+                    <span class="online-dot"></span>
+                    Healthy
+                </span>
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="/app.js"></script>
+
+</body>
+</html>

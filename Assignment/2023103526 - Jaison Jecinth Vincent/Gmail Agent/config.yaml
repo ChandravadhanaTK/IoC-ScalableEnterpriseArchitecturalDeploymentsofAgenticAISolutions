@@ -1,0 +1,22 @@
+org_name: Example Org
+use_case: general email classification
+association_name: Example Org
+events:
+- Example Event
+- Example Meetup
+known_company_renames:
+  example inc: example inc
+max_retries: 5
+model: gemini-3.6-flash
+provider: gemini
+score_domain_weight: 1.0
+score_keyword_weight: 2.0
+candidate_threshold: 2.0
+broad_max_chars: 200
+batch_target_chars: 20000
+batch_max_threads: 25
+classify_retries: 2
+backoff_base_s: 2.0
+own_addresses:
+- you@example.org
+- team@example.org

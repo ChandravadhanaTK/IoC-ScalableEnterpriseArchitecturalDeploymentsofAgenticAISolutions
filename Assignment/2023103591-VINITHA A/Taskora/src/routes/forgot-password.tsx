@@ -1,0 +1,2 @@
+import { createFileRoute } from "@tanstack/react-router";import { AuthScreen } from "@/components/taskora/auth-screen";
+export const Route=createFileRoute("/forgot-password")({head:()=>({meta:[{title:"Reset password — Taskora"},{name:"description",content:"Request a secure Taskora password reset."},{property:"og:title",content:"Reset password — Taskora"},{property:"og:description",content:"Request a secure Taskora password reset."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:()=> <AuthScreen mode="forgot"/>});

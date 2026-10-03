@@ -1,0 +1,2 @@
+import {describe,it,expect} from 'vitest'; import {nextState,passThreshold} from '../src/orchestrator/stateMachine';
+describe('workflow',()=>{it('requires 70%',()=>{expect(passThreshold(69)).toBe(false);expect(passThreshold(70)).toBe(true)});it('advances to forge after pass',()=>{let s:any='Boss';s=nextState(s);expect(s).toBe('Evaluating');s=nextState(s,true);expect(s).toBe('Passed');expect(nextState(s)).toBe('ArmorForged')});it('routes fail to remediation',()=>{expect(nextState('Evaluating',false)).toBe('Remediation')})});

@@ -1,0 +1,2 @@
+import { createFileRoute } from "@tanstack/react-router";import { AuthScreen } from "@/components/taskora/auth-screen";
+export const Route=createFileRoute("/login")({head:()=>({meta:[{title:"Sign in — Taskora"},{name:"description",content:"Sign in to your private Taskora student workspace."},{property:"og:title",content:"Sign in — Taskora"},{property:"og:description",content:"Sign in to your private Taskora student workspace."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:()=> <AuthScreen mode="login"/>});

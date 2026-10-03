@@ -1,0 +1,322 @@
+{
+  "student": {
+    "name": "Srisivanandana",
+    "course": "B.E. Computer Science",
+    "semester": 7
+  },
+  "classes": [
+    {
+      "id": "C101",
+      "subject": "Embedded Systems",
+      "date": "2026-10-02",
+      "start_time": "09:00",
+      "end_time": "10:30",
+      "room": "A-204"
+    },
+    {
+      "id": "C102",
+      "subject": "Internet of Things",
+      "date": "2026-10-02",
+      "start_time": "11:00",
+      "end_time": "12:30",
+      "room": "B-101"
+    },
+    {
+      "id": "C103",
+      "subject": "AI",
+      "date": "2026-10-02",
+      "start_time": "14:00",
+      "end_time": "15:30",
+      "room": "C-302"
+    },
+    {
+      "id": "C104",
+      "subject": "Image Processing",
+      "date": "2026-10-03",
+      "start_time": "10:00",
+      "end_time": "11:30",
+      "room": "D-210"
+    },
+    {
+      "id": "C105",
+      "subject": "DevOps",
+      "date": "2026-10-05",
+      "start_time": "09:30",
+      "end_time": "11:00",
+      "room": "E-115"
+    }
+  ],
+  "assignments": [
+    {
+      "id": "A101",
+      "title": "AI Assignment",
+      "subject": "AI",
+      "deadline": "2026-10-03",
+      "priority": "High",
+      "status": "pending",
+      "estimated_hours": 3
+    },
+    {
+      "id": "A102",
+      "title": "IoT Sensor Lab",
+      "subject": "Internet of Things",
+      "deadline": "2026-10-04",
+      "priority": "High",
+      "status": "pending",
+      "estimated_hours": 4
+    },
+    {
+      "id": "A103",
+      "title": "Image Processing Filter Exercise",
+      "subject": "Image Processing",
+      "deadline": "2026-10-06",
+      "priority": "Medium",
+      "status": "in_progress",
+      "estimated_hours": 2
+    },
+    {
+      "id": "A104",
+      "title": "DevOps Pipeline Report",
+      "subject": "DevOps",
+      "deadline": "2026-10-12",
+      "priority": "Medium",
+      "status": "pending",
+      "estimated_hours": 5
+    },
+    {
+      "id": "A105",
+      "title": "Responsible AI Reflection",
+      "subject": "Responsible AI",
+      "deadline": "2026-10-15",
+      "priority": "Low",
+      "status": "completed",
+      "estimated_hours": 1
+    }
+  ],
+  "exams": [
+    {
+      "id": "E201",
+      "subject": "Internet of Things",
+      "date": "2026-10-05",
+      "topics": [
+        "Sensors and actuators",
+        "Wireless communication",
+        "MQTT protocol",
+        "Edge computing basics"
+      ]
+    },
+    {
+      "id": "E202",
+      "subject": "Image Processing",
+      "date": "2026-10-07",
+      "topics": [
+        "Filtering",
+        "Morphological operations",
+        "Edge detection",
+        "Histogram equalization"
+      ]
+    },
+    {
+      "id": "E203",
+      "subject": "Embedded Systems",
+      "date": "2026-10-10",
+      "topics": [
+        "Microcontrollers",
+        "Interrupts",
+        "Timers",
+        "Peripheral interfacing"
+      ]
+    },
+    {
+      "id": "E204",
+      "subject": "Responsible AI",
+      "date": "2026-10-14",
+      "topics": [
+        "Bias mitigation",
+        "Explainability",
+        "Fairness metrics",
+        "Ethical AI design"
+      ]
+    }
+  ],
+  "placements": [
+    {
+      "id": "P301",
+      "company": "LoadShare",
+      "role": "Software Engineer",
+      "stage": "Online Assessment",
+      "oa_date": "2026-10-03",
+      "interview_date": "",
+      "status": "Upcoming"
+    },
+    {
+      "id": "P302",
+      "company": "CloudNest",
+      "role": "SDE Intern",
+      "stage": "Application",
+      "oa_date": "2026-10-08",
+      "interview_date": "",
+      "status": "In Progress"
+    },
+    {
+      "id": "P303",
+      "company": "AstraCore",
+      "role": "Backend Engineer",
+      "stage": "Technical Interview",
+      "oa_date": "",
+      "interview_date": "2026-10-08",
+      "status": "Upcoming"
+    },
+    {
+      "id": "P304",
+      "company": "NexaWorks",
+      "role": "Full Stack Developer",
+      "stage": "HR Interview",
+      "oa_date": "",
+      "interview_date": "2026-10-12",
+      "status": "Scheduled"
+    }
+  ],
+  "events": [
+    {
+      "id": "EV101",
+      "name": "CSAU Student Meeting",
+      "date": "2026-10-02",
+      "time": "17:00",
+      "venue": "Innovation Hub",
+      "category": "Club"
+    },
+    {
+      "id": "EV102",
+      "name": "Hackathon Info Session",
+      "date": "2026-10-04",
+      "time": "16:00",
+      "venue": "Seminar Hall",
+      "category": "Career"
+    },
+    {
+      "id": "EV103",
+      "name": "Research Expo",
+      "date": "2026-10-06",
+      "time": "10:30",
+      "venue": "Main Auditorium",
+      "category": "Academic"
+    },
+    {
+      "id": "EV104",
+      "name": "Placement Bootcamp",
+      "date": "2026-10-09",
+      "time": "18:00",
+      "venue": "Skill Lab",
+      "category": "Career"
+    }
+  ],
+  "study_progress": [
+    {
+      "topic": "Neural Networks",
+      "subject": "AI",
+      "mastery": 68,
+      "last_studied": "2026-09-30"
+    },
+    {
+      "topic": "Embedded C Fundamentals",
+      "subject": "Embedded Systems",
+      "mastery": 56,
+      "last_studied": "2026-10-01"
+    },
+    {
+      "topic": "IoT Communication Protocols",
+      "subject": "Internet of Things",
+      "mastery": 72,
+      "last_studied": "2026-09-29"
+    },
+    {
+      "topic": "Image Segmentation",
+      "subject": "Image Processing",
+      "mastery": 62,
+      "last_studied": "2026-09-28"
+    },
+    {
+      "topic": "IoT Sensor Integration",
+      "subject": "Internet of Things",
+      "mastery": 41,
+      "last_studied": "2026-09-27"
+    },
+    {
+      "topic": "CI/CD Pipelines",
+      "subject": "DevOps",
+      "mastery": 77,
+      "last_studied": "2026-09-30"
+    },
+    {
+      "topic": "Model Fairness",
+      "subject": "Responsible AI",
+      "mastery": 83,
+      "last_studied": "2026-09-26"
+    },
+    {
+      "topic": "Bias Detection Techniques",
+      "subject": "Responsible AI",
+      "mastery": 49,
+      "last_studied": "2026-10-01"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "T101",
+      "title": "Prepare for LoadShare OA",
+      "deadline": "2026-10-03",
+      "priority": "High",
+      "status": "pending",
+      "source": "agent"
+    },
+    {
+      "id": "T102",
+      "title": "Complete AI Assignment",
+      "deadline": "2026-10-03",
+      "priority": "High",
+      "status": "pending",
+      "source": "classroom"
+    },
+    {
+      "id": "T103",
+      "title": "Revise IoT topics",
+      "deadline": "2026-10-05",
+      "priority": "Medium",
+      "status": "pending",
+      "source": "study"
+    },
+    {
+      "id": "T104",
+      "title": "Review CN notes before quiz",
+      "deadline": "2026-10-06",
+      "priority": "Medium",
+      "status": "pending",
+      "source": "study"
+    },
+    {
+      "id": "T105",
+      "title": "Update resume for internships",
+      "deadline": "2026-10-10",
+      "priority": "Low",
+      "status": "pending",
+      "source": "placement"
+    },
+    {
+      "id": "T106",
+      "title": "Focus sprint: AI Assignment (25 min)",
+      "deadline": "2026-10-02",
+      "priority": "High",
+      "status": "pending",
+      "source": "focus-sprint"
+    },
+    {
+      "id": "T107",
+      "title": "Complete a timed practice set for LoadShare OA",
+      "deadline": "2026-10-03",
+      "priority": "High",
+      "status": "pending",
+      "source": "copilot-recommendation"
+    }
+  ]
+}

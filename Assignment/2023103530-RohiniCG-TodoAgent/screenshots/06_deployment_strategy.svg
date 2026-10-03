@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650" width="1200" height="650">
+  <rect width="1200" height="650" fill="#0b1120"/>
+  <text x="600" y="45" font-family="system-ui, sans-serif" font-size="24" font-weight="bold" fill="#ffffff" text-anchor="middle">DELIVERABLE 3: KUBERNETES RUNTIME &amp; DEPLOYMENT STRATEGY</text>
+  <text x="600" y="70" font-family="system-ui, sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">GKE Enterprise, KEDA Event-Driven Autoscaling &amp; Multi-Region Disaster Recovery</text>
+
+  <!-- Box 1: Runtime -->
+  <rect x="50" y="100" width="340" height="240" rx="12" fill="#0f172a" stroke="#10b981" stroke-width="2"/>
+  <text x="75" y="135" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#a7f3d0">Kubernetes Core Runtime</text>
+  <text x="75" y="165" font-family="system-ui, sans-serif" font-size="12" fill="#cbd5e1">• GKE Enterprise with Cilium eBPF</text>
+  <text x="75" y="195" font-family="system-ui, sans-serif" font-size="12" fill="#cbd5e1">• Pod Disruption Budget: min 80%</text>
+  <text x="75" y="225" font-family="system-ui, sans-serif" font-size="12" fill="#cbd5e1">• Dedicated Agent Compute Nodes</text>
+  <text x="75" y="255" font-family="system-ui, sans-serif" font-size="12" fill="#cbd5e1">• Firecracker MicroVM Isolation</text>
+  <text x="75" y="285" font-family="monospace" font-size="11" fill="#34d399">Status: Healthy (24 Replicas)</text>
+
+  <!-- Box 2: KEDA Scaling -->
+  <rect x="430" y="100" width="340" height="240" rx="12" fill="#0f172a" stroke="#f59e0b" stroke-width="2"/>
+  <text x="455" y="135" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#fde68a">KEDA Autoscaling Engine</text>
+  <text x="455" y="165" font-family="system-ui, sans-serif" font-size="12" fill="#cbd5e1">• Scale Range: 2 → 120 Pods</text>
+  <text x="455" y="195" font-family="system-ui, sans-serif" font-size="12" fill="#cbd5e1">• Trigger 1: Queue Depth > 5 / pod</text>
+  <text x="455" y="225" font-family="system-ui, sans-serif" font-size="12" fill="#cbd5e1">• Trigger 2: p95 Latency > 350ms</text>
+  <text x="455" y="255" font-family="system-ui, sans-serif" font-size="12" fill="#cbd5e1">• Cooldown Window: 300 seconds</text>
+  <text x="455" y="285" font-family="monospace" font-size="11" fill="#fbbf24">Metric: Redis Lag = 0 tasks</text>
+
+  <!-- Box 3: Multi-Region DR -->
+  <rect x="810" y="100" width="340" height="240" rx="12" fill="#0f172a" stroke="#6366f1" stroke-width="2"/>
+  <text x="835" y="135" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#c7d2fe">Multi-Region Disaster Recovery</text>
+  <text x="835" y="165" font-family="system-ui, sans-serif" font-size="12" fill="#cbd5e1">• Primary: us-central1 (Active)</text>
+  <text x="835" y="195" font-family="system-ui, sans-serif" font-size="12" fill="#cbd5e1">• DR Standby: us-east4 (Hot Standby)</text>
+  <text x="835" y="225" font-family="system-ui, sans-serif" font-size="12" fill="#cbd5e1">• RTO &lt; 5 minutes</text>
+  <text x="835" y="255" font-family="system-ui, sans-serif" font-size="12" fill="#cbd5e1">• RPO &lt; 1 minute (Sync Postgres)</text>
+  <text x="835" y="285" font-family="monospace" font-size="11" fill="#818cf8">DNS: Automated Route53 Healthcheck</text>
+
+  <!-- GitOps Canary Pipeline -->
+  <rect x="50" y="380" width="1100" height="200" rx="12" fill="#0f172a" stroke="#334155"/>
+  <text x="75" y="415" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">GitOps Blue-Green Canary Release Pipeline (ArgoCD + Flagger)</text>
+  <text x="75" y="435" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">Zero-downtime progressive rollouts with automated rollbacks on error budget breach.</text>
+
+  <rect x="75" y="460" width="220" height="80" rx="8" fill="#1e293b"/>
+  <text x="95" y="490" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#ffffff">STAGE 1: 10% Canary</text>
+  <text x="95" y="515" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">15-minute soak period</text>
+
+  <rect x="340" y="460" width="220" height="80" rx="8" fill="#1e293b"/>
+  <text x="360" y="490" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#ffffff">STAGE 2: SLO Probe</text>
+  <text x="360" y="515" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">HTTP 5xx &lt; 0.01%</text>
+
+  <rect x="605" y="460" width="220" height="80" rx="8" fill="#1e293b"/>
+  <text x="625" y="490" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#ffffff">STAGE 3: 50% Scale</text>
+  <text x="625" y="515" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">Graceful connection drain</text>
+
+  <rect x="870" y="460" width="250" height="80" rx="8" fill="#064e3b" stroke="#10b981"/>
+  <text x="890" y="490" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#a7f3d0">STAGE 4: 100% Promotion</text>
+  <text x="890" y="515" font-family="system-ui, sans-serif" font-size="11" fill="#6ee7b7">Production live • 1-click rollback</text>
+</svg>

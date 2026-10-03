@@ -1,0 +1,19 @@
+{
+  "name": "hevy-clone-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "setup": "npm run setup:api && npm run setup:web",
+    "setup:api": "cd apps/api && npm install && npx prisma generate && npx tsx prisma/seed.ts",
+    "setup:web": "cd apps/web && npm install",
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
+    "dev:api": "cd apps/api && npm run dev",
+    "dev:web": "cd apps/web && npm run dev",
+    "build": "npm run build:api && npm run build:web",
+    "build:api": "cd apps/api && npm run build",
+    "build:web": "cd apps/web && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

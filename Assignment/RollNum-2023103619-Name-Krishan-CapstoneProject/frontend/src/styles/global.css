@@ -1,0 +1,276 @@
+/**
+ * Global Styles
+ * 
+ * Base styles, resets, and global design system variables
+ */
+
+/* ===== EXTERNAL DEPENDENCIES ===== */
+/* Import KaTeX CSS for mathematical equation rendering */
+@import 'katex/dist/katex.min.css';
+
+/* ===== GLOBAL RESETS & BASE STYLES ===== */
+/**
+ * Universal box-sizing and reset
+ * Ensures consistent sizing calculations across all elements
+ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/**
+ * Root HTML element
+ * Sets the foundation for consistent typography and styling
+ */
+html {
+  font-size: 16px;                        /* Base font size for rem calculations */
+  scroll-behavior: smooth;                /* Smooth scrolling for anchor links */
+  -webkit-font-smoothing: antialiased;    /* Better font rendering on Mac */
+  -moz-osx-font-smoothing: grayscale;     /* Better font rendering on Mac */
+}
+
+/**
+ * Body element
+ * Primary container for all page content with design system foundations
+ */
+body {
+  /* System font stack for optimal performance and native appearance */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  
+  /* Typography settings */
+  font-size: 1rem;                        /* 16px base font size */
+  line-height: 1.6;                       /* Comfortable reading line height */
+  color: #1e293b;                         /* Primary text color (dark slate) */
+  
+  /* Background and layout */
+  background: #f9fafb;                    /* Light gray background */
+  margin: 0;                              /* Remove default margins */
+  
+  /* Performance optimizations */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/**
+ * Main Application Container
+ * 
+ * Root container for the entire React application
+ */
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== DESIGN SYSTEM FOUNDATIONS ===== */
+/**
+ * CSS Custom Properties (CSS Variables)
+ * 
+ * Design system tokens for consistent theming
+ */
+:root {
+  /* Color Palette */
+  --color-primary: #6366f1;              /* Indigo - Main brand color */
+  --color-primary-light: #818cf8;        /* Light indigo variant */
+  --color-primary-dark: #4f46e5;         /* Dark indigo variant */
+  
+  --color-secondary: #8b5cf6;            /* Purple - Accent color */
+  --color-secondary-light: #a78bfa;      /* Light purple variant */
+  --color-secondary-dark: #7c3aed;       /* Dark purple variant */
+  
+  --color-success: #10b981;              /* Emerald - Success states */
+  --color-warning: #f59e0b;              /* Amber - Warning states */
+  --color-error: #ef4444;                /* Red - Error states */
+  
+  --color-background: #f9fafb;           /* Main background */
+  --color-surface: #ffffff;              /* Card/surface background */
+  --color-surface-secondary: #f8fafc;    /* Secondary surface */
+  
+  --color-text-primary: #1e293b;         /* Primary text */
+  --color-text-secondary: #64748b;       /* Secondary text */
+  --color-text-muted: #94a3b8;           /* Muted text */
+  
+  --color-border: #e2e8f0;               /* Subtle borders */
+  --color-border-strong: #cbd5e1;        /* Stronger borders */
+  
+  /* Spacing Scale */
+  --spacing-xs: 0.25rem;                 /* 4px */
+  --spacing-sm: 0.5rem;                  /* 8px */
+  --spacing-md: 0.75rem;                 /* 12px */
+  --spacing-lg: 1rem;                    /* 16px */
+  --spacing-xl: 1.25rem;                 /* 20px */
+  --spacing-2xl: 1.5rem;                 /* 24px */
+  --spacing-3xl: 2rem;                   /* 32px */
+  
+  /* Border Radius */
+  --radius-sm: 0.25rem;                  /* 4px */
+  --radius-md: 0.5rem;                   /* 8px */
+  --radius-lg: 0.75rem;                  /* 12px */
+  --radius-xl: 1rem;                     /* 16px */
+  --radius-full: 50%;                    /* Perfect circle */
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.2s ease;
+  --transition-slow: 0.3s ease;
+}
+
+/* ===== UTILITY CLASSES ===== */
+/**
+ * Screen Reader Only
+ * 
+ * Hides content visually but keeps it accessible to screen readers
+ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/**
+ * Focus Visible Utility
+ * 
+ * Enhanced focus styles for better accessibility
+ */
+.focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ===== TYPOGRAPHY DEFAULTS ===== */
+/**
+ * Heading Elements
+ * 
+ * Consistent styling for all heading levels
+ */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1.125rem; }
+h5 { font-size: 1rem; }
+h6 { font-size: 0.875rem; }
+
+/**
+ * Paragraph Elements
+ */
+p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+}
+
+/**
+ * Link Elements
+ */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+a:hover {
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+}
+
+/**
+ * Button Reset
+ */
+button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+
+/**
+ * Input Reset
+ */
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* ===== SCROLLBAR STYLING ===== */
+/**
+ * Custom Scrollbar for Webkit Browsers
+ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+}
+
+/* ===== REDUCED MOTION ===== */
+/**
+ * Respect user's motion preferences
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

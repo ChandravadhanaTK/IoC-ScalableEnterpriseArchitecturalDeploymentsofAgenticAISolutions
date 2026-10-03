@@ -1,0 +1,203 @@
+/**
+ * ConfirmDialog Component Styles
+ * 
+ * Styles for modal confirmation dialogs with proper structure matching the component
+ */
+
+/* ===== MODAL OVERLAY ===== */
+/**
+ * Modal Overlay Background
+ * 
+ * Semi-transparent backdrop for modal dialogs with blur effect
+ */
+.confirm-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* ===== CONFIRM DIALOG CONTAINER ===== */
+/**
+ * Main Dialog Container
+ * 
+ * Card-style dialog with shadow and rounded corners
+ */
+.confirm-dialog {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-width: 400px;
+  width: 90%;
+  max-height: 90vh;
+  overflow: hidden;
+  animation: slideIn 0.3s ease-out;
+}
+
+/* ===== DIALOG SECTIONS ===== */
+/**
+ * Dialog Header
+ */
+.confirm-dialog-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.confirm-dialog-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+/**
+ * Dialog Body
+ */
+.confirm-dialog-body {
+  padding: 16px 24px 20px;
+}
+
+.confirm-dialog-message {
+  color: #6b7280;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/**
+ * Dialog Footer
+ */
+.confirm-dialog-footer {
+  padding: 16px 24px 20px;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+/* ===== DIALOG BUTTONS ===== */
+/**
+ * Base Button Styles
+ */
+.confirm-dialog-btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  min-width: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/**
+ * Cancel Button
+ */
+.confirm-dialog-btn-cancel {
+  background: #f9fafb;
+  color: #374151;
+  border-color: #d1d5db;
+}
+
+.confirm-dialog-btn-cancel:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+  transform: translateY(-1px);
+}
+
+/**
+ * Confirm Button Base
+ */
+.confirm-dialog-btn-confirm {
+  color: white;
+  font-weight: 600;
+}
+
+/**
+ * Danger Variant (Red) - for destructive actions
+ */
+.confirm-dialog-btn-danger {
+  background: #dc2626;
+  border-color: #dc2626;
+}
+
+.confirm-dialog-btn-danger:hover {
+  background: #b91c1c;
+  border-color: #b91c1c;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+/**
+ * Warning Variant (Orange) - for caution actions
+ */
+.confirm-dialog-btn-warning {
+  background: #d97706;
+  border-color: #d97706;
+}
+
+.confirm-dialog-btn-warning:hover {
+  background: #b45309;
+  border-color: #b45309;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+}
+
+/**
+ * Info Variant (Blue) - for informational actions
+ */
+.confirm-dialog-btn-info {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+.confirm-dialog-btn-info:hover {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/**
+ * Button Active States
+ */
+.confirm-dialog-btn:active {
+  transform: translateY(0);
+}
+
+/* ===== ANIMATIONS ===== */
+/**
+ * Fade in animation for overlay
+ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/**
+ * Slide in animation for dialog
+ */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

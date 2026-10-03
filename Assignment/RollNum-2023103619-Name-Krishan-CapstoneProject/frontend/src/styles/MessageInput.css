@@ -1,0 +1,195 @@
+/**
+ * MessageInput Component Styles
+ * 
+ * Styles for the message input form at the bottom of the chat
+ */
+
+/* ===== MESSAGE INPUT SYSTEM ===== */
+/**
+ * Input Area Container
+ * 
+ * Bottom section containing the message input form
+ * Features:
+ * - Fixed positioning at bottom
+ * - Background with subtle border
+ * - Comfortable padding for finger/mouse access
+ * - Prevents content overflow
+ */
+.input-area {
+  padding: 24px;                          /* Comfortable external spacing */
+  background: #ffffff;                    /* Clean white background */
+  border-top: 1px solid #e5e7eb;          /* Subtle top border separator */
+  flex-shrink: 0;                         /* Don't shrink when space is limited */
+}
+
+/**
+ * Input Form Container
+ * 
+ * Contains the message input textarea and send button
+ * Features:
+ * - Horizontal flexbox layout
+ * - Aligned to bottom for auto-resize compatibility
+ * - Consistent spacing between elements
+ */
+.input-form {
+  display: flex;                          /* Horizontal flexbox layout */
+  gap: 12px;                              /* Space between input and button */
+  align-items: flex-end;                  /* Align to bottom for textarea auto-resize */
+}
+
+/**
+ * Message Input Textarea
+ * 
+ * Auto-resizing textarea for composing messages
+ * Features:
+ * - Flexible width to fill available space
+ * - Smooth focus transitions
+ * - Auto-resize between min and max heights
+ * - Consistent styling with design system
+ * - Disabled state handling
+ */
+.message-input {
+  flex: 1;                                /* Grow to fill available width */
+  padding: 16px 20px;                     /* Comfortable internal spacing */
+  border: 2px solid #e5e7eb;              /* Light gray border */
+  border-radius: 16px;                    /* Rounded corners */
+  outline: none;                          /* Remove default outline */
+  
+  /* Typography settings */
+  font-size: 1rem;                        /* Standard readable size */
+  line-height: 1.5;                       /* Comfortable line height */
+  font-family: inherit;                   /* Use system font stack */
+  
+  background: #f9fafb;                    /* Light background */
+  transition: all 0.3s ease;              /* Smooth state transitions */
+  resize: none;                           /* Disable manual resize (auto-resize handled in JS) */
+  
+  /* Height constraints for auto-resize */
+  min-height: 24px;                       /* Minimum single-line height */
+  max-height: 120px;                      /* Maximum height before scrolling */
+}
+
+/**
+ * Message Input Focus State
+ * 
+ * Enhanced visual feedback when input is focused
+ * Uses brand colors and subtle shadow for clear indication
+ */
+.message-input:focus {
+  border-color: #6366f1;                  /* Brand color border */
+  background: #ffffff;                    /* Pure white background */
+  
+  /* Brand-colored focus ring */
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+/**
+ * Message Input Disabled State
+ * 
+ * Visual indication when input is disabled during message processing
+ */
+.message-input:disabled {
+  background: #f3f4f6;                    /* Grayed out background */
+  color: #9ca3af;                         /* Muted text color */
+  cursor: not-allowed;                    /* Clear interaction feedback */
+}
+
+/**
+ * Placeholder Text Styling
+ * 
+ * Subtle styling for placeholder text to guide users
+ */
+.message-input::placeholder {
+  color: #9ca3af;                         /* Muted gray color */
+}
+
+/**
+ * Send Button
+ * 
+ * Primary action button for sending messages
+ * Features:
+ * - Brand gradient background
+ * - Hover and click animations
+ * - Disabled state handling
+ * - Icon/text content support
+ * - Consistent sizing with input
+ */
+.send-button {
+  padding: 16px 24px;                     /* Comfortable click target */
+  
+  /* Brand gradient background */
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  
+  color: white;                           /* White text for contrast */
+  border: none;                           /* Remove default button border */
+  border-radius: 16px;                    /* Match input border radius */
+  cursor: pointer;                        /* Pointer cursor on hover */
+  
+  /* Typography */
+  font-weight: 600;                       /* Semi-bold text */
+  font-size: 1rem;                        /* Match input text size */
+  
+  transition: all 0.3s ease;              /* Smooth animations */
+  
+  /* Flexbox for icon/text layout */
+  display: flex;
+  align-items: center;                    /* Vertical center alignment */
+  gap: 8px;                               /* Space between icon and text */
+  
+  /* Subtle shadow with brand color */
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
+}
+
+/**
+ * Send Button Hover State
+ * 
+ * Interactive feedback with lift effect and enhanced shadow
+ */
+.send-button:hover:not(:disabled) {
+  transform: translateY(-1px);            /* Subtle lift effect */
+  
+  /* Enhanced shadow on hover */
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+/**
+ * Send Button Active State
+ * 
+ * Brief feedback when button is clicked
+ */
+.send-button:active:not(:disabled) {
+  transform: translateY(0);               /* Return to normal position */
+}
+
+/**
+ * Send Button Disabled State
+ * 
+ * Clear visual indication when button cannot be used
+ */
+.send-button:disabled {
+  background: #d1d5db;                    /* Gray background */
+  cursor: not-allowed;                    /* Clear interaction feedback */
+  transform: none;                        /* No hover effects */
+  box-shadow: none;                       /* No shadow when disabled */
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .input-area {
+    padding: 20px 24px;
+  }
+  
+  .input-form {
+    gap: 8px;
+  }
+  
+  .message-input {
+    padding: 12px 16px;
+    font-size: 0.95rem;
+  }
+  
+  .send-button {
+    padding: 12px 20px;
+    font-size: 0.95rem;
+  }
+}

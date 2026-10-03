@@ -1,0 +1,411 @@
+# ==============================================
+# PYTHON / FASTAPI BACKEND
+# ==============================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+.env/
+
+# Backend virtual environments
+backend/venv/
+backend/.venv/
+backend/ENV/
+backend/env/
+
+# FastAPI specific
+instance/
+.webassets-cache
+
+# ==============================================
+# REACT / NODE.JS FRONTEND  
+# ==============================================
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Frontend dependencies
+frontend/node_modules/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Production builds
+build/
+dist/
+
+# Frontend builds
+frontend/build/
+frontend/dist/
+
+# Backend builds
+backend/build/
+backend/dist/
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Frontend coverage
+frontend/coverage/
+frontend/*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Frontend nyc test coverage
+frontend/.nyc_output
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Frontend npm cache
+frontend/.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Frontend eslint cache
+frontend/.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+out/
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+public
+!frontend/public/
+
+# Storybook build outputs
+.out
+.storybook-out
+storybook-static/
+
+# ==============================================
+# ENVIRONMENT VARIABLES & CONFIG
+# ==============================================
+
+# ==============================================
+# ENVIRONMENT VARIABLES & CONFIG
+# ==============================================
+
+# Environment variables
+.env
+!backend/.env.example
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+
+# Backend environment files
+backend/.env
+backend/.env.*
+!backend/.env.example
+
+# Frontend environment files  
+frontend/.env
+frontend/.env.*
+
+# Configuration files (be careful with these)
+config.json
+secrets.json
+
+# ==============================================
+# DATABASE FILES
+# ==============================================
+
+# SQLite databases
+*.db
+*.sqlite
+*.sqlite3
+chatbot.db
+*.db-wal
+*.db-shm
+*.db-journal
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-wal
+*.sqlite3-shm
+
+# Generated RAG text, vectors, and index files
+chroma_db/
+
+# Backend database files
+backend/*.db
+backend/*.sqlite
+backend/*.sqlite3
+backend/chatbot.db
+
+# Database backups
+*.db.bak
+*.sql.bak
+
+# Backend database backups
+backend/*.db.bak
+backend/*.sql.bak
+
+# ==============================================
+# IDE & EDITOR FILES
+# ==============================================
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# JetBrains IDEs
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+
+# Sublime Text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+
+# ==============================================
+# OPERATING SYSTEM FILES
+# ==============================================
+
+# ==============================================
+# OPERATING SYSTEM FILES
+# ==============================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ==============================================
+# LOGS & TEMPORARY FILES
+# ==============================================
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Temporary folders
+tmp/
+temp/
+.tmp/
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+*.swp
+*.tmp
+
+# ==============================================
+# TESTING & COVERAGE
+# ==============================================
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+.junit/
+
+# Backend test reports
+backend/htmlcov/
+backend/.tox/
+backend/.nox/
+backend/.coverage
+backend/.coverage.*
+backend/.cache
+backend/nosetests.xml
+backend/coverage.xml
+backend/*.cover
+backend/*.py,cover
+backend/.hypothesis/
+backend/.pytest_cache/
+backend/.junit/
+
+# ==============================================
+# DEPLOYMENT & DOCKER
+# ==============================================
+
+# Docker
+docker-compose.override.yml
+
+# Deployment
+.vercel
+.netlify
+
+# ==============================================
+# SECURITY & SENSITIVE DATA
+# ==============================================
+
+# API Keys and secrets
+*.key
+*.pem
+*.p12
+*.pfx
+secrets/
+.secrets
+
+# SSL certificates
+*.crt
+*.csr
+
+# ==============================================
+# PROJECT SPECIFIC
+# ==============================================
+
+# FastAPI specific files
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# React specific
+.eslintcache
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Miscellaneous
+*.zip
+*.tar.gz
+*.rar
+
+# random
+demo-acc.md
+git.md
+

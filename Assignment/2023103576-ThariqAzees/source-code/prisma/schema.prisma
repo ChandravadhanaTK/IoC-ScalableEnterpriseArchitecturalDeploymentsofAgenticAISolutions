@@ -1,0 +1,246 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  FREELANCER
+  CLIENT
+  ADMIN
+}
+
+enum AppStatus {
+  SUBMITTED
+  VIEWED
+  SHORTLISTED
+  ACCEPTED
+  REJECTED
+}
+
+enum ModerationVerdict {
+  SAFE
+  REVIEW
+  BLOCK
+}
+
+enum PostStatus {
+  PUBLISHED
+  PENDING_REVIEW
+  REMOVED
+}
+
+enum PostType {
+  QUESTION
+  ADVICE
+  SHOWCASE
+  COLLABORATION
+  DISCUSSION
+}
+
+model User {
+  id            String         @id @default(uuid())
+  email         String         @unique
+  username      String         @unique
+  name          String
+  role          Role
+  suspended     Boolean        @default(false)
+  createdAt     DateTime       @default(now())
+  profile       Profile?
+  skills        UserSkill[]
+  projects      Project[]
+  applications  Application[]
+  posts         Post[]
+  comments      Comment[]
+  likes         Like[]
+  notifications Notification[]
+  resetTokens   PasswordResetToken[]
+}
+
+model Profile {
+  id              String             @id @default(uuid())
+  userId          String             @unique
+  user            User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  headline        String?
+  bio             String?
+  avatarUrl       String?
+  experienceLevel String?
+  hourlyRate      Int?
+  availability    String?
+  links           Json?
+  portfolio       PortfolioProject[]
+  updatedAt       DateTime           @updatedAt
+}
+
+model Skill {
+  id       Int            @id @default(autoincrement())
+  name     String         @unique
+  users    UserSkill[]
+  projects ProjectSkill[]
+}
+
+model UserSkill {
+  userId  String
+  skillId Int
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skill   Skill  @relation(fields: [skillId], references: [id])
+
+  @@id([userId, skillId])
+}
+
+model PortfolioProject {
+  id           String   @id @default(uuid())
+  profileId    String
+  profile      Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  title        String
+  description  String
+  technologies String[]
+  url          String?
+  imageUrl     String?
+
+  @@index([profileId])
+}
+
+model Project {
+  id              String         @id @default(uuid())
+  clientId        String
+  client          User           @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  title           String
+  description     String
+  budgetMin       Int
+  budgetMax       Int
+  deadline        DateTime
+  experienceLevel String
+  status          String         @default("OPEN")
+  createdAt       DateTime       @default(now())
+  skills          ProjectSkill[]
+  applications    Application[]
+
+  @@index([clientId])
+  @@index([createdAt])
+  @@index([budgetMin, budgetMax])
+}
+
+model ProjectSkill {
+  projectId String
+  skillId   Int
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  skill     Skill   @relation(fields: [skillId], references: [id])
+
+  @@id([projectId, skillId])
+  @@index([skillId])
+}
+
+model Application {
+  id           String    @id @default(uuid())
+  projectId    String
+  freelancerId String
+  project      Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  freelancer   User      @relation(fields: [freelancerId], references: [id], onDelete: Cascade)
+  proposal     String
+  proposedPrice Int
+  expectedDays Int
+  status       AppStatus @default(SUBMITTED)
+  createdAt    DateTime  @default(now())
+
+  @@unique([projectId, freelancerId])
+  @@index([freelancerId])
+}
+
+model Post {
+  id         String             @id @default(uuid())
+  authorId   String
+  author     User               @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  type       PostType
+  category   String
+  body       String
+  status     PostStatus         @default(PUBLISHED)
+  createdAt  DateTime           @default(now())
+  comments   Comment[]
+  likes      Like[]
+  moderation AiModerationResult?
+
+  @@index([status, createdAt])
+  @@index([category])
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  postId    String
+  authorId  String
+  body      String
+  createdAt DateTime @default(now())
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([postId])
+}
+
+model Like {
+  postId String
+  userId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([postId, userId])
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  type      String
+  message   String
+  link      String?
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, read])
+}
+
+model AiRecommendation {
+  id        String   @id @default(uuid())
+  userId    String
+  projectId String
+  score     Int
+  reasons   String[]
+  createdAt DateTime @default(now())
+
+  @@unique([userId, projectId])
+}
+
+model AiGeneratedProposal {
+  id        String   @id @default(uuid())
+  userId    String
+  projectId String
+  content   String
+  createdAt DateTime @default(now())
+
+  @@index([userId, projectId])
+}
+
+model AiModerationResult {
+  id        String            @id @default(uuid())
+  postId    String            @unique
+  post      Post              @relation(fields: [postId], references: [id], onDelete: Cascade)
+  verdict   ModerationVerdict
+  reason    String?
+  createdAt DateTime          @default(now())
+}
+
+model PasswordResetToken {
+  id        String   @id @default(uuid())
+  tokenHash String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  used      Boolean  @default(false)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+

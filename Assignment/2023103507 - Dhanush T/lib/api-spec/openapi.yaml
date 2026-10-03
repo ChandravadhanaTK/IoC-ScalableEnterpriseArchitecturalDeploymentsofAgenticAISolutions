@@ -1,0 +1,635 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: DevPulse ticket management API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: auth
+    description: Registration and authentication
+  - name: tickets
+    description: Ticket tracking and collaboration
+  - name: users
+    description: User and profile management
+security:
+  - bearerAuth: []
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /auth/register:
+    post:
+      operationId: register
+      tags: [auth]
+      summary: Register a reporter account
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterInput"
+      responses:
+        "201":
+          description: Account created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Session"
+        "400":
+          description: Invalid registration details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "409":
+          description: Email is already registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /auth/login:
+    post:
+      operationId: login
+      tags: [auth]
+      summary: Log in with an email and password
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginInput"
+      responses:
+        "200":
+          description: Signed-in user and bearer token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Session"
+        "401":
+          description: Email or password is incorrect
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /auth/me:
+    get:
+      operationId: getCurrentUser
+      tags: [auth]
+      summary: Get the signed-in user
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /auth/bootstrap-status:
+    get:
+      operationId: getFirstAdminBootstrapStatus
+      tags: [auth]
+      summary: Check whether first-admin setup is available
+      responses:
+        "200":
+          description: Whether the signed-in reporter can perform first-admin setup
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminBootstrapStatus"
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /auth/bootstrap-admin:
+    post:
+      operationId: bootstrapFirstAdmin
+      tags: [auth]
+      summary: Promote the signed-in reporter to the first admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminBootstrapInput"
+      responses:
+        "200":
+          description: The signed-in user after promotion
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid token input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: The account or bootstrap token is not allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "409":
+          description: An admin already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "503":
+          description: First-admin setup is not configured
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /dashboard/summary:
+    get:
+      operationId: getDashboardSummary
+      tags: [tickets]
+      summary: Get ticket counts and recent tickets
+      responses:
+        "200":
+          description: Dashboard data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSummary"
+  /tickets:
+    get:
+      operationId: listTickets
+      tags: [tickets]
+      summary: List tickets with optional filters
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            $ref: "#/components/schemas/TicketStatus"
+        - name: priority
+          in: query
+          schema:
+            $ref: "#/components/schemas/TicketPriority"
+        - name: assigneeId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: mine
+          in: query
+          description: Restrict to tickets reported by or assigned to the signed-in user
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: Matching tickets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Ticket"
+    post:
+      operationId: createTicket
+      tags: [tickets]
+      summary: Create a ticket
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TicketInput"
+      responses:
+        "201":
+          description: Created ticket
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ticket"
+  /tickets/{ticketId}:
+    parameters:
+      - $ref: "#/components/parameters/TicketId"
+    get:
+      operationId: getTicket
+      tags: [tickets]
+      summary: Get a ticket
+      responses:
+        "200":
+          description: Ticket details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ticket"
+        "404":
+          description: Ticket not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      operationId: updateTicket
+      tags: [tickets]
+      summary: Update ticket details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TicketUpdate"
+      responses:
+        "200":
+          description: Updated ticket
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ticket"
+    delete:
+      operationId: deleteTicket
+      tags: [tickets]
+      summary: Delete a ticket (admin only)
+      responses:
+        "204":
+          description: Ticket deleted
+  /tickets/{ticketId}/status:
+    parameters:
+      - $ref: "#/components/parameters/TicketId"
+    patch:
+      operationId: updateTicketStatus
+      tags: [tickets]
+      summary: Move a ticket to a valid next status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TicketStatusUpdate"
+      responses:
+        "200":
+          description: Ticket with updated status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ticket"
+        "400":
+          description: Invalid status transition
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /tickets/{ticketId}/assign:
+    parameters:
+      - $ref: "#/components/parameters/TicketId"
+    patch:
+      operationId: assignTicket
+      tags: [tickets]
+      summary: Assign a ticket
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TicketAssignment"
+      responses:
+        "200":
+          description: Ticket with updated assignment
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ticket"
+        "400":
+          description: Assignment is not valid for the current workflow state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /tickets/{ticketId}/comments:
+    parameters:
+      - $ref: "#/components/parameters/TicketId"
+    get:
+      operationId: listTicketComments
+      tags: [tickets]
+      summary: List comments on a ticket
+      responses:
+        "200":
+          description: Ticket comments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Comment"
+    post:
+      operationId: createTicketComment
+      tags: [tickets]
+      summary: Add a comment to a ticket
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CommentInput"
+      responses:
+        "201":
+          description: Created comment
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+  /tickets/{ticketId}/history:
+    parameters:
+      - $ref: "#/components/parameters/TicketId"
+    get:
+      operationId: listTicketHistory
+      tags: [tickets]
+      summary: List ticket activity
+      responses:
+        "200":
+          description: Ticket activity history
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TicketHistoryEntry"
+  /users:
+    get:
+      operationId: listUsers
+      tags: [users]
+      summary: List users (admin only)
+      responses:
+        "200":
+          description: Users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+  /users/me/profile:
+    patch:
+      operationId: updateProfile
+      tags: [users]
+      summary: Update the signed-in user's name
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProfileUpdate"
+      responses:
+        "200":
+          description: Updated profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+  /users/me/password:
+    patch:
+      operationId: changePassword
+      tags: [users]
+      summary: Change the signed-in user's password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PasswordChange"
+      responses:
+        "204":
+          description: Password changed
+  /users/{userId}/role:
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    patch:
+      operationId: updateUserRole
+      tags: [users]
+      summary: Change a user's role (admin only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserRoleUpdate"
+      responses:
+        "200":
+          description: Updated user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    TicketId:
+      name: ticketId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+      required: [error]
+    UserRole:
+      type: string
+      enum: [ADMIN, DEVELOPER, REPORTER]
+    TicketStatus:
+      type: string
+      enum: [OPEN, ASSIGNED, IN_PROGRESS, RESOLVED, CLOSED, REOPENED]
+    TicketPriority:
+      type: string
+      enum: [LOW, MEDIUM, HIGH, CRITICAL]
+    User:
+      type: object
+      required: [id, name, email, role, createdAt]
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        email: { type: string, format: email }
+        role: { $ref: "#/components/schemas/UserRole" }
+        createdAt: { type: string, format: date-time }
+    UserSummary:
+      type: object
+      required: [id, name, email, role]
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        email: { type: string, format: email }
+        role: { $ref: "#/components/schemas/UserRole" }
+    Session:
+      type: object
+      required: [token, user]
+      properties:
+        token: { type: string }
+        user: { $ref: "#/components/schemas/User" }
+    AdminBootstrapInput:
+      type: object
+      required: [token]
+      properties:
+        token: { type: string, minLength: 32, maxLength: 512 }
+    AdminBootstrapStatus:
+      type: object
+      required: [available]
+      properties:
+        available: { type: boolean }
+    RegisterInput:
+      type: object
+      required: [name, email, password]
+      properties:
+        name: { type: string, minLength: 2, maxLength: 100 }
+        email: { type: string, format: email, maxLength: 254 }
+        password: { type: string, minLength: 8, maxLength: 72 }
+    LoginInput:
+      type: object
+      required: [email, password]
+      properties:
+        email: { type: string, format: email, maxLength: 254 }
+        password: { type: string, minLength: 1, maxLength: 72 }
+    Ticket:
+      type: object
+      required: [id, title, description, priority, status, reporter, assignee, createdAt, updatedAt]
+      properties:
+        id: { type: string, format: uuid }
+        title: { type: string }
+        description: { type: string }
+        priority: { $ref: "#/components/schemas/TicketPriority" }
+        status: { $ref: "#/components/schemas/TicketStatus" }
+        reporter: { $ref: "#/components/schemas/UserSummary" }
+        assignee:
+          oneOf:
+            - $ref: "#/components/schemas/UserSummary"
+            - type: "null"
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    TicketInput:
+      type: object
+      required: [title, description, priority]
+      properties:
+        title: { type: string, minLength: 3, maxLength: 160 }
+        description: { type: string, minLength: 5, maxLength: 10000 }
+        priority: { $ref: "#/components/schemas/TicketPriority" }
+    TicketUpdate:
+      type: object
+      properties:
+        title: { type: string, minLength: 3, maxLength: 160 }
+        description: { type: string, minLength: 5, maxLength: 10000 }
+        priority: { $ref: "#/components/schemas/TicketPriority" }
+    TicketStatusUpdate:
+      type: object
+      required: [status]
+      properties:
+        status: { $ref: "#/components/schemas/TicketStatus" }
+    TicketAssignment:
+      type: object
+      required: [assigneeId]
+      properties:
+        assigneeId:
+          type: [string, "null"]
+          format: uuid
+    Comment:
+      type: object
+      required: [id, body, author, createdAt]
+      properties:
+        id: { type: string, format: uuid }
+        body: { type: string }
+        author: { $ref: "#/components/schemas/UserSummary" }
+        createdAt: { type: string, format: date-time }
+    CommentInput:
+      type: object
+      required: [body]
+      properties:
+        body: { type: string, minLength: 1, maxLength: 5000 }
+    TicketHistoryEntry:
+      type: object
+      required: [id, action, actor, fromValue, toValue, createdAt]
+      properties:
+        id: { type: string, format: uuid }
+        action:
+          type: string
+          enum: [CREATED, STATUS_CHANGED, ASSIGNED, PRIORITY_CHANGED, UPDATED]
+        actor: { $ref: "#/components/schemas/UserSummary" }
+        fromValue: { type: [string, "null"] }
+        toValue: { type: [string, "null"] }
+        createdAt: { type: string, format: date-time }
+    DashboardSummary:
+      type: object
+      required: [total, open, inProgress, resolved, closed, recentTickets]
+      properties:
+        total: { type: integer }
+        open: { type: integer }
+        inProgress: { type: integer }
+        resolved: { type: integer }
+        closed: { type: integer }
+        recentTickets:
+          type: array
+          items:
+            $ref: "#/components/schemas/Ticket"
+    ProfileUpdate:
+      type: object
+      required: [name]
+      properties:
+        name: { type: string, minLength: 2, maxLength: 100 }
+    PasswordChange:
+      type: object
+      required: [currentPassword, newPassword]
+      properties:
+        currentPassword: { type: string, minLength: 1, maxLength: 72 }
+        newPassword: { type: string, minLength: 8, maxLength: 72 }
+    UserRoleUpdate:
+      type: object
+      required: [role]
+      properties:
+        role: { $ref: "#/components/schemas/UserRole" }
+

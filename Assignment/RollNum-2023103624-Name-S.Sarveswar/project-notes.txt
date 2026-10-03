@@ -1,0 +1,37 @@
+PROJECT TITLE
+AI Financial Assistant
+
+DOMAIN
+Finance
+
+PROBLEM STATEMENT
+Users have large amounts of financial transaction data but may find it difficult to identify unusual transactions, understand their spending patterns, analyze their financial activity, and generate useful financial reports.
+
+PROPOSED SOLUTION
+An AI Financial Assistant that uses multiple specialized AI agents to analyze financial transactions, detect potentially fraudulent activity, provide financial insights, and generate reports.
+
+CORE AI AGENTS
+1. Transaction Agent
+2. Fraud Detection Agent
+3. Financial Analysis Agent
+4. Report Generation Agent
+
+BASIC WORKFLOW
+User
+  ↓
+Upload / Enter Financial Data
+  ↓
+AI Financial Assistant
+  ↓
+Transaction Agent
+  ↓
+Fraud Detection Agent
+  ↓
+Financial Analysis Agent
+  ↓
+Report Generation Agent
+  ↓
+Dashboard + Report
+
+PROJECT OBJECTIVE
+Build a working Agentic AI financial application that can process financial transaction data, identify suspicious transactions, analyze financial activity, and generate useful financial reports through multiple specialized AI agents.

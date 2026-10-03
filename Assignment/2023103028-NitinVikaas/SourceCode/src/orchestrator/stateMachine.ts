@@ -1,0 +1,3 @@
+export type WorkflowState='Idle'|'LevelStarted'|'Briefing'|'Concepts'|'MatchGame'|'CodePuzzle'|'Boss'|'Evaluating'|'Passed'|'Remediation'|'ArmorForged'|'Escalated';
+export function nextState(s:WorkflowState,pass=true):WorkflowState{const map:Record<WorkflowState,WorkflowState>={Idle:'LevelStarted',LevelStarted:'Briefing',Briefing:'Concepts',Concepts:'MatchGame',MatchGame:'CodePuzzle',CodePuzzle:'Boss',Boss:'Evaluating',Evaluating:pass?'Passed':'Remediation',Passed:'ArmorForged',Remediation:'Boss',ArmorForged:'Idle',Escalated:'Idle'};return map[s]}
+export function passThreshold(score:number){return score>=70}

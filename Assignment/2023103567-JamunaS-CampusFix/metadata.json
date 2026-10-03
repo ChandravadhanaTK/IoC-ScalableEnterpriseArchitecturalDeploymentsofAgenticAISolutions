@@ -1,0 +1,6 @@
+{
+  "name": "CampusFix – AI-Powered Campus Issue Management System",
+  "description": "CampusFix is an intelligent campus issue management platform enabling students to report, track, and resolve campus maintenance, facility, and administrative complaints with AI-powered classification and real-time status updates.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

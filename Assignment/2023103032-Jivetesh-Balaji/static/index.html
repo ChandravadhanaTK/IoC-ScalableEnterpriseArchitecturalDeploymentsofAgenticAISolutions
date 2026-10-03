@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enterprise Agentic IT Service Assistant</title>
+<style>
+:root{
+  --bg:#0d1633;--panel:#14244b;--panel2:#182c58;--line:#2e4d88;
+  --text:#f4f7ff;--muted:#aebcda;--accent:#39b8d4;--green:#2fc58a;
+  --orange:#ffb52e;--red:#ff667a;
+}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(135deg,#0b1430,#111e43);color:var(--text);font-family:Arial,sans-serif}
+header{padding:24px 5%;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+h1{margin:0;font-size:24px}.subtitle{color:var(--muted);margin-top:6px}
+.container{width:90%;max-width:1300px;margin:24px auto}
+.grid{display:grid;grid-template-columns:1.4fr .8fr;gap:18px}
+.panel{background:rgba(20,36,75,.96);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 10px 30px #0003}
+.panel h2{font-size:17px;margin-top:0}
+.controls{display:flex;gap:10px;margin-bottom:12px}
+select,input,button{border-radius:8px;border:1px solid var(--line);padding:10px;background:#0d1938;color:var(--text)}
+button{cursor:pointer;background:#2469d8;border-color:#3d82ef;font-weight:bold}
+button:hover{filter:brightness(1.15)}
+.quick{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.quick button{background:#1b376e}
+.chat{height:420px;overflow:auto;padding:8px;background:#0b1632;border-radius:10px}
+.msg{padding:11px 13px;margin:9px 0;border-radius:10px;white-space:pre-wrap;line-height:1.45}
+.user{background:#1d4e91;margin-left:18%}.bot{background:#20315b;margin-right:12%}
+.trace{font-size:13px;color:var(--muted);max-height:250px;overflow:auto}
+.trace div{padding:7px;border-bottom:1px solid #29416f}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.card{background:#0d1938;border:1px solid var(--line);border-radius:10px;padding:13px}.value{font-size:23px;font-weight:bold;margin-top:4px}
+.audit{max-height:240px;overflow:auto;font-size:12px}.audit div{padding:7px;border-bottom:1px solid #263c69}
+#approval{display:none;background:#4b3512;border:1px solid var(--orange);padding:12px;border-radius:10px;margin-top:12px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.user,.bot{margin-left:0;margin-right:0}}
+</style>
+</head>
+<body>
+<header>
+<div><h1>Enterprise Agentic IT Service Assistant</h1><div class="subtitle">Agentic workflow • authorization • approvals • monitoring</div></div>
+<div>
+<select id="role">
+<option>EMPLOYEE</option><option>IT_SUPPORT</option><option>ADMIN</option>
+</select>
+</div>
+</header>
+
+<div class="container">
+<div class="grid">
+<section class="panel">
+<h2>Agent Chat</h2>
+<div class="controls">
+<input id="message" style="flex:1" placeholder="Ask the IT agent something..." onkeydown="if(event.key==='Enter')send()">
+<button onclick="send()">Send</button>
+</div>
+<div class="quick">
+<button onclick="quick('How do I connect to company Wi-Fi?')">Wi-Fi Help</button>
+<button onclick="quick('Create a ticket for my overheating laptop')">Create Ticket</button>
+<button onclick="quick('Show my asset information')">My Asset</button>
+<button onclick="quick('Show another employee asset U1002')">Other Asset</button>
+<button onclick="quick('Reset password for U1002')">Reset Password</button>
+</div>
+<div id="chat" class="chat">
+<div class="msg bot">Hello! I am the enterprise IT agent. I can search IT knowledge, create tickets, inspect authorized assets and manage approval-controlled actions.</div>
+</div>
+<div id="approval"></div>
+</section>
+
+<section class="panel">
+<h2>Agent Trace</h2>
+<div id="trace" class="trace">No execution yet.</div>
+</section>
+</div>
+
+<div style="height:18px"></div>
+
+<section class="panel">
+<h2>Monitoring Dashboard</h2>
+<div class="cards">
+<div class="card">Requests<div id="requests" class="value">0</div></div>
+<div class="card">Success Rate<div id="success" class="value">0%</div></div>
+<div class="card">Tickets Created<div id="tickets" class="value">0</div></div>
+<div class="card">Authorization Denials<div id="denials" class="value">0</div></div>
+<div class="card">Approval Requests<div id="approvals" class="value">0</div></div>
+<div class="card">Audit Events<div id="auditCount" class="value">0</div></div>
+</div>
+</section>
+
+<div style="height:18px"></div>
+
+<section class="panel">
+<h2>Recent Audit Events</h2>
+<div id="audit" class="audit">Loading...</div>
+</section>
+</div>
+
+<script>
+let currentApproval=null;
+
+function quick(text){document.getElementById('message').value=text;send()}
+
+function addMessage(type,text){
+  const chat=document.getElementById('chat');
+  const div=document.createElement('div');
+  div.className='msg '+type;
+  div.innerHTML=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+  chat.appendChild(div); chat.scrollTop=chat.scrollHeight;
+}
+
+async function send(){
+  const input=document.getElementById('message');
+  const message=input.value.trim(); if(!message)return;
+  const role=document.getElementById('role').value;
+  addMessage('user',message); input.value='';
+  const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message,role,user_id:'U1001'})});
+  const data=await res.json();
+  addMessage('bot',data.response);
+  renderTrace(data.trace);
+
+  if(data.approval_required){
+    currentApproval=data.approval_id;
+    const box=document.getElementById('approval');
+    box.style.display='block';
+    box.innerHTML='<strong>Human approval required</strong><br>Approval ID: '+currentApproval+
+      '<br><br><button onclick="resolve(true)">Approve</button> <button onclick="resolve(false)">Reject</button>';
+  }
+  loadMonitoring();
+}
+
+function renderTrace(trace){
+  document.getElementById('trace').innerHTML=trace.map(x=>'<div><strong>'+x.step+'</strong> — '+x.detail+'</div>').join('');
+}
+
+async function resolve(approved){
+  const res=await fetch('/api/approvals/resolve',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({approval_id:currentApproval,approved})});
+  const data=await res.json();
+  addMessage('bot',approved ? 'Approval accepted. The controlled action was executed in the demo environment.' : 'Approval rejected. No controlled action was executed.');
+  document.getElementById('approval').style.display='none';
+  currentApproval=null;
+  loadMonitoring();
+}
+
+async function loadMonitoring(){
+  const res=await fetch('/api/monitoring'); const d=await res.json();
+  document.getElementById('requests').textContent=d.requests;
+  document.getElementById('success').textContent=d.success_rate+'%';
+  document.getElementById('tickets').textContent=d.tickets_created;
+  document.getElementById('denials').textContent=d.authorization_denials;
+  document.getElementById('approvals').textContent=d.approval_requests;
+  document.getElementById('auditCount').textContent=d.audit_events;
+  document.getElementById('audit').innerHTML=d.recent_audit.map(x=>
+    '<div><strong>'+x.action+'</strong> — '+x.decision+' — '+(x.details||'')+'<br>'+x.created_at+'</div>'
+  ).join('');
+}
+loadMonitoring(); setInterval(loadMonitoring,5000);
+</script>
+</body>
+</html>

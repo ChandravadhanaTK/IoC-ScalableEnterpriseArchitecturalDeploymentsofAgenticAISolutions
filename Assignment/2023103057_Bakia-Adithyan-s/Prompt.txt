@@ -1,0 +1,135 @@
+Build and deploy a polished full-stack web application called "AI Interview Preparation Platform".
+
+This is an academic Agentic AI project. It helps students prepare for technical and behavioral interviews.
+
+CORE FLOW:
+
+Candidate Profile + Job Description
+        ↓
+Interview Planning Agent
+        ↓
+Human Approval
+        ↓
+Mock Interview
+        ↓
+Interview Evaluation Agent
+        ↓
+Final Report
+        ↓
+Coaching & Progress Agent
+
+Use exactly THREE AI agents:
+
+1. Interview Planning Agent
+- Takes candidate skills, experience, target role and job description.
+- Generates a structured interview plan with questions, category and difficulty.
+- Must not invent candidate information.
+- Plan must require user approval before the interview starts.
+
+2. Interview Evaluation Agent
+- Evaluates each candidate answer using the question and answer.
+- Gives score out of 10, strengths, weaknesses and useful feedback.
+- Use a real server-side LLM API.
+- Never expose the API key in frontend code.
+
+3. Coaching & Progress Agent
+- Uses previous interview evaluations.
+- Identifies weak areas and strong areas.
+- Generates personalized topics and practice recommendations.
+- If insufficient data exists, show "No data yet" instead of fake statistics.
+
+The backend must contain an Orchestrator that coordinates these three agents. The Orchestrator is NOT an additional agent.
+
+PAGES:
+
+1. Dashboard
+- Total interviews
+- Completed interviews
+- Average score
+- Questions answered
+- Recent interviews
+- Progress overview
+- Use real database data; show "No data yet" when empty.
+
+2. Candidate Profile
+- Name
+- Education
+- Experience level
+- Skills
+- Programming languages
+- Projects
+- Target role
+- Resume text
+
+3. Create Interview
+- Target role
+- Job description
+- Interview type: Technical / Coding / Behavioral / Mixed
+- Difficulty: Easy / Medium / Hard
+- Number of questions
+- Generate Interview Plan button
+
+4. Interview Plan
+- Display AI-generated questions
+- Category
+- Difficulty
+- Expected concepts
+- Allow editing/removing questions
+- Approve & Start Interview button
+- Regenerate button
+
+5. Mock Interview
+- Show one question at a time
+- Answer text area
+- Submit Answer
+- AI evaluation after submission
+- Show score, strengths, weaknesses and feedback
+- Next Question button
+
+6. Interview Report
+- Overall score
+- Category-wise scores
+- Strengths
+- Weaknesses
+- Feedback
+- Recommended study topics
+
+7. Progress
+- Previous interview scores
+- Category performance
+- Weak areas
+- Recommendations
+
+8. Notifications
+- In-app practice reminders and interview notifications.
+
+Use authentication and persistent PostgreSQL/Supabase storage.
+
+Basic database tables:
+profiles
+interviews
+interview_questions
+answers
+evaluations
+recommendations
+notifications
+agent_runs
+
+Users must only access their own data.
+
+Implement proper loading, error and empty states.
+
+AI input must be treated as untrusted content. Protect against simple prompt injection attempts and validate structured AI responses before storing them.
+
+Record agent executions with:
+trace_id, agent, state, success, duration and timestamp.
+
+Use a clean modern enterprise SaaS design with cards, tables, badges, progress bars and charts. Avoid a chatbot-style UI and avoid excessive futuristic AI effects.
+
+Make the application functional rather than a static prototype.
+
+Use TypeScript and reusable components.
+
+Keep the implementation simple and reliable. Prioritize a working core application over advanced features.
+
+Deploy the application after implementation and provide the deployed URL.

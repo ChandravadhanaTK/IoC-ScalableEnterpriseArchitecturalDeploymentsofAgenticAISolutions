@@ -1,0 +1,278 @@
+/**
+ * ChatBot Component Styles
+ * 
+ * Main layout and container styles for the ChatBot component
+ */
+
+/* ===== MAIN LAYOUT SYSTEM ===== */
+/**
+ * App container - Primary layout wrapper
+ * 
+ * Uses flexbox to create a two-column layout:
+ * - Left: Conversations sidebar (fixed width)
+ * - Right: Chat interface (flexible width)
+ * 
+ * Key features:
+ * - Full viewport coverage
+ * - No scrolling at root level
+ * - Responsive design foundation
+ */
+.app-container {
+  display: flex;                          /* Flexbox for side-by-side layout */
+  height: 100vh;                          /* Full viewport height */
+  width: 100vw;                           /* Full viewport width */
+  margin: 0;                              /* No external margins */
+  background: #f9fafb;                    /* Light gray background */
+  overflow: hidden;                       /* Prevent container scrolling */
+}
+
+/* ===== SIDEBAR SYSTEM ===== */
+/**
+ * Left Sidebar - Conversations panel
+ * 
+ * Features:
+ * - Fixed width with minimum width constraint
+ * - Gradient background for visual hierarchy
+ * - Vertical flex layout for header/content separation
+ * - Border separator from main content
+ * - Internal scroll handling
+ */
+.conversations-sidebar {
+  min-width: 250px;                       /* Minimum width for responsiveness */
+  max-width: 600px;                       /* Maximum width to prevent taking too much space */
+  
+  /* Gradient background for visual depth */
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  
+  border-right: 1px solid #e2e8f0;       /* Subtle right border separator */
+  display: flex;                          /* Vertical flex container */
+  flex-direction: column;                 /* Stack header and content vertically */
+  overflow: hidden;                       /* Prevent sidebar overflow */
+  height: 100vh;
+  flex-shrink: 0;                         /* Prevent shrinking */
+  transition: width 0.1s ease-out;       /* Smooth width transitions */
+}
+
+/**
+ * Resize Handle - Draggable area between sidebar and main content
+ * 
+ * Allows users to resize the sidebar by dragging
+ */
+.resize-handle {
+  width: 4px;                             /* Thin handle width */
+  background: #e2e8f0;                   /* Subtle visible background */
+  cursor: col-resize;                     /* Resize cursor */
+  position: relative;                     /* For pseudo-element positioning */
+  flex-shrink: 0;                         /* Don't shrink */
+  z-index: 10;                           /* Above other content */
+  transition: background-color 0.2s ease; /* Smooth color transition */
+  outline: none;                          /* Remove default focus outline */
+}
+
+.resize-handle:hover {
+  background: #cbd5e1;                   /* Darker on hover */
+}
+
+.resize-handle:active {
+  background: #6366f1;                   /* Active color when dragging */
+}
+
+.resize-handle:focus {
+  background: #6366f1;                   /* Focus color */
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3); /* Focus ring */
+}
+
+/* Add a visual indicator with better contrast */
+.resize-handle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 40px;
+  background: #94a3b8;
+  transform: translate(-50%, -50%);
+  border-radius: 1px;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.resize-handle:hover::before,
+.resize-handle:focus::before {
+  opacity: 1;
+  background: #6366f1;
+}
+
+/**
+ * Sidebar Header - Top section of conversations panel
+ * 
+ * Contains:
+ * - Title/branding
+ * - New chat button
+ * - Navigation controls
+ * 
+ * Features:
+ * - Gradient background for visual separation
+ * - Flexbox layout for title/button alignment
+ * - Bottom border to separate from content
+ */
+.sidebar-header {
+  padding: 20px;                          /* Internal spacing */
+  border-bottom: 1px solid #f1f5f9;       /* Separator from content */
+  
+  /* Subtle gradient background */
+  background: linear-gradient(135deg, #fafbfc 0%, #f8fafc 100%);
+  
+  display: flex;                          /* Horizontal flexbox layout */
+  align-items: center;                    /* Vertical center alignment */
+  justify-content: space-between;         /* Space between title and button */
+}
+
+/**
+ * Sidebar Title - Main heading in sidebar header
+ */
+.sidebar-header h3 {
+  margin: 0;                              /* Remove default margins */
+  font-size: 1.2rem;                      /* Medium size */
+  font-weight: 600;                       /* Semibold weight */
+  color: #1e293b;                         /* Dark slate color */
+  display: flex;                          /* For emoji alignment */
+  align-items: center;                    /* Center emoji with text */
+  gap: 8px;                               /* Space between emoji and text */
+}
+
+/**
+ * New Chat Button (Sidebar variant)
+ * 
+ * Compact button in sidebar header for starting new conversations
+ */
+.new-chat-button-sidebar {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.new-chat-button-sidebar:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3);
+}
+
+.new-chat-button-sidebar:active {
+  transform: translateY(0);
+}
+
+/**
+ * Conversations List Container
+ * 
+ * Wrapper for the AllConversations component
+ */
+.conversations-list-container {
+  flex: 1;                                /* Grow to fill remaining space */
+  overflow: hidden;                       /* Prevent container overflow */
+}
+
+/* ===== CHAT INTERFACE SYSTEM ===== */
+/**
+ * Right Main Area - Chat interface container
+ * 
+ * Contains:
+ * - Chat header with branding/controls
+ * - Messages display area
+ * - Message input system
+ * 
+ * Features:
+ * - Flexible width (grows to fill space)
+ * - Vertical stacking of header, messages, and input
+ * - Gradient background for visual appeal
+ * - Full height utilization
+ */
+.chat-container {
+  flex: 1;                                /* Grow to fill remaining space after sidebar */
+  display: flex;                          /* Vertical flex layout */
+  flex-direction: column;                 /* Stack header, messages, input vertically */
+  
+  /* Subtle gradient background */
+  background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+  
+  overflow: hidden;                       /* Prevent container overflow */
+  height: 100vh;                          /* Full viewport height */
+  width: 100%;                            /* Full available width */
+}
+
+/* ===== CHAT HEADER SECTION ===== */
+/**
+ * Chat Header - Top section of chat interface
+ * 
+ * Contains branding, current conversation info, and user controls
+ * Features:
+ * - Brand colors with gradient background
+ * - Fixed height (doesn't scroll with messages)
+ * - White text for contrast
+ */
+.chat-header {
+  /* Brand gradient background */
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  
+  color: white;                           /* White text for contrast */
+  padding: 20px;                          /* Comfortable internal spacing */
+  display: flex;                          /* Flexbox layout */
+  justify-content: space-between;         /* Space between title and user info */
+  align-items: center;                    /* Vertically center items */
+  flex-shrink: 0;                         /* Don't shrink when space is limited */
+}
+
+/**
+ * Chat Title - Main heading in chat header
+ * 
+ * Displays the current conversation title or default heading
+ */
+.chat-title {
+  margin: 0;                              /* Remove default heading margins */
+  font-size: 1.5rem;                      /* Large, prominent text */
+}
+
+/**
+ * User info in chat header
+ * 
+ * Contains welcome message and logout button for chat header
+ */
+.chat-header .user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  max-width: none;
+  margin: 0;
+}
+
+.chat-header .welcome-text {
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.chat-header .logout-button {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.chat-header .logout-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+}

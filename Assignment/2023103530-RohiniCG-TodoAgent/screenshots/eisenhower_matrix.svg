@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#0b1120"/>
+  <text x="400" y="45" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">EISENHOWER 2x2 TASK PRIORITIZATION MATRIX</text>
+  <text x="400" y="70" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">Dynamic Multi-Factor Urgency and Impact Allocation</text>
+
+  <!-- Q1 Top Left -->
+  <rect x="50" y="100" width="330" height="220" rx="8" fill="#4c0519" stroke="#f43f5e" stroke-width="2"/>
+  <text x="70" y="130" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#fda4af">QUADRANT 1: DO FIRST</text>
+  <text x="70" y="150" font-family="monospace" font-size="10" fill="#f43f5e">URGENT &amp; IMPORTANT (P0 &amp; P1)</text>
+  <rect x="70" y="170" width="290" height="60" rx="4" fill="#1e1b4b" stroke="#f43f5e" stroke-opacity="0.4"/>
+  <text x="85" y="195" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#ffffff">Remediate RAG Prompt Injection</text>
+  <text x="85" y="215" font-family="monospace" font-size="10" fill="#fda4af">P0 CRITICAL • HITL Gate Active</text>
+
+  <!-- Q2 Top Right -->
+  <rect x="420" y="100" width="330" height="220" rx="8" fill="#1e1b4b" stroke="#6366f1" stroke-width="2"/>
+  <text x="440" y="130" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#c7d2fe">QUADRANT 2: SCHEDULE</text>
+  <text x="440" y="150" font-family="monospace" font-size="10" fill="#818cf8">IMPORTANT &amp; STRATEGIC (P1)</text>
+  <rect x="440" y="170" width="290" height="60" rx="4" fill="#0f172a" stroke="#6366f1" stroke-opacity="0.4"/>
+  <text x="455" y="195" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#ffffff">OpenTelemetry Distributed Tracing</text>
+  <text x="455" y="215" font-family="monospace" font-size="10" fill="#c7d2fe">P1 HIGH • Assigned to Staff Eng</text>
+
+  <!-- Q3 Bottom Left -->
+  <rect x="50" y="340" width="330" height="220" rx="8" fill="#451a03" stroke="#f59e0b" stroke-width="2"/>
+  <text x="70" y="370" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#fde68a">QUADRANT 3: DELEGATE</text>
+  <text x="70" y="390" font-family="monospace" font-size="10" fill="#f59e0b">URGENT &amp; OPERATIONAL (P2)</text>
+  <rect x="70" y="410" width="290" height="60" rx="4" fill="#1e1b4b" stroke="#f59e0b" stroke-opacity="0.4"/>
+  <text x="85" y="435" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#ffffff">Multi-Region Chaos DR Simulation</text>
+  <text x="85" y="455" font-family="monospace" font-size="10" fill="#fde68a">P2 MEDIUM • Autonomous Worker</text>
+
+  <!-- Q4 Bottom Right -->
+  <rect x="420" y="340" width="330" height="220" rx="8" fill="#0f172a" stroke="#475569" stroke-width="2"/>
+  <text x="440" y="370" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#94a3b8">QUADRANT 4: BACKLOG</text>
+  <text x="440" y="390" font-family="monospace" font-size="10" fill="#64748b">LOW URGENCY &amp; LOW IMPACT (P3)</text>
+  <rect x="440" y="410" width="290" height="60" rx="4" fill="#020617" stroke="#475569" stroke-opacity="0.4"/>
+  <text x="455" y="435" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#cbd5e1">Archive Immutable S3 Logs</text>
+  <text x="455" y="455" font-family="monospace" font-size="10" fill="#94a3b8">P3 LOW • Compliance Retention</text>
+</svg>

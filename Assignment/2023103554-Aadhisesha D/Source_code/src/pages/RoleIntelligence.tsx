@@ -1,0 +1,20 @@
+import { ArrowRight, BriefcaseBusiness, Check, CircleAlert, Crosshair, Layers3, MessageSquareText, Radar, Route, Target, UsersRound } from 'lucide-react';
+import type { PlacementAnalysis } from '../types/placement';
+import type { PageKey } from '../components/Sidebar';
+
+export function RoleIntelligence({ analysis, onNavigate }: { analysis?: PlacementAnalysis; onNavigate:(page:PageKey)=>void }) {
+  if (!analysis) return <Empty onNavigate={onNavigate}/>;
+  const { job, skillGap } = analysis;
+  return <div className="page-stack">
+    <section className="role-hero"><div className="role-hero-copy"><div className="kicker"><Radar size={14}/> ROLE INTELLIGENCE</div><div className="role-title-row"><div><h2>{job.role}</h2><p>{job.company || 'Target opportunity'} · {job.seniority}</p></div><div className="role-score-block"><span>Current match</span><strong>{skillGap.matchPercentage}%</strong></div></div><p className="role-summary">{job.roleSummary}</p><div className="tag-cloud">{job.keywords.slice(0,8).map(k=><span className="tag" key={k}>{k}</span>)}</div></div><div className="role-sigil"><Crosshair size={32}/><span>DECODED</span></div></section>
+    <div className="role-grid">
+      <section className="panel"><div className="panel-heading"><div><div className="section-label">What to focus on</div><h3>Priority preparation areas</h3></div><Target size={18}/></div><div className="focus-stack dense">{job.focusAreas.map((f,i)=><article key={f.area} className="focus-card"><div className="focus-rank">0{i+1}</div><div className="focus-content"><div className="focus-title"><b>{f.area}</b><span className={`priority ${f.priority}`}>{f.priority}</span></div><span>{f.why}</span><div className="topic-line">{f.suggestedTopics.map(t=><span key={t}>{t}</span>)}</div></div></article>)}</div></section>
+      <section className="panel"><div className="panel-heading"><div><div className="section-label">Likely interview journey</div><h3>Assessment rounds</h3></div><Route size={18}/></div><div className="round-list">{job.interviewRounds.map((r,i)=><article className="round-card" key={`${r.round}-${i}`}><div className="round-marker">{i+1}</div><div><b>{r.round}</b><span>{r.purpose}</span><div className="round-types">{r.questionTypes.map(t=><span key={t}>{t}</span>)}</div>{r.exampleQuestions.slice(0,2).map(q=><div className="round-question" key={q}><MessageSquareText size={13}/>{q}</div>)}</div></article>)}</div></section>
+    </div>
+    <div className="role-grid lower-role">
+      <section className="panel"><div className="panel-heading"><div><div className="section-label">Example prompts</div><h3>Questions you should be ready for</h3></div><MessageSquareText size={18}/></div><div className="example-list">{job.exampleQuestions.map((q,i)=><div className="example-item" key={`${q}-${i}`}><span>{String(i+1).padStart(2,'0')}</span><p>{q}</p><ArrowRight size={14}/></div>)}</div></section>
+      <section className="panel"><div className="panel-heading"><div><div className="section-label">Role signals</div><h3>What the description is signaling</h3></div><Layers3 size={18}/></div><div className="signal-list">{job.signals.map(s=><div className="signal-row" key={s}><Check size={14}/><span>{s}</span></div>)}</div><div className="gap-summary"><div><span>Strengths</span><strong>{skillGap.strengths.length}</strong></div><div><span>Partial</span><strong>{skillGap.partialSkills.length}</strong></div><div><span>Missing</span><strong>{skillGap.missingSkills.length}</strong></div></div><button className="primary-btn wide" onClick={()=>onNavigate('training')}>Train for this role <ArrowRight size={15}/></button></section>
+    </div>
+  </div>;
+}
+function Empty({ onNavigate }:{onNavigate:(page:PageKey)=>void}){return <section className="panel empty-state large"><BriefcaseBusiness size={32}/><strong>Analyse a target role first</strong><span>The role intelligence view appears after the agent workflow has a resume and job description.</span><button className="primary-btn" onClick={()=>onNavigate('analyze')}>Start placement run <ArrowRight size={15}/></button></section>}

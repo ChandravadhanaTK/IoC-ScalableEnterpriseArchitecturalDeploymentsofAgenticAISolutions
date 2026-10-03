@@ -1,0 +1,142 @@
+/**
+ * Messages Container Styles
+ * 
+ * Styles for the main messages display area
+ */
+
+/* ===== MESSAGES DISPLAY AREA ===== */
+/**
+ * Messages Container - Scrollable chat history
+ * 
+ * This is where all conversation messages are displayed
+ * Features:
+ * - Flexible height to fill available space
+ * - Vertical scrolling for message history
+ * - Proper spacing between messages
+ * - Custom scrollbar styling
+ * - Light background for readability
+ */
+.messages-container {
+  flex: 1;                                /* Grow to fill space between header and input */
+  overflow-y: auto;                       /* Vertical scroll for message history */
+  padding: 32px;                          /* Comfortable internal spacing */
+  background: #fafafa;                    /* Light background for messages */
+  
+  /* Flexbox layout for message organization */
+  display: flex;
+  flex-direction: column;                 /* Stack messages vertically */
+  gap: 16px;                              /* Consistent spacing between messages */
+}
+
+/**
+ * Custom Scrollbar Styling for Messages Container
+ * 
+ * Provides a clean, minimal scrollbar that doesn't distract from content
+ * Only visible when needed (content overflows)
+ */
+.messages-container::-webkit-scrollbar {
+  width: 6px;                             /* Thin scrollbar width */
+}
+
+.messages-container::-webkit-scrollbar-track {
+  background: transparent;                /* Invisible track */
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 10px;
+}
+
+.messages-container::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* ===== WELCOME MESSAGE ===== */
+/**
+ * Welcome Message Display
+ * 
+ * Shown when there are no messages in the conversation
+ */
+.welcome-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  padding: 40px;
+}
+
+.welcome-content {
+  max-width: 600px;
+  padding: 40px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.welcome-content h2 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #374151; /* Fallback for browsers that don't support background-clip */
+}
+
+.welcome-content p {
+  color: #6b7280;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.welcome-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.welcome-features li {
+  color: #6b7280;
+  margin: 12px 0;
+  padding-left: 24px;
+  position: relative;
+}
+
+.welcome-features li::before {
+  content: "✨";
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Welcome note styling */
+.welcome-note {
+  margin-top: 24px;
+  padding: 16px;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-radius: 12px;
+  color: #92400e;
+  font-size: 0.95rem;
+  border-left: 4px solid #f59e0b;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.1);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .messages-container {
+    padding: 20px 24px;
+    gap: 12px;
+  }
+  
+  .welcome-content h2 {
+    font-size: 1.75rem;
+  }
+  
+  .welcome-content {
+    padding: 20px;
+  }
+}

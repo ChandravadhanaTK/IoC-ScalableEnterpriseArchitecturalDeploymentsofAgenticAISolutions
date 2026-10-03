@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="100%" stop-color="#0b1120"/>
+    </linearGradient>
+    <linearGradient id="q1Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4c0519"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1440" height="900" fill="url(#bgGrad2)"/>
+
+  <!-- Top Nav -->
+  <rect width="1440" height="64" fill="#020617" stroke="#1e293b" stroke-width="1"/>
+  <text x="50" y="38" font-family="system-ui, sans-serif" font-size="16" font-weight="800" fill="#ffffff">🤖 Todo Agent</text>
+  <rect x="180" y="24" width="70" height="20" rx="4" fill="#4f46e5" fill-opacity="0.2" stroke="#6366f1" stroke-width="1"/>
+  <text x="215" y="38" font-family="monospace" font-size="10" font-weight="bold" fill="#a5b4fc" text-anchor="middle">Enterprise</text>
+
+  <rect x="460" y="14" width="520" height="36" rx="10" fill="#0f172a" stroke="#1e293b"/>
+  <text x="506" y="36" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">Tasks</text>
+  <rect x="550" y="18" width="135" height="28" rx="8" fill="#4f46e5"/>
+  <text x="617" y="36" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">📊 Eisenhower Matrix</text>
+  <text x="765" y="36" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">Capstone Deliverables (5)</text>
+  <text x="915" y="36" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">Audit Trail</text>
+
+  <!-- Header -->
+  <text x="32" y="115" font-family="system-ui, sans-serif" font-size="24" font-weight="800" fill="#ffffff">Eisenhower Prioritization Matrix (2x2)</text>
+  <text x="32" y="135" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">Algorithmic quadrant placement balancing Business Impact (1-10) and Urgency (1-10) multi-factor weights.</text>
+  
+  <rect x="1190" y="100" width="218" height="38" rx="10" fill="#7e22ce"/>
+  <text x="1299" y="124" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">✨ Re-Score &amp; Optimize Matrix</text>
+
+  <!-- Axis Indicator Banner -->
+  <rect x="32" y="155" width="1376" height="36" rx="8" fill="#0f172a" stroke="#1e293b"/>
+  <text x="50" y="177" font-family="monospace" font-size="11" font-weight="bold" fill="#f43f5e">▲ HIGH IMPORTANCE / IMPACT</text>
+  <text x="720" y="177" font-family="monospace" font-size="11" font-weight="bold" fill="#818cf8" text-anchor="middle">URGENT ◀ ────────── PRIORITY SPECTRUM ────────── ▶ NOT URGENT</text>
+  <text x="1380" y="177" font-family="monospace" font-size="11" font-weight="bold" fill="#64748b" text-anchor="end">▼ LOW IMPORTANCE / BACKLOG</text>
+
+  <!-- Quadrant 1: DO FIRST (Top-Left) -->
+  <rect x="32" y="205" width="676" height="300" rx="16" fill="url(#q1Grad)" stroke="#f43f5e" stroke-width="2"/>
+  <text x="52" y="235" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">Quadrant 1: DO FIRST</text>
+  <rect x="235" y="220" width="60" height="20" rx="10" fill="#881337" stroke="#f43f5e"/>
+  <text x="265" y="234" font-family="monospace" font-size="10" fill="#fda4af" text-anchor="middle">2 tasks</text>
+  <text x="52" y="255" font-family="system-ui, sans-serif" font-size="11" fill="#fda4af">Urgent &amp; Critical (Impact ≥ 7, Urgency ≥ 7) • P0 &amp; P1 Hotfixes</text>
+
+  <!-- Task in Q1 -->
+  <rect x="52" y="270" width="636" height="90" rx="10" fill="#0f172a" stroke="#f43f5e" stroke-opacity="0.6"/>
+  <text x="70" y="295" font-family="monospace" font-size="10" fill="#fda4af">Imp: 10 • Urg: 10 • P0 CRITICAL • Due Today</text>
+  <text x="70" y="320" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#ffffff">Remediate Prompt Injection Vector in RAG Pipeline</text>
+  <rect x="550" y="325" width="125" height="24" rx="6" fill="#d97706"/>
+  <text x="612" y="341" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">⚠ HITL Gate Active</text>
+
+  <!-- Task 2 in Q1 -->
+  <rect x="52" y="375" width="636" height="90" rx="10" fill="#0f172a" stroke="#f59e0b" stroke-opacity="0.5"/>
+  <text x="70" y="400" font-family="monospace" font-size="10" fill="#fde68a">Imp: 9 • Urg: 8 • P1 HIGH • Due Tomorrow</text>
+  <text x="70" y="425" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#ffffff">Deploy Dynamic Token Rate-Limiter for LLM Failover</text>
+  <rect x="565" y="430" width="110" height="24" rx="6" fill="#4f46e5"/>
+  <text x="620" y="446" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">⚡ In Progress</text>
+
+  <!-- Quadrant 2: SCHEDULE (Top-Right) -->
+  <rect x="732" y="205" width="676" height="300" rx="16" fill="#1e1b4b" fill-opacity="0.4" stroke="#6366f1" stroke-width="2"/>
+  <text x="752" y="235" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">Quadrant 2: SCHEDULE</text>
+  <rect x="940" y="220" width="60" height="20" rx="10" fill="#312e81" stroke="#6366f1"/>
+  <text x="970" y="234" font-family="monospace" font-size="10" fill="#c7d2fe" text-anchor="middle">2 tasks</text>
+  <text x="752" y="255" font-family="system-ui, sans-serif" font-size="11" fill="#c7d2fe">Important &amp; Strategic (Impact ≥ 7, Urgency &lt; 7) • Long-Term Roadmaps</text>
+
+  <!-- Task in Q2 -->
+  <rect x="752" y="270" width="636" height="90" rx="10" fill="#0f172a" stroke="#6366f1" stroke-opacity="0.5"/>
+  <text x="770" y="295" font-family="monospace" font-size="10" fill="#c7d2fe">Imp: 8 • Urg: 6 • P1 HIGH • Due Oct 7</text>
+  <text x="770" y="320" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#ffffff">Implement Distributed Tracing Waterfall with OpenTelemetry</text>
+  <text x="770" y="342" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Assignee: Elena Rostova • Status: To Do</text>
+
+  <!-- Task 2 in Q2 -->
+  <rect x="752" y="375" width="636" height="90" rx="10" fill="#0f172a" stroke="#10b981" stroke-opacity="0.5"/>
+  <text x="770" y="400" font-family="monospace" font-size="10" fill="#6ee7b7">Imp: 7 • Urg: 7 • P2 MEDIUM • Completed</text>
+  <text x="770" y="425" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#ffffff">Automate Multi-Factor Eisenhower Priority Scoring Engine</text>
+  <text x="770" y="442" font-family="monospace" font-size="10" fill="#10b981">✓ Completed by AI Agent • Verified in Audit Trail</text>
+
+  <!-- Quadrant 3: DELEGATE (Bottom-Left) -->
+  <rect x="32" y="525" width="676" height="290" rx="16" fill="#451a03" fill-opacity="0.3" stroke="#f59e0b" stroke-width="2"/>
+  <text x="52" y="555" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">Quadrant 3: DELEGATE</text>
+  <text x="52" y="575" font-family="system-ui, sans-serif" font-size="11" fill="#fde68a">Urgent &amp; Operational (Impact &lt; 7, Urgency ≥ 7) • Autonomous Delegations</text>
+  <rect x="52" y="590" width="636" height="90" rx="10" fill="#0f172a" stroke="#f59e0b" stroke-opacity="0.4"/>
+  <text x="70" y="615" font-family="monospace" font-size="10" fill="#fde68a">Imp: 7 • Urg: 4 • P2 MEDIUM • Due Oct 10</text>
+  <text x="70" y="640" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#ffffff">Conduct Multi-Region Disaster Recovery &amp; Chaos Simulation (RTO &lt; 5m)</text>
+  <text x="70" y="662" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Assignee: Samantha Vance • Tool: ChaosMeshOrchestrator</text>
+
+  <!-- Quadrant 4: BACKLOG (Bottom-Right) -->
+  <rect x="732" y="525" width="676" height="290" rx="16" fill="#0f172a" stroke="#475569" stroke-width="2"/>
+  <text x="752" y="555" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">Quadrant 4: BACKLOG / CHORES</text>
+  <text x="752" y="575" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">Low Urgency &amp; Low Impact (Impact &lt; 7, Urgency &lt; 7) • Compliance Archival</text>
+  <rect x="752" y="590" width="636" height="90" rx="10" fill="#020617" stroke="#334155"/>
+  <text x="770" y="615" font-family="monospace" font-size="10" fill="#64748b">Imp: 4 • Urg: 2 • P3 LOW • Due Oct 25</text>
+  <text x="770" y="640" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#ffffff">Archive Historical Audit Logs to Immutable WORM Storage S3 Bucket</text>
+  <text x="770" y="662" font-family="system-ui, sans-serif" font-size="10" fill="#64748b">Assignee: Marcus Brody • Retention: 7 Years</text>
+
+  <!-- Footer -->
+  <rect y="840" width="1440" height="60" fill="#020617" stroke="#1e293b" stroke-width="1"/>
+  <text x="40" y="875" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">Candidate: <tspan fill="#ffffff" font-weight="bold">Rohini C G</tspan> (2023103530) • Platform: <tspan fill="#818cf8">TodoAgent Enterprise Edition</tspan></text>
+</svg>

@@ -1,0 +1,27 @@
+# Local secrets and environment files
+.env
+.env.*
+!.env.example
+!backend/.env.example
+backend/.env
+
+# Dependencies and generated build output
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+frontend/dist/
+
+# npm logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
