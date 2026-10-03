@@ -195,6 +195,240 @@ This layered architecture separates user interface, authentication, AI reasoning
 - **Firebase Hosting** – Hosts the deployed web application.
 - **Monitoring Dashboard** – Displays application and AI usage metrics.
 
-  
+
+ ## 1.4 Trust Boundaries
+
+- **User → Application:** Users access the application through authenticated sessions.
+- **Application → Firebase:** Only authenticated users can access their own plant and care data.
+- **Application → Gemini AI:** User queries are sent to the AI service for generating plant-care responses.
+- **AI → Database:** AI actions are validated and require user confirmation before modifying stored data.
+- **Database:** Firestore security rules prevent users from accessing other users' data.
+
+## Integrations
+
+- **Firebase Authentication** – Handles user signup, login, and authentication.
+- **Cloud Firestore** – Stores plants, care tasks, care history, and AI interaction data.
+- **Gemini AI** – Provides AI-powered plant-care recommendations and agentic assistance.
+- **Firebase Hosting** – Hosts and serves the deployed PlantCare AI web application.
+
+  ------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ## 2.1 Agent Workflow Design
+
+  ![PlantCare AI Agent Workflow Design](./PlantCare AI – Agent Workflow Design.png)
+
+  ### 2.2 Roles
+
+- **User:** Provides plant-care requests and confirms important actions.
+- **AI Agent:** Understands requests, analyzes plant data, selects tools, and generates recommendations.
+- **Agent Tools:** Retrieve plant data, care tasks, history, and create or update care plans.
+- **Firebase:** Stores and manages user-specific plant and care data.
+
+  ### 2.3 States
+
+1. **Request Received** – User submits a request.
+2. **Intent Understanding** – AI identifies what the user needs.
+3. **Data Retrieval** – Relevant plant and care data is retrieved.
+4. **Analysis** – AI analyzes the information.
+5. **Action Decision** – Agent decides whether a tool/action is required.
+6. **User Confirmation** – Required before modifying stored data.
+7. **Action Execution** – Approved changes are made.
+8. **Response** – Final recommendation or result is shown to the user.
+
+   ### 2.4 Tools
+
+- `getUserPlants()` – Retrieves the user's plants.
+- `getPlantDetails()` – Retrieves details of a selected plant.
+- `getUpcomingCareTasks()` – Retrieves upcoming and overdue tasks.
+- `getCareHistory()` – Retrieves previous care activities.
+- `createCarePlan()` – Creates a personalized care plan.
+- `createVacationPlan()` – Creates a care plan for a specified vacation period.
+- `updateCareTask()` – Updates a care task after confirmation.
+
+  ### 2.5 Handoffs
+
+  The AI Agent routes requests to the appropriate tool based on user intent.
+
+- Plant information request → Plant Data Tool
+- Care schedule request → Care Task Tool
+- History request → Care History Tool
+- Care plan request → Care Plan Tool
+- Vacation request → Vacation Planning Tool
+- Data modification request → Approval → Update Tool
+
+  ### 2.6 Approvals
+
+  The agent requires user confirmation before modifying stored data.
+
+  Example:
+
+  User: "Update my Money Plant's watering schedule."
+
+  Agent: "I can update the watering schedule. Would you like me to proceed?"
+
+- **Confirm** → Execute the update.
+- **Cancel** → Do not modify the data.
+
+  ### 2.7 Failure Paths
+
+- **AI Failure:** Show an error message and allow the user to retry.
+- **Database Failure:** Inform the user that the data could not be retrieved or updated.
+- **Invalid Request:** Ask the user to provide more information.
+- **Tool Failure:** Return a safe response without exposing internal errors.
+- **Unauthorized Access:** Block access to data belonging to other users.
+- **Cancelled Approval:** Stop the requested modification and keep the existing data unchanged.
+
+  -----------------------------------------------------------------------------------------------------------------------------------------------
+
+## 3.1 Deployment Strategy
+
+### 3.2 Runtime
+
+- React + Vite frontend runs as a production web application.
+- Firebase Hosting serves the built application.
+- Firebase Authentication handles user authentication.
+- Cloud Firestore provides persistent data storage.
+- Gemini AI provides AI-powered plant-care assistance.
+
+### 3.3 Scaling
+
+- Firebase Hosting automatically handles web traffic.
+- Cloud Firestore can scale as the number of users and plants increases.
+- AI requests are processed through the Gemini API based on user demand.
+
+### 3.4 Resilience
+
+- Firebase provides managed hosting and database services.
+- Application errors are handled with user-friendly error messages.
+- Failed AI or database requests can be retried.
+- User data is persisted in Firestore to prevent loss during page refreshes.
+
+### 3.5 Environments
+
+- **Development:** Local development and testing using Vite.
+- **Production:** Deployed application hosted on Firebase.
+- Environment variables are used for configuration and API secrets.
+
+### 3.6 Release
+
+1. Test the application locally.
+2. Run the production build using `npm run build`.
+3. Verify the generated `dist` folder.
+4. Deploy using Firebase CLI.
+5. Verify the live application after deployment.
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+## 4.1 Security Model
+
+### 4.2 Identity
+
+- Firebase Authentication is used for user registration and login.
+- Each authenticated user is assigned a unique user ID.
+- Protected application features require authentication.
+
+### 4.3 Authorization
+
+- Firestore Security Rules control access to stored data.
+- Users can access and modify only their own plants, care tasks, and care records.
+- Unauthorized requests to other users' data are blocked.
+
+### 4.4 Secrets
+
+- API keys and sensitive configuration are stored in environment variables.
+- Secrets are never hard-coded in the source code.
+- `.env` files containing real credentials are excluded from GitHub.
+
+### 4.5 Privacy
+
+- User plant and care data is isolated by user ID.
+- Only the information required to provide the requested service is accessed.
+- The AI assistant should not access another user's private data.
+
+### 4.6 Guardrails
+
+- AI tool inputs are validated before execution.
+- The agent does not silently modify important user data.
+- User confirmation is required before data-changing actions.
+- The AI uses cautious language for uncertain plant-care recommendations.
+- Internal errors, credentials, and system details are not exposed to users.
+
+### 4.7 Audit
+
+- Important AI interactions can be recorded with request type, timestamp, and success/failure status.
+- Care activities are stored as care records.
+- Database changes are associated with the authenticated user.
+- Monitoring metrics provide visibility into AI and application activity.
+
+  ------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ## 5 Monitoring Dashboard Design
+
+### 5.1 Health
+
+Monitor the overall health of the application and its main services.
+
+- Authentication status
+- Firestore/database status
+- AI service status
+- Application availability
+- Failed requests and errors
+
+### 5.2 Trace
+
+Track important application and AI activities.
+
+- AI request type
+- Request timestamp
+- Tool/function used
+- Request success or failure
+- Response duration
+- Recent care activities
+
+### 5.3 Quality
+
+Measure the quality and reliability of the AI assistant.
+
+- Successful AI responses
+- Failed AI requests
+- Response time
+- Care-plan generation success
+- User feedback where available
+
+### 5.4 Safety
+
+Monitor security and AI safety controls.
+
+- Unauthorized access attempts
+- Failed authentication
+- Blocked requests
+- Data modification confirmations
+- AI tool failures
+- Sensitive information protection
+
+### 5.5 Cost
+
+Track resource usage to help control operational costs.
+
+- Number of AI requests
+- AI API usage
+- Database operations
+- Hosting usage
+- Estimated AI service cost where available
+
+### 5.6 Business Outcomes
+
+Track whether the application is helping users manage their plants effectively.
+
+- Total registered users
+- Total plants managed
+- Care tasks created
+- Care tasks completed
+- Plants requiring attention
+- AI care plans generated
+- Vacation plans generated
+
+The monitoring dashboard provides a centralized view of application health, AI activity, safety, resource usage, and user outcomes.
 
   
