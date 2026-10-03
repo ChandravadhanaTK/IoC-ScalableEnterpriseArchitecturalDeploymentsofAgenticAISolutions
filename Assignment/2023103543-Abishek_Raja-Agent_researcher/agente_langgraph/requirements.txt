@@ -1,0 +1,9 @@
+langchain
+langchain-core
+langchain-openai
+langgraph
+mcp[cli]>=1.0.0
+fastapi
+uvicorn
+pydantic
+python-dotenv

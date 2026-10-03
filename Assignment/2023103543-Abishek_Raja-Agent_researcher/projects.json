@@ -1,0 +1,37 @@
+[
+  {
+    "id": "ec3c48645ceb",
+    "name": "realidadvirtual",
+    "created_at": "2026-04-07 00:16:39"
+  },
+  {
+    "id": "3808d3ad13c9",
+    "name": "fintech",
+    "created_at": "2026-04-07 00:38:43"
+  },
+  {
+    "id": "82ac811bcb2a",
+    "name": "trabajo",
+    "created_at": "2026-04-25 01:12:33"
+  },
+  {
+    "id": "7e541f05eb08",
+    "name": "educacionia",
+    "created_at": "2026-04-26 19:14:19"
+  },
+  {
+    "id": "ef236fdb27b5",
+    "name": "trabajoremoto",
+    "created_at": "2026-04-26 20:03:32"
+  },
+  {
+    "id": "189f466abe02",
+    "name": "iafinan",
+    "created_at": "2026-04-26 23:23:05"
+  },
+  {
+    "id": "44effcccf29f",
+    "name": "ciber",
+    "created_at": "2026-04-26 23:31:29"
+  }
+]
