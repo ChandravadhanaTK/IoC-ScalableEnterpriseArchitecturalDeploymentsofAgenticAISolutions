@@ -70,3 +70,10 @@ The detailed root guides describe the inspected implementation. Existing compone
 No automated test suite, CI configuration, container configuration, or production deployment setup was found. Authentication and authorization are absent. Project filters organize records but do not enforce access control. The PDF cache is shared by URL across projects. Project/chat deletion does not erase all associated data; see the detailed guides.
 
 No license file was found. A license grant cannot be established from the previous README badge alone.
+
+# 🚀 Deployment Information: PatchCraft AI
+
+### 🌐 Live Application URL
+**Deployment Link:** [(https://huggingface.co/spaces/iyyansoft/Blog-generator)](https://huggingface.co/spaces/iyyansoft/Blog-generator)
+
+
