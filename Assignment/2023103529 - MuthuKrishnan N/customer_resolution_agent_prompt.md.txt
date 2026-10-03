@@ -1,0 +1,1597 @@
+# Enterprise AI Customer Complaint Resolution Platform
+
+## Application Generation Prompt
+
+You are a senior full-stack engineer and enterprise AI architect.
+
+Build a complete, runnable, production-oriented academic prototype
+called:
+
+**Enterprise AI Customer Complaint Resolution & Support Agent**
+
+The application demonstrates how Agentic AI can be deployed in an
+enterprise environment to analyze customer complaints, retrieve company
+policies, inspect order information, determine an appropriate
+resolution, execute permitted actions through tools, request human
+approval for sensitive actions, and maintain audit/monitoring
+information.
+
+The project must be functional, easy to run locally, cleanly structured,
+and suitable for an academic capstone demonstration.
+
+------------------------------------------------------------------------
+
+# 1. PRIMARY OBJECTIVE
+
+Build a web application where a customer can:
+
+1.  Log in.
+2.  Submit a complaint or support request.
+3.  Enter an order ID when applicable.
+4.  Have an AI agent analyze the complaint.
+5.  Classify the complaint.
+6.  Retrieve relevant company policies using RAG.
+7.  Retrieve order/customer information using tools.
+8.  Determine whether the complaint can be automatically resolved.
+9.  Execute permitted actions such as:
+    -   refund request
+    -   replacement request
+    -   support ticket creation
+    -   order-status response
+10. Escalate sensitive or uncertain cases to a human support agent.
+11. Track the complaint status.
+12. View the final resolution and explanation.
+
+The application must also provide an **enterprise monitoring dashboard**
+for administrators/support managers.
+
+------------------------------------------------------------------------
+
+# 2. IMPORTANT IMPLEMENTATION PRINCIPLE
+
+Do not build this as a simple chatbot.
+
+It must clearly demonstrate **Agentic AI** through:
+
+-   multiple specialized agents
+-   agent orchestration
+-   tool/function calling
+-   retrieval-augmented generation
+-   state transitions
+-   conditional decisions
+-   human-in-the-loop approval
+-   failure handling
+-   audit logging
+-   monitoring
+
+The application should demonstrate the flow:
+
+**User -\> Supervisor Agent -\> Specialized Agents -\> Tools/RAG -\>
+Decision -\> Approval or Automatic Action -\> Resolution -\> Audit**
+
+------------------------------------------------------------------------
+
+# 3. RECOMMENDED TECHNOLOGY STACK
+
+Use the following stack unless there is a strong technical reason to
+change it.
+
+## Frontend
+
+-   React
+-   Vite
+-   JavaScript
+-   Plain CSS
+-   Axios
+-   React Router
+
+Do NOT use Tailwind CSS.
+
+## Backend
+
+-   Python
+-   FastAPI
+-   Pydantic
+-   Uvicorn
+
+## AI
+
+Implement an LLM abstraction layer so that the application can work with
+a configurable LLM provider.
+
+Support environment variables such as:
+
+``` env
+LLM_API_KEY=
+LLM_MODEL=
+```
+
+If an API key is not configured, provide a **mock/demo AI mode** so the
+complete application can still be demonstrated locally.
+
+The code should not hard-code API keys.
+
+## Database
+
+Use MongoDB.
+
+Use environment variables:
+
+``` env
+MONGODB_URI=
+DATABASE_NAME=
+```
+
+If MongoDB is unavailable, provide a simple demo/mock data mode so that
+the UI remains demonstrable.
+
+## Vector Store
+
+Use ChromaDB for the RAG knowledge base.
+
+The system must support ingestion of policy documents from:
+
+``` text
+data/policies/
+```
+
+## Authentication
+
+Use JWT-based authentication.
+
+Implement roles:
+
+-   CUSTOMER
+-   SUPPORT_AGENT
+-   ADMIN
+
+## Deployment
+
+Provide Docker support and a docker-compose configuration.
+
+------------------------------------------------------------------------
+
+# 4. APPLICATION MODULES
+
+Build the application using the following modules.
+
+## Module A - Authentication
+
+Create:
+
+-   Login page
+-   Registration/demo login
+-   JWT authentication
+-   Role-based authorization
+-   Logout
+
+For the academic prototype, provide demo users.
+
+Example:
+
+``` text
+customer@example.com
+support@example.com
+admin@example.com
+```
+
+Do not store real passwords.
+
+Provide documented demo credentials through `.env.example` or seed data.
+
+------------------------------------------------------------------------
+
+# 5. CUSTOMER INTERFACE
+
+Create a clean customer dashboard.
+
+The dashboard should contain:
+
+-   Welcome section
+-   New Complaint button
+-   My Complaints
+-   Complaint status
+-   Recent resolutions
+
+Complaint form:
+
+``` text
+Complaint Title
+Complaint Description
+Order ID
+Category (optional)
+Attachment (optional)
+```
+
+Example complaint:
+
+> My order arrived damaged. I received the package two days ago and
+> would like a replacement.
+
+After submission, show:
+
+``` text
+Complaint ID
+Current Status
+Detected Category
+Priority
+AI Analysis
+Resolution
+```
+
+Do not expose internal prompts, secrets, or sensitive internal agent
+information to the customer.
+
+------------------------------------------------------------------------
+
+# 6. SUPPORT AGENT INTERFACE
+
+Create a support dashboard.
+
+Display:
+
+-   Open complaints
+-   Pending approvals
+-   Escalated complaints
+-   Complaint details
+-   AI recommendation
+-   Retrieved policy references
+-   Order information
+-   Agent execution history
+
+Support agents must be able to:
+
+-   approve
+-   reject
+-   modify
+-   escalate
+-   close complaints
+
+Sensitive actions must require explicit human approval.
+
+------------------------------------------------------------------------
+
+# 7. ADMIN MONITORING DASHBOARD
+
+Create an enterprise monitoring dashboard.
+
+Show:
+
+### Operational metrics
+
+-   Total complaints
+-   Open complaints
+-   Resolved complaints
+-   Escalated complaints
+-   Pending approvals
+-   Failed workflows
+
+### AI metrics
+
+-   Agent execution count
+-   Agent success rate
+-   Average response time
+-   Average workflow duration
+-   Number of tool calls
+-   Number of RAG retrievals
+
+### Business metrics
+
+-   Automatic resolution rate
+-   Human escalation rate
+-   Refund count
+-   Replacement count
+-   Average resolution time
+
+### Safety/security metrics
+
+-   Authentication failures
+-   Unauthorized requests
+-   Blocked tool calls
+-   Prompt-injection attempts detected
+-   Sensitive actions requiring approval
+
+### Cost metrics
+
+If the selected LLM provider exposes token usage:
+
+-   input tokens
+-   output tokens
+-   estimated cost
+
+Otherwise display simulated/demo values clearly labeled as demo metrics.
+
+Use cards, tables and simple charts.
+
+------------------------------------------------------------------------
+
+# 8. AGENT ARCHITECTURE
+
+Implement the following agents.
+
+## 8.1 Supervisor Agent
+
+The Supervisor Agent controls the complete workflow.
+
+Responsibilities:
+
+-   receive complaint
+-   create workflow state
+-   determine which agents are required
+-   invoke specialized agents
+-   evaluate results
+-   determine next step
+-   request human approval when required
+-   handle failures
+-   produce final resolution
+
+It should NOT directly perform unrestricted business actions.
+
+------------------------------------------------------------------------
+
+## 8.2 Intent Classification Agent
+
+Responsibilities:
+
+-   classify complaint
+-   determine customer intent
+-   determine priority
+-   extract relevant entities
+
+Categories:
+
+``` text
+REFUND
+REPLACEMENT
+DAMAGED_PRODUCT
+WRONG_PRODUCT
+ORDER_STATUS
+PAYMENT_ISSUE
+DELIVERY_ISSUE
+PRODUCT_ISSUE
+GENERAL_SUPPORT
+OTHER
+```
+
+Example output:
+
+``` json
+{
+  "category": "DAMAGED_PRODUCT",
+  "intent": "REQUEST_REPLACEMENT",
+  "priority": "MEDIUM",
+  "order_id": "ORD-1001"
+}
+```
+
+Use structured Pydantic models for agent outputs.
+
+------------------------------------------------------------------------
+
+# 9. ORDER AGENT
+
+The Order Agent retrieves order information through tools.
+
+Create mock tools:
+
+``` text
+get_order_details(order_id)
+get_order_status(order_id)
+get_customer_orders(customer_id)
+```
+
+Example order:
+
+``` json
+{
+  "order_id": "ORD-1001",
+  "customer_id": "CUS-001",
+  "product": "Laptop Stand",
+  "amount": 2499,
+  "status": "DELIVERED",
+  "delivery_date": "2026-09-28"
+}
+```
+
+The tool layer must validate authorization before exposing
+customer/order data.
+
+A customer must only be able to access their own orders.
+
+Support agents can access orders associated with assigned/open
+complaints.
+
+Admins can access all demo data.
+
+------------------------------------------------------------------------
+
+# 10. POLICY / RAG AGENT
+
+Implement Retrieval-Augmented Generation.
+
+Store sample company policy documents in:
+
+``` text
+data/policies/
+```
+
+Include at least:
+
+``` text
+refund_policy.md
+replacement_policy.md
+shipping_policy.md
+warranty_policy.md
+customer_support_policy.md
+```
+
+Example policy:
+
+``` text
+Replacement Policy
+
+A customer may request replacement within 7 days of delivery
+for damaged or incorrect products.
+
+Proof of damage may be required.
+
+Orders above the configured high-value threshold require
+support-agent approval.
+```
+
+The Policy Agent should:
+
+1.  receive the complaint context
+2.  generate a retrieval query
+3.  search ChromaDB
+4.  retrieve relevant policy chunks
+5.  return policy evidence
+6.  provide citations/references to the policy document names
+
+Never allow the LLM to invent company policy when relevant policy
+documents are available.
+
+------------------------------------------------------------------------
+
+# 11. RESOLUTION AGENT
+
+The Resolution Agent combines:
+
+-   complaint information
+-   intent classification
+-   order information
+-   policy evidence
+
+It determines a proposed resolution.
+
+Possible resolutions:
+
+``` text
+AUTO_REFUND
+AUTO_REPLACEMENT
+ORDER_STATUS_RESPONSE
+CREATE_SUPPORT_TICKET
+HUMAN_REVIEW
+REJECT_REQUEST
+REQUEST_MORE_INFORMATION
+```
+
+Example:
+
+``` json
+{
+  "resolution": "AUTO_REPLACEMENT",
+  "reason": "Product was reported damaged within the 7-day replacement period.",
+  "requires_approval": false,
+  "confidence": 0.91
+}
+```
+
+Do not use confidence scores as fake factual probabilities. If the LLM
+produces a confidence value, clearly treat it as an internal model
+estimate.
+
+------------------------------------------------------------------------
+
+# 12. ACTION / TOOL AGENT
+
+Implement business tools:
+
+``` text
+create_refund_request()
+create_replacement_request()
+create_support_ticket()
+update_complaint_status()
+send_customer_notification()
+```
+
+Each tool must:
+
+1.  validate its inputs
+2.  verify authorization
+3.  check policy constraints
+4.  record an audit event
+5.  execute the action
+6.  return structured output
+
+Example:
+
+``` json
+{
+  "success": true,
+  "action": "REPLACEMENT_CREATED",
+  "reference_id": "REP-10042"
+}
+```
+
+------------------------------------------------------------------------
+
+# 13. HUMAN-IN-THE-LOOP
+
+Sensitive operations must not be automatically executed.
+
+For example:
+
+``` text
+Refund amount > ₹5,000
+        ↓
+Human approval required
+```
+
+Also require approval for:
+
+-   high-value refunds
+-   unusual requests
+-   policy conflicts
+-   low-confidence/uncertain cases
+-   repeated failed tool calls
+-   requests involving suspicious activity
+
+Workflow:
+
+``` text
+AI Recommendation
+       ↓
+Approval Required
+       ↓
+Support Agent
+   ┌────┴────┐
+ Approve   Reject
+   │          │
+   ▼          ▼
+Execute    Escalate/Close
+```
+
+The approval decision must be stored in the audit log.
+
+------------------------------------------------------------------------
+
+# 14. AGENT STATE MACHINE
+
+Represent workflow states explicitly.
+
+Use states such as:
+
+``` text
+RECEIVED
+CLASSIFYING
+RETRIEVING_POLICY
+FETCHING_ORDER
+ANALYZING
+AWAITING_APPROVAL
+EXECUTING_ACTION
+RESOLVED
+ESCALATED
+FAILED
+CLOSED
+```
+
+The backend must persist the current state.
+
+The UI should show a visual workflow/timeline.
+
+------------------------------------------------------------------------
+
+# 15. FAILURE HANDLING
+
+Implement robust failure paths.
+
+Handle:
+
+-   LLM timeout
+-   invalid LLM output
+-   unavailable database
+-   vector database failure
+-   tool failure
+-   missing order ID
+-   unauthorized order access
+-   policy not found
+-   duplicate action request
+-   human approval rejection
+
+Use:
+
+-   validation
+-   timeout
+-   retry with limits
+-   structured errors
+-   fallback
+-   escalation
+
+Do not implement infinite retries.
+
+Example:
+
+``` text
+Tool Failure
+    ↓
+Retry once/twice
+    ↓
+Still failing?
+    ↓
+Create escalation
+    ↓
+Human Support
+```
+
+------------------------------------------------------------------------
+
+# 16. SECURITY MODEL
+
+Implement/document the following.
+
+## Authentication
+
+JWT authentication.
+
+## Authorization
+
+RBAC:
+
+``` text
+CUSTOMER
+SUPPORT_AGENT
+ADMIN
+```
+
+## Customer access
+
+A customer can only:
+
+-   view own profile
+-   view own orders
+-   create complaints
+-   view own complaints
+
+## Support agent
+
+Can:
+
+-   view assigned/open complaints
+-   view related order data
+-   approve eligible actions
+-   update complaint status
+
+## Admin
+
+Can:
+
+-   view monitoring dashboard
+-   manage demo policies
+-   view audit logs
+-   view system metrics
+
+## Secrets
+
+Never hard-code:
+
+-   LLM API keys
+-   database credentials
+-   JWT secret
+
+Use `.env`.
+
+Provide `.env.example`.
+
+## Data protection
+
+Do not log:
+
+-   passwords
+-   JWT tokens
+-   API keys
+-   full payment information
+
+Mask sensitive values in logs.
+
+------------------------------------------------------------------------
+
+# 17. AI SECURITY / GUARDRAILS
+
+Implement basic protections against:
+
+## Prompt injection
+
+Detect suspicious instructions such as attempts to:
+
+-   reveal system prompts
+-   ignore safety rules
+-   expose secrets
+-   bypass approval
+-   execute unauthorized tools
+
+Do not rely only on the LLM for authorization.
+
+Authorization must be enforced by backend code.
+
+## Tool restrictions
+
+The LLM should never be able to directly execute arbitrary code.
+
+Only registered tools may be called.
+
+## Data boundaries
+
+Do not allow a customer to retrieve another customer's information
+through an LLM query.
+
+Enforce this at the API/database/tool layer.
+
+------------------------------------------------------------------------
+
+# 18. AUDIT LOGGING
+
+Create an audit log collection/table.
+
+Record:
+
+``` text
+timestamp
+user_id
+role
+complaint_id
+agent
+action
+tool
+result
+status
+approval_required
+approval_status
+error
+```
+
+Example:
+
+``` json
+{
+  "user_id": "CUS-001",
+  "complaint_id": "CMP-1024",
+  "agent": "ResolutionAgent",
+  "action": "CREATE_REPLACEMENT",
+  "status": "SUCCESS",
+  "approval_required": false
+}
+```
+
+Never store secrets in audit logs.
+
+------------------------------------------------------------------------
+
+# 19. DATABASE MODELS
+
+Create models/collections for:
+
+### User
+
+``` text
+id
+name
+email
+password_hash
+role
+created_at
+```
+
+### Order
+
+``` text
+id
+order_id
+customer_id
+product
+amount
+status
+delivery_date
+```
+
+### Complaint
+
+``` text
+id
+customer_id
+order_id
+title
+description
+category
+priority
+status
+resolution
+created_at
+updated_at
+```
+
+### Approval
+
+``` text
+id
+complaint_id
+requested_action
+reason
+status
+reviewed_by
+reviewed_at
+```
+
+### AuditLog
+
+``` text
+id
+timestamp
+user_id
+complaint_id
+agent
+action
+status
+metadata
+```
+
+### AgentExecution
+
+``` text
+id
+complaint_id
+agent_name
+started_at
+completed_at
+status
+duration_ms
+error
+```
+
+------------------------------------------------------------------------
+
+# 20. API DESIGN
+
+Implement REST APIs such as:
+
+``` text
+POST   /api/auth/login
+POST   /api/auth/register
+
+POST   /api/complaints
+GET    /api/complaints
+GET    /api/complaints/{id}
+
+POST   /api/complaints/{id}/process
+
+GET    /api/complaints/{id}/timeline
+
+GET    /api/orders/{order_id}
+
+GET    /api/approvals
+POST   /api/approvals/{id}/approve
+POST   /api/approvals/{id}/reject
+
+GET    /api/admin/metrics
+GET    /api/admin/audit-logs
+GET    /api/admin/agent-metrics
+
+GET    /api/health
+```
+
+Protect every endpoint with appropriate authorization.
+
+------------------------------------------------------------------------
+
+# 21. FRONTEND PAGES
+
+Create:
+
+``` text
+/login
+/register
+/customer/dashboard
+/customer/complaints
+/customer/complaints/new
+/customer/complaints/:id
+
+/support/dashboard
+/support/complaints/:id
+/support/approvals
+
+/admin/dashboard
+/admin/audit-logs
+/admin/agent-metrics
+```
+
+Use a professional enterprise UI.
+
+Do not overdesign it.
+
+Use plain CSS.
+
+Make the interface responsive.
+
+------------------------------------------------------------------------
+
+# 22. COMPLAINT DETAILS PAGE
+
+This should be the main demonstration screen.
+
+Show:
+
+### Complaint
+
+``` text
+Complaint ID
+Title
+Description
+Order ID
+Customer
+Status
+Priority
+```
+
+### AI Analysis
+
+``` text
+Detected Category
+Customer Intent
+Relevant Policy
+Order Information
+Proposed Resolution
+Reason
+Approval Required
+```
+
+### Workflow Timeline
+
+``` text
+✓ Complaint received
+✓ Intent classified
+✓ Order retrieved
+✓ Policy retrieved
+✓ Resolution generated
+✓ Approval checked
+✓ Action executed
+✓ Customer notified
+```
+
+### Audit
+
+Show a simplified activity timeline.
+
+Do not expose private system prompts.
+
+------------------------------------------------------------------------
+
+# 23. SAMPLE SCENARIOS
+
+Seed the application with test scenarios.
+
+## Scenario 1 - Automatic replacement
+
+Customer:
+
+> My product arrived damaged yesterday. I want a replacement.
+
+Expected:
+
+``` text
+Category: DAMAGED_PRODUCT
+Order: Delivered
+Policy: Replacement eligible
+Resolution: Replacement
+Approval: Not required
+Status: RESOLVED
+```
+
+## Scenario 2 - High-value refund
+
+Customer:
+
+> I want a refund for my ₹25,000 order.
+
+Expected:
+
+``` text
+Resolution: REFUND
+Approval: REQUIRED
+Status: AWAITING_APPROVAL
+```
+
+## Scenario 3 - Order status
+
+Customer:
+
+> Where is my order ORD-1005?
+
+Expected:
+
+``` text
+Order Agent retrieves order
+↓
+Return current status
+↓
+No financial action
+↓
+Resolve
+```
+
+## Scenario 4 - Missing order ID
+
+Customer:
+
+> I want a replacement for my product.
+
+Expected:
+
+``` text
+Missing information detected
+↓
+Ask customer for order ID
+```
+
+## Scenario 5 - Unauthorized access
+
+Customer tries to query another customer's order.
+
+Expected:
+
+``` text
+Authorization failure
+↓
+Do not expose order information
+↓
+Audit security event
+```
+
+------------------------------------------------------------------------
+
+# 24. RAG IMPLEMENTATION
+
+Create a simple document ingestion script:
+
+``` text
+scripts/ingest_policies.py
+```
+
+It should:
+
+1.  read documents from `data/policies/`
+2.  split them into chunks
+3.  generate embeddings
+4.  store vectors in ChromaDB
+5.  preserve document metadata
+
+Metadata should include:
+
+``` text
+document_name
+section
+chunk_id
+```
+
+The Policy Agent must return source metadata.
+
+Example:
+
+``` text
+Sources:
+- replacement_policy.md
+- customer_support_policy.md
+```
+
+------------------------------------------------------------------------
+
+# 25. MOCK MODE
+
+The application must be runnable without paid external services.
+
+Implement:
+
+``` env
+DEMO_MODE=true
+```
+
+When demo mode is enabled:
+
+-   use seeded users
+-   use seeded orders
+-   use seeded complaints
+-   use local policy documents
+-   use deterministic/mock AI responses where necessary
+-   use mock business tools
+
+When `DEMO_MODE=false`, use the configured LLM provider.
+
+This makes the project reliable during a college demonstration.
+
+------------------------------------------------------------------------
+
+# 26. OBSERVABILITY
+
+Implement backend logging.
+
+Every agent execution should record:
+
+``` text
+agent_name
+complaint_id
+start_time
+end_time
+duration
+status
+error
+```
+
+Expose aggregated metrics through API endpoints.
+
+Provide a monitoring page.
+
+If possible, include:
+
+-   request count
+-   success rate
+-   error rate
+-   average latency
+-   agent execution count
+-   tool execution count
+-   escalation count
+
+Do not claim production-grade monitoring unless it is actually
+implemented.
+
+------------------------------------------------------------------------
+
+# 27. DEPLOYMENT
+
+Provide:
+
+``` text
+Dockerfile
+docker-compose.yml
+.env.example
+README.md
+```
+
+Docker Compose should define at minimum:
+
+``` text
+frontend
+backend
+mongodb
+```
+
+ChromaDB may either run as a service or use a persistent local
+directory.
+
+Document:
+
+### Development
+
+``` text
+Local React
+Local FastAPI
+Local MongoDB
+Local ChromaDB
+```
+
+### Production concept
+
+``` text
+Load Balancer
+      ↓
+Multiple Backend Instances
+      ↓
+Database Cluster
+      ↓
+Persistent Vector Store
+      ↓
+LLM Provider
+```
+
+Explain horizontal scaling, health checks, retries, and rolling
+deployment in the documentation.
+
+------------------------------------------------------------------------
+
+# 28. PROJECT DIRECTORY
+
+Generate a clean structure similar to:
+
+``` text
+enterprise-customer-resolution-agent/
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── hooks/
+│   │   ├── styles/
+│   │   └── App.jsx
+│   ├── package.json
+│   └── vite.config.js
+│
+├── backend/
+│   ├── agents/
+│   │   ├── supervisor.py
+│   │   ├── intent_agent.py
+│   │   ├── order_agent.py
+│   │   ├── policy_agent.py
+│   │   └── resolution_agent.py
+│   │
+│   ├── tools/
+│   │   ├── order_tools.py
+│   │   ├── refund_tools.py
+│   │   ├── replacement_tools.py
+│   │   └── support_tools.py
+│   │
+│   ├── rag/
+│   │   ├── ingestion.py
+│   │   └── retriever.py
+│   │
+│   ├── api/
+│   │   ├── auth.py
+│   │   ├── complaints.py
+│   │   ├── orders.py
+│   │   ├── approvals.py
+│   │   └── admin.py
+│   │
+│   ├── models/
+│   ├── database/
+│   ├── security/
+│   ├── monitoring/
+│   ├── services/
+│   ├── config.py
+│   └── main.py
+│
+├── data/
+│   └── policies/
+│       ├── refund_policy.md
+│       ├── replacement_policy.md
+│       ├── shipping_policy.md
+│       ├── warranty_policy.md
+│       └── customer_support_policy.md
+│
+├── scripts/
+│   ├── seed_database.py
+│   └── ingest_policies.py
+│
+├── docs/
+│
+├── .env.example
+├── .gitignore
+├── docker-compose.yml
+├── README.md
+└── requirements.txt
+```
+
+Adjust the structure if necessary, but preserve clear separation between
+frontend, agents, tools, RAG, API, security, database and monitoring.
+
+------------------------------------------------------------------------
+
+# 29. CODE QUALITY REQUIREMENTS
+
+Write clean, readable code.
+
+Use:
+
+-   type hints in Python
+-   Pydantic models
+-   meaningful function names
+-   reusable services
+-   environment configuration
+-   centralized error handling
+-   API validation
+-   comments only where useful
+
+Do not create one huge Python file.
+
+Do not put business logic inside React components.
+
+Do not put secrets in source code.
+
+Do not use arbitrary `eval()` or execute generated code.
+
+------------------------------------------------------------------------
+
+# 30. ERROR HANDLING
+
+Return appropriate HTTP errors.
+
+Examples:
+
+``` text
+400 - Invalid request
+401 - Unauthenticated
+403 - Unauthorized
+404 - Resource not found
+409 - Duplicate/conflicting action
+422 - Validation error
+500 - Internal error
+503 - Dependency unavailable
+```
+
+Frontend should show user-friendly error messages.
+
+Do not display stack traces to normal users.
+
+------------------------------------------------------------------------
+
+# 31. README REQUIREMENTS
+
+Generate a comprehensive README containing:
+
+1.  Project title
+2.  Problem statement
+3.  Features
+4.  Architecture overview
+5.  Agent architecture
+6.  Technology stack
+7.  Project structure
+8.  Setup instructions
+9.  Environment variables
+10. MongoDB setup
+11. ChromaDB/policy ingestion
+12. Running frontend
+13. Running backend
+14. Docker instructions
+15. Demo credentials
+16. Sample scenarios
+17. Security model
+18. Monitoring
+19. Limitations
+20. Future enhancements
+
+------------------------------------------------------------------------
+
+# 32. CAPSTONE DOCUMENTATION SUPPORT
+
+Create documentation files covering the five required capstone
+deliverables.
+
+## Architecture Diagram
+
+Create a Mermaid architecture diagram in:
+
+``` text
+docs/architecture.md
+```
+
+It must show:
+
+-   frontend
+-   API gateway/backend
+-   agent orchestrator
+-   specialized agents
+-   LLM
+-   RAG/vector store
+-   database
+-   tools
+-   human approval
+-   monitoring
+-   trust boundaries
+
+## Agent Workflow Design
+
+Create:
+
+``` text
+docs/agent-workflow.md
+```
+
+Include:
+
+-   agent roles
+-   states
+-   handoffs
+-   tools
+-   approval flow
+-   failure paths
+
+## Deployment Strategy
+
+Create:
+
+``` text
+docs/deployment.md
+```
+
+Include:
+
+-   runtime
+-   environments
+-   scaling
+-   resilience
+-   release strategy
+
+## Security Model
+
+Create:
+
+``` text
+docs/security.md
+```
+
+Include:
+
+-   authentication
+-   authorization
+-   secrets
+-   privacy
+-   guardrails
+-   audit
+
+## Monitoring Dashboard Design
+
+Create:
+
+``` text
+docs/monitoring.md
+```
+
+Include:
+
+-   health metrics
+-   traces
+-   quality
+-   safety
+-   cost
+-   business outcomes
+
+------------------------------------------------------------------------
+
+# 33. ACCEPTANCE CRITERIA
+
+The generated project is considered complete only if:
+
+-   frontend runs successfully
+-   backend runs successfully
+-   authentication works
+-   customer can create complaint
+-   complaint enters an agent workflow
+-   intent agent classifies complaint
+-   order tool retrieves order
+-   RAG retrieves policy
+-   resolution agent proposes action
+-   low-risk action can be automated
+-   high-risk action requires approval
+-   support agent can approve/reject
+-   complaint status updates correctly
+-   audit log is created
+-   monitoring dashboard displays metrics
+-   unauthorized data access is blocked
+-   demo mode works without external API keys
+-   Docker configuration is provided
+-   README contains complete setup instructions
+-   capstone documentation covers all five required artifacts
+
+------------------------------------------------------------------------
+
+# 34. DEMO FLOW
+
+The application should be designed around this 5-minute demonstration:
+
+### Step 1
+
+Login as customer.
+
+### Step 2
+
+Submit:
+
+> My laptop stand arrived damaged yesterday. I want a replacement.
+
+### Step 3
+
+Show the workflow:
+
+``` text
+Received
+→ Classified
+→ Order Retrieved
+→ Policy Retrieved
+→ Resolution Generated
+→ Replacement Created
+→ Resolved
+```
+
+### Step 4
+
+Submit a high-value refund request.
+
+Show:
+
+``` text
+Resolution generated
+→ Approval required
+→ Pending human approval
+```
+
+### Step 5
+
+Login as support agent.
+
+Approve the request.
+
+Show:
+
+``` text
+Approved
+→ Refund executed
+→ Complaint resolved
+```
+
+### Step 6
+
+Login as admin.
+
+Open monitoring dashboard.
+
+Show:
+
+-   workflow executions
+-   resolution rate
+-   escalations
+-   failures
+-   tool calls
+-   audit events
+
+------------------------------------------------------------------------
+
+# 35. IMPORTANT RULES FOR THE CODE-GENERATING AI
+
+Do not merely create placeholder files.
+
+Implement working functionality for the core flow.
+
+Do not use fake buttons that do nothing.
+
+Where a real external integration is unnecessary, implement a realistic
+mock service.
+
+Do not claim that an external service is integrated if the project only
+simulates it.
+
+Use clear labels such as:
+
+``` text
+Demo Order Service
+Demo Notification Service
+Demo Refund Service
+```
+
+Keep external dependencies minimal.
+
+Prioritize reliability and demonstrability over unnecessary complexity.
+
+The final project must be understandable by a CSE student presenting it
+in an academic evaluation.
+
+At the end, provide:
+
+1.  complete source code
+2.  setup instructions
+3.  demo credentials
+4.  architecture documentation
+5.  agent workflow documentation
+6.  deployment documentation
+7.  security documentation
+8.  monitoring documentation
+9.  sample test cases
+10. known limitations
+
+Do not omit implementation details required by the acceptance criteria.
