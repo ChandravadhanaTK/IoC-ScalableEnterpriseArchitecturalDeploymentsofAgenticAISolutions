@@ -1,0 +1,800 @@
+Build a full-stack **College Academic Agent** that acts as an intelligent academic assistant for college students.
+
+## 1. Goal
+
+Create an agentic AI system that can understand a student's academic questions, retrieve relevant information from databases and college documents, perform calculations, maintain conversational context, and use appropriate tools to complete tasks.
+
+This should NOT be just a chatbot. The system must demonstrate genuine **agentic behavior**:
+
+* Understand the user's goal
+* Decide which tool/data source is required
+* Retrieve information
+* Perform calculations or reasoning
+* Use multiple tools when necessary
+* Maintain conversation state
+* Provide a clear final response
+* Cite the source when the answer comes from uploaded college documents
+
+---
+
+# 2. Technology Stack
+
+Use:
+
+### Frontend
+
+* React
+* Vite
+* Material UI
+* React Router
+
+### Backend
+
+* Node.js
+* Express.js
+
+### Database
+
+* MongoDB using the **native MongoDB driver**
+* Do NOT use Mongoose
+
+### AI
+
+Use a locally running LLM through **Ollama** so that the project can be developed without paid API usage.
+
+The AI layer should be designed so the LLM can be replaced later with another provider.
+
+### RAG
+
+Use a vector database such as ChromaDB or another free/local vector store.
+
+### Embeddings
+
+Use a free/local embedding model.
+
+---
+
+# 3. Main System Architecture
+
+Implement the following architecture:
+
+User
+↓
+React Chat Interface
+↓
+Express Backend
+↓
+Agent Orchestrator
+↓
+LLM
+↓
+Tool Selection
+↓
+Tools / RAG / Database
+↓
+Tool Results
+↓
+LLM reasoning
+↓
+Final Response
+
+The agent should be able to decide dynamically whether it needs:
+
+1. Student database
+2. Timetable
+3. Attendance database
+4. Marks database
+5. Assignment database
+6. College regulations
+7. RAG document search
+8. Calculator
+9. Academic calendar
+
+---
+
+# 4. Student Features
+
+Implement the following capabilities.
+
+## A. Student Profile
+
+Store:
+
+* Student ID
+* Name
+* Department
+* Year
+* Semester
+* CGPA
+* Email
+* Courses
+* Attendance
+* Marks
+
+Example:
+
+{
+"studentId": "CS2024001",
+"name": "Student Name",
+"department": "CSE",
+"year": 3,
+"semester": 5,
+"cgpa": 8.7
+}
+
+---
+
+# 5. Attendance Agent
+
+Create a tool:
+
+getAttendance(studentId)
+
+It should retrieve attendance for all subjects.
+
+Example response:
+
+Subject | Attendance
+OS | 82%
+DBMS | 91%
+CN | 76%
+AI | 88%
+
+The agent should answer questions such as:
+
+"What's my attendance?"
+
+"Which subjects have attendance below 80%?"
+
+"How much attendance do I need to reach 75%?"
+
+"Which subject has my lowest attendance?"
+
+---
+
+# 6. Attendance Prediction
+
+Implement a calculator tool that can determine how many future classes a student must attend to reach a target percentage.
+
+Use:
+
+current attendance = attended classes / total classes
+
+After attending x additional classes:
+
+new percentage =
+(attended + x) / (total + x) × 100
+
+Example:
+
+Attended = 30
+Total = 45
+
+User:
+
+"I have 66.67% attendance. How many consecutive classes must I attend to reach 75%?"
+
+The agent should calculate the answer rather than hallucinating it.
+
+---
+
+# 7. Marks Agent
+
+Create:
+
+getMarks(studentId)
+
+It should retrieve:
+
+* Internal marks
+* Assignment marks
+* Lab marks
+* Mid-semester marks
+* End-semester marks
+* Total marks
+* Grade
+
+The agent should answer:
+
+"What are my marks?"
+
+"Which subject has the highest mark?"
+
+"Which subjects am I weak in?"
+
+"What is my average?"
+
+"How much do I need in the final exam to get an A grade?"
+
+Calculations must be performed using a deterministic calculator rather than relying on the LLM for arithmetic.
+
+---
+
+# 8. Timetable Agent
+
+Create:
+
+getTimetable(studentId, date)
+
+It should return the student's classes for a particular day.
+
+Support questions such as:
+
+"What classes do I have tomorrow?"
+
+"When is my next OS class?"
+
+"Do I have any classes on Friday?"
+
+---
+
+# 9. Assignment Agent
+
+Create:
+
+getAssignments(studentId)
+
+Store:
+
+* Assignment name
+* Subject
+* Deadline
+* Status
+* Description
+
+Support:
+
+"What assignments are pending?"
+
+"What is due this week?"
+
+"Which assignment is due first?"
+
+"Show my pending assignments."
+
+---
+
+# 10. Academic Calendar
+
+Create:
+
+getAcademicCalendar()
+
+Store:
+
+* Semester start
+* Semester end
+* Internal exams
+* End semester exams
+* Holidays
+* Assignment deadlines
+* Registration dates
+
+Support:
+
+"When are my exams?"
+
+"When does the semester end?"
+
+"How many days until my exams?"
+
+Use the current date for date calculations.
+
+---
+
+# 11. RAG System
+
+Implement a document-based knowledge system.
+
+Allow administrators to upload:
+
+* College regulations
+* Attendance regulations
+* Examination regulations
+* Academic handbook
+* Department handbook
+* Course regulations
+* Placement regulations
+* Hostel regulations
+
+Pipeline:
+
+Document
+↓
+Text extraction
+↓
+Chunking
+↓
+Embeddings
+↓
+Vector database
+↓
+Retriever
+↓
+Agent
+
+The agent should search these documents when the user asks questions about college policies.
+
+Example:
+
+"Can I attend the semester exam with 72% attendance?"
+
+The agent should:
+
+1. Identify that this is a policy question.
+2. Search the college regulations.
+3. Retrieve the relevant section.
+4. Determine the applicable rule.
+5. Answer the user.
+6. Cite the document and relevant section.
+
+Never invent college rules.
+
+If the information cannot be found, explicitly say that the available college documents do not contain the answer.
+
+---
+
+# 12. Agentic Tool Selection
+
+Implement tools such as:
+
+getStudentProfile()
+getAttendance()
+getMarks()
+getTimetable()
+getAssignments()
+getAcademicCalendar()
+searchCollegeDocuments()
+calculateAttendance()
+calculateMarks()
+calculateDateDifference()
+
+The agent should decide which tool or combination of tools is necessary.
+
+Example:
+
+User:
+
+"Do I have enough attendance to write the exam?"
+
+Agent:
+
+1. getAttendance()
+2. searchCollegeDocuments()
+3. Compare attendance with official requirement
+4. Generate answer
+
+Another example:
+
+User:
+
+"What should I study today?"
+
+Agent:
+
+1. getTimetable()
+2. getAssignments()
+3. getUpcomingExams()
+4. getMarks()
+5. Analyze workload
+6. Generate study plan
+
+---
+
+# 13. Multi-Step Agent Example
+
+For:
+
+"What should I focus on this week?"
+
+The agent should perform:
+
+User request
+↓
+Get marks
+↓
+Get attendance
+↓
+Get assignments
+↓
+Get upcoming exams
+↓
+Get timetable
+↓
+Analyze academic priorities
+↓
+Generate recommendation
+
+Show the tool execution process in the UI.
+
+For example:
+
+"Analyzing your academic schedule..."
+
+"Checking attendance..."
+
+"Checking pending assignments..."
+
+"Checking upcoming exams..."
+
+"Generating study plan..."
+
+Then display the final answer.
+
+---
+
+# 14. Conversation Memory
+
+Implement conversation memory.
+
+The agent should remember information from the current conversation.
+
+Example:
+
+User:
+"My OS attendance is 68%."
+
+User:
+"How many classes do I need to attend to reach 75%?"
+
+The agent should understand that "my OS attendance" refers to the previously mentioned value.
+
+Also maintain persistent user information in MongoDB where appropriate.
+
+Do not store sensitive information unnecessarily.
+
+---
+
+# 15. Chat Interface
+
+Create a modern ChatGPT-style interface.
+
+Features:
+
+* Sidebar with conversations
+* New conversation
+* Chat messages
+* User/assistant message distinction
+* Loading indicator
+* Tool execution indicator
+* Markdown support
+* Tables
+* Source citations
+* Clear conversation
+* Student profile panel
+
+Example tool indicator:
+
+"🔍 Searching academic regulations..."
+
+"📊 Calculating attendance..."
+
+"📅 Checking timetable..."
+
+---
+
+# 16. Source Citations
+
+When the answer comes from RAG documents, show:
+
+Source:
+Academic Regulations 2026
+Section: Attendance Requirements
+
+Do not fabricate citations.
+
+If no source is available, do not display a fake source.
+
+---
+
+# 17. Authentication
+
+Implement basic authentication.
+
+Student:
+
+* Login
+* Logout
+* JWT authentication
+
+Admin:
+
+* Login
+* Upload academic documents
+* Manage academic data
+
+Students should only be able to access their own academic information.
+
+---
+
+# 18. Admin Dashboard
+
+Create an admin dashboard where administrators can:
+
+* Add students
+* Update student information
+* Add courses
+* Update attendance
+* Add marks
+* Add assignments
+* Add timetable
+* Upload academic documents
+* View uploaded documents
+
+---
+
+# 19. Database Collections
+
+Use MongoDB collections:
+
+users
+students
+courses
+attendance
+marks
+assignments
+timetable
+academic_calendar
+conversations
+messages
+documents
+
+Design appropriate relationships using IDs.
+
+Do NOT use Mongoose.
+
+Use the native MongoDB driver.
+
+---
+
+# 20. Security
+
+Implement:
+
+* JWT authentication
+* Password hashing
+* Role-based authorization
+* Input validation
+* API validation
+* Student data isolation
+* Environment variables for secrets
+
+Never expose database credentials or JWT secrets in frontend code.
+
+---
+
+# 21. Error Handling
+
+The agent must handle:
+
+* Student not found
+* Missing attendance
+* Missing marks
+* Missing timetable
+* Document not found
+* LLM unavailable
+* Ollama unavailable
+* Database unavailable
+* Invalid user request
+
+Do not hallucinate missing information.
+
+For example:
+
+"I couldn't find your attendance data in the database."
+
+rather than inventing a value.
+
+---
+
+# 22. Agent Guardrails
+
+The agent must distinguish between:
+
+DATABASE FACTS
+→ Student-specific information
+
+DOCUMENT FACTS
+→ College policies
+
+CALCULATED INFORMATION
+→ Derived using deterministic functions
+
+LLM-GENERATED INFORMATION
+→ Explanations and suggestions
+
+Never allow the LLM to invent:
+
+* Attendance
+* Marks
+* College rules
+* Exam dates
+* Assignment deadlines
+* Timetable entries
+
+---
+
+# 23. Example Conversations
+
+### Example 1
+
+User:
+"What is my attendance?"
+
+Agent:
+
+"Your current attendance is:
+
+OS: 82%
+DBMS: 91%
+CN: 76%
+AI: 88%
+
+Your lowest attendance is CN at 76%."
+
+---
+
+### Example 2
+
+User:
+"Can I write the exam?"
+
+Agent:
+
+"I'll check your attendance against the official examination regulation."
+
+→ getAttendance()
+
+→ searchCollegeDocuments()
+
+→ compare
+
+→ response with source.
+
+---
+
+### Example 3
+
+User:
+"What do I need to complete today?"
+
+Agent:
+
+→ getAssignments()
+
+→ getTimetable()
+
+→ getAcademicCalendar()
+
+→ analyze deadlines
+
+→ produce prioritized task list.
+
+---
+
+### Example 4
+
+User:
+"I have 65% attendance in DBMS. How many classes do I need to attend to reach 75%?"
+
+Agent:
+
+→ retrieve current attendance data if available
+
+→ call calculateAttendance()
+
+→ return exact result with explanation.
+
+---
+
+# 24. Important Requirement
+
+Do NOT build this as a simple:
+
+User → LLM → Response
+
+Instead implement:
+
+User
+↓
+Intent understanding
+↓
+Agent
+↓
+Tool selection
+↓
+Tool execution
+↓
+Observation
+↓
+Additional tool if necessary
+↓
+Reasoning
+↓
+Final response
+
+The system should clearly demonstrate why it is an **agentic AI system**.
+
+---
+
+# 25. Project Structure
+
+Create a clean production-style structure.
+
+Frontend:
+
+frontend/
+src/
+components/
+pages/
+services/
+hooks/
+context/
+App.jsx
+
+Backend:
+
+backend/
+controllers/
+routes/
+services/
+agents/
+tools/
+models/
+middleware/
+utils/
+config/
+server.js
+
+AI:
+
+ai/
+agent/
+tools/
+rag/
+embeddings/
+prompts/
+memory/
+
+---
+
+# 26. Development Requirements
+
+Build the project incrementally.
+
+First implement:
+
+1. Backend
+2. MongoDB
+3. Student authentication
+4. Student data APIs
+5. Individual tools
+6. Ollama integration
+7. Agent orchestration
+8. RAG
+9. Memory
+10. React UI
+11. Admin dashboard
+12. Testing
+
+After each major component, verify that it works before proceeding.
+
+Provide exact installation commands and environment variables.
+
+The entire project should be runnable locally without requiring paid APIs.
+
+At the end, provide:
+
+* Complete project structure
+* Installation instructions
+* MongoDB setup
+* Ollama setup
+* Model setup
+* Environment variables
+* Backend startup command
+* Frontend startup command
+* Sample database data
+* API documentation
+* Agent workflow explanation
+* Testing instructions
+* Example queries to demonstrate the agentic behavior
