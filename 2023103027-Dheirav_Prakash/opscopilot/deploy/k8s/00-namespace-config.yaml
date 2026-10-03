@@ -1,0 +1,135 @@
+# Namespace, non-secret config, service account and network policies.
+# The one secret (the business API token) is created by deploy/kind-up.sh at
+# deploy time and is never in this file.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: opscopilot
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: copilot-config
+  namespace: opscopilot
+data:
+  # Ollama runs on the host. From inside a kind node on Linux the host is
+  # reachable at the docker bridge gateway, normally 172.17.0.1, and Ollama must
+  # listen there (OLLAMA_HOST=0.0.0.0). deploy/kind-up.sh discovers the address
+  # and patches this value; on Docker Desktop it is host.docker.internal.
+  OLLAMA_BASE_URL: "http://172.17.0.1:11434"
+  LLM_TIMEOUT_SECONDS: "120"
+  ACTIONS_DISABLED: "false"
+  CHAT_MODEL: "qwen2.5:7b"
+  EMBED_MODEL: "nomic-embed-text"
+  BUSINESS_API_URL: "http://business-api:8001"
+  LOG_LEVEL: "INFO"
+  MAX_ITERATIONS: "3"
+  MAX_TOOL_CALLS: "4"
+  WORKER_POLL_SECONDS: "2"
+---
+# The Secret is NOT in this file. deploy/kind-up.sh creates it from a generated
+# value with `kubectl create secret generic copilot-secrets`, so no token is
+# ever committed. In production an ExternalSecret pulls it from Vault.
+---
+# Shared state for the demo: SQLite files and the vector index. A single
+# ReadWriteOnce volume means every pod must land on the same node, which kind
+# guarantees with one worker. In production this is Postgres and a managed
+# vector store, and the volume disappears.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: copilot-data
+  namespace: opscopilot
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 1Gi
+---
+# Dedicated service accounts with no API token mounted: the pods never talk to
+# the Kubernetes API, so they should not hold a credential for it.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: copilot
+  namespace: opscopilot
+automountServiceAccountToken: false
+---
+# Default deny, then allow only the paths the architecture needs:
+# api -> business-api, prometheus -> everything on metrics ports, and egress
+# to the host (Ollama) and DNS.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+  namespace: opscopilot
+spec:
+  podSelector: {}
+  policyTypes: [Ingress, Egress]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns-and-host
+  namespace: opscopilot
+spec:
+  podSelector: {}
+  policyTypes: [Egress]
+  egress:
+    - to: [{ namespaceSelector: {}, podSelector: { matchLabels: { k8s-app: kube-dns } } }]
+      ports: [{ protocol: UDP, port: 53 }, { protocol: TCP, port: 53 }]
+    - to: [{ ipBlock: { cidr: 172.17.0.1/32 } }]     # Ollama on the host
+      ports: [{ protocol: TCP, port: 11434 }]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: api-to-business
+  namespace: opscopilot
+spec:
+  podSelector: { matchLabels: { app: business-api } }
+  policyTypes: [Ingress]
+  ingress:
+    - from: [{ podSelector: { matchLabels: { app: copilot-api } } }, { podSelector: { matchLabels: { app: prometheus } } }]
+      ports: [{ protocol: TCP, port: 8001 }]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: copilot-api-ingress
+  namespace: opscopilot
+spec:
+  podSelector: { matchLabels: { app: copilot-api } }
+  policyTypes: [Ingress, Egress]
+  ingress:
+    - ports: [{ protocol: TCP, port: 8000 }]           # NodePort traffic and Prometheus
+  egress:
+    - to: [{ podSelector: { matchLabels: { app: business-api } } }]
+      ports: [{ protocol: TCP, port: 8001 }]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: worker-and-prometheus
+  namespace: opscopilot
+spec:
+  podSelector: { matchExpressions: [{ key: app, operator: In, values: [copilot-worker, prometheus] }] }
+  policyTypes: [Ingress]
+  ingress:
+    - ports: [{ protocol: TCP, port: 9100 }, { protocol: TCP, port: 9090 }]
+---
+# Prometheus needs egress to the pods it scrapes and to the API server for
+# pod discovery; nothing else in the namespace does.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: prometheus-egress
+  namespace: opscopilot
+spec:
+  podSelector: { matchLabels: { app: prometheus } }
+  policyTypes: [Egress]
+  egress:
+    - to: [{ podSelector: {} }]
+      ports: [{ protocol: TCP, port: 8000 }, { protocol: TCP, port: 8001 }, { protocol: TCP, port: 9100 }]
+    - to: [{ ipBlock: { cidr: 0.0.0.0/0 } }]      # the API server's endpoint IP (kind-up.sh narrows this)
+      ports: [{ protocol: TCP, port: 6443 }, { protocol: TCP, port: 443 }]

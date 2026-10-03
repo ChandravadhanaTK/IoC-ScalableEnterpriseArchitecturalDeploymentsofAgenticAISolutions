@@ -1,0 +1,47 @@
+{
+  "title": "Operations Copilot",
+  "uid": "opscopilot",
+  "schemaVersion": 39,
+  "time": { "from": "now-6h", "to": "now" },
+  "refresh": "30s",
+  "panels": [
+    { "type": "row", "title": "AI quality", "gridPos": { "x": 0, "y": 0, "w": 24, "h": 1 } },
+    { "type": "stat", "title": "Task success rate (grounded or committed / all)", "gridPos": { "x": 0, "y": 1, "w": 6, "h": 5 },
+      "targets": [{ "expr": "sum(rate(copilot_requests_total{outcome=~\"grounded|committed|awaiting_approval|answered\"}[15m])) / sum(rate(copilot_requests_total[15m]))" }],
+      "fieldConfig": { "defaults": { "unit": "percentunit", "thresholds": { "steps": [{ "color": "red", "value": 0 }, { "color": "green", "value": 0.9 }] } } } },
+    { "type": "timeseries", "title": "Evaluator verdicts", "gridPos": { "x": 6, "y": 1, "w": 9, "h": 5 },
+      "targets": [{ "expr": "sum by (verdict) (rate(copilot_groundedness_total[15m]))", "legendFormat": "{{verdict}}" }] },
+    { "type": "timeseries", "title": "Revision loops per request", "gridPos": { "x": 15, "y": 1, "w": 9, "h": 5 },
+      "targets": [{ "expr": "histogram_quantile(0.9, sum(rate(copilot_revisions_bucket[15m])) by (le))", "legendFormat": "p90" }] },
+
+    { "type": "row", "title": "Workflow", "gridPos": { "x": 0, "y": 6, "w": 24, "h": 1 } },
+    { "type": "stat", "title": "Approvals pending", "gridPos": { "x": 0, "y": 7, "w": 4, "h": 5 },
+      "targets": [{ "expr": "max(copilot_approvals_pending)" }] },
+    { "type": "timeseries", "title": "Approval decisions (approve / reject / denied)", "gridPos": { "x": 4, "y": 7, "w": 8, "h": 5 },
+      "targets": [{ "expr": "sum by (decision) (increase(copilot_approval_decisions_total[1h]))", "legendFormat": "{{decision}}" }] },
+    { "type": "timeseries", "title": "Loop guard trips", "gridPos": { "x": 12, "y": 7, "w": 6, "h": 5 },
+      "targets": [{ "expr": "sum(increase(copilot_loop_guard_trips_total[1h]))" }] },
+    { "type": "timeseries", "title": "Tool calls by result", "gridPos": { "x": 18, "y": 7, "w": 6, "h": 5 },
+      "targets": [{ "expr": "sum by (tool, result) (increase(copilot_tool_calls_total[1h]))", "legendFormat": "{{tool}} {{result}}" }] },
+
+    { "type": "row", "title": "Performance", "gridPos": { "x": 0, "y": 12, "w": 24, "h": 1 } },
+    { "type": "timeseries", "title": "p90 latency per step", "gridPos": { "x": 0, "y": 13, "w": 12, "h": 6 },
+      "targets": [{ "expr": "histogram_quantile(0.9, sum by (le, step) (rate(copilot_span_seconds_bucket[15m])))", "legendFormat": "{{step}}" }],
+      "fieldConfig": { "defaults": { "unit": "s" } } },
+    { "type": "timeseries", "title": "Event backlog and dead letters", "gridPos": { "x": 12, "y": 13, "w": 6, "h": 6 },
+      "targets": [{ "expr": "max(copilot_event_backlog)", "legendFormat": "backlog" }, { "expr": "max(copilot_event_dead_letters)", "legendFormat": "dead letters" }] },
+    { "type": "timeseries", "title": "Events published vs handled", "gridPos": { "x": 18, "y": 13, "w": 6, "h": 6 },
+      "targets": [{ "expr": "sum by (stage) (increase(copilot_events_total[1h]))", "legendFormat": "{{stage}}" }] },
+
+    { "type": "row", "title": "Cost and value", "gridPos": { "x": 0, "y": 19, "w": 24, "h": 1 } },
+    { "type": "timeseries", "title": "Tokens per step", "gridPos": { "x": 0, "y": 20, "w": 8, "h": 6 },
+      "targets": [{ "expr": "sum by (step, direction) (rate(copilot_tokens_total[15m]))", "legendFormat": "{{step}} {{direction}}" }] },
+    { "type": "stat", "title": "Tokens per successful business action (1h)", "gridPos": { "x": 8, "y": 20, "w": 8, "h": 6 },
+      "targets": [{ "expr": "sum(increase(copilot_tokens_total[1h])) / clamp_min(sum(increase(copilot_successful_actions_total[1h])), 1)" }] },
+    { "type": "stat", "title": "Business KPI: re-routes committed (24h)", "gridPos": { "x": 16, "y": 20, "w": 4, "h": 6 },
+      "targets": [{ "expr": "sum(increase(copilot_successful_actions_total[24h]))" }] },
+    { "type": "stat", "title": "Prompt / model version", "gridPos": { "x": 20, "y": 20, "w": 4, "h": 6 },
+      "targets": [{ "expr": "copilot_build_info", "legendFormat": "{{prompt_version}} {{chat_model}}" }],
+      "options": { "textMode": "name" } }
+  ]
+}
