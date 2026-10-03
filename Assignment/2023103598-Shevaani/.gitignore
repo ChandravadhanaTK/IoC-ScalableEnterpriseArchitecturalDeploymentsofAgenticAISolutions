@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+
+# Backend runtime artifacts
+backend/analysis.db
+backend/*.db
+backend/workspaces/
+
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/tsconfig.tsbuildinfo
+
+# Env
+.env
+*.env.local
+
+# OS
+.DS_Store
+
+# Evaluation outputs (generated, not source)
+evaluation/results/*
+!evaluation/results/.gitkeep
