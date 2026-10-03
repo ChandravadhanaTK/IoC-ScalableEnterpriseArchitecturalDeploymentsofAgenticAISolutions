@@ -1,0 +1,13 @@
+{
+  "name": "agentic-ai-enterprise-app",
+  "version": "1.0.0",
+  "description": "Full-Stack Enterprise Agentic AI Orchestration Platform Capstone Deliverable",
+  "main": "start.js",
+  "scripts": {
+    "start": "node start.js",
+    "backend": "cd backend && npm start",
+    "frontend": "cd frontend && npm run dev"
+  },
+  "author": "Manikandan (Roll No: 2023103519)",
+  "license": "ISC"
+}

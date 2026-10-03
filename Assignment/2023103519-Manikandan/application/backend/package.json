@@ -1,0 +1,17 @@
+{
+  "name": "agentic-ai-backend",
+  "version": "1.0.0",
+  "description": "Backend Orchestration Core Engine",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  },
+  "author": "Manikandan (Roll No: 2023103519)",
+  "license": "ISC"
+}
