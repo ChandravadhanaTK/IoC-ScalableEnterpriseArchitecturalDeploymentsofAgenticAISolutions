@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+!.env.example
+.venv/
+venv/
+ENV/
+*.log
+
+# Vector DB & Local Data
+data/chroma_db/
+*.sqlite3
+
+# Node / Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
