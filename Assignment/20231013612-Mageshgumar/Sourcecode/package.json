@@ -1,0 +1,34 @@
+{
+  "name": "college-academic-agent",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "backend/server.js",
+  "scripts": {
+    "dev": "node --watch backend/server.js",
+    "start": "node backend/server.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "college",
+    "academic-agent",
+    "mongodb",
+    "ollama",
+    "rag"
+  ],
+  "author": "",
+  "license": "ISC",
+  "description": "College Academic Agent with local LLM orchestration and RAG.",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "chokidar": "^5.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.5",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongodb": "^7.7.0",
+    "uuid": "^14.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
