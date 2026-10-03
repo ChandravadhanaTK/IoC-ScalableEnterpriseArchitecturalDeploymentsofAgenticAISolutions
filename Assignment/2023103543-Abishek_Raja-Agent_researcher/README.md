@@ -74,6 +74,6 @@ No license file was found. A license grant cannot be established from the previo
 # 🚀 Deployment Information: PatchCraft AI
 
 ### 🌐 Live Application URL
-**Deployment Link:** [(https://huggingface.co/spaces/iyyansoft/Blog-generator)](https://huggingface.co/spaces/iyyansoft/Blog-generator)
+**Deployment Link:** [https://drive.google.com/drive/folders/1kLN23iBnsJkS1JIgCR7sk78pZpmrMTp3?usp=sharing](https://drive.google.com/drive/folders/1kLN23iBnsJkS1JIgCR7sk78pZpmrMTp3?usp=sharing)
 
 
