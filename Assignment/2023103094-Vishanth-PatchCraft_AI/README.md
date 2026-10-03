@@ -93,7 +93,7 @@ PatchCraft AI is an enterprise-grade autonomous agentic assistant built in Pytho
 3. Open your browser to `http://localhost:8501`.
 
 ---
+# 🚀 Deployment Information: PatchCraft AI
 
-## 🌐 How to Deploy to Hugging Face Spaces
-
-Refer to [DEPLOYMENT.md](file:///e:/visha/Documents/IOC/IoC-ScalableEnterpriseArchitecturalDeploymentsofAgenticAISolutions/Assignment/2023103094-Vishanth-PatchCraft_AI/DEPLOYMENT.md) for full 3-step instructions on deploying this app to Hugging Face Spaces for free and sharing the live link with your course guide.
+### 🌐 Live Application URL
+**Deployment Link:** [https://2023103094-vishanth-patchcraftai.streamlit.app/](https://2023103094-vishanth-patchcraftai.streamlit.app/)
