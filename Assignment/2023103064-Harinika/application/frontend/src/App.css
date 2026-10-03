@@ -1,0 +1,441 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f7fb;
+  color: #172033;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.header {
+  background: #101828;
+  color: white;
+  padding: 28px 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.header p {
+  margin: 8px 0 0;
+  color: #b7c2d6;
+}
+
+.header-badge {
+  border: 1px solid #4ade80;
+  color: #4ade80;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.navigation {
+  background: white;
+  border-bottom: 1px solid #dfe5ee;
+  padding: 0 7%;
+  display: flex;
+  gap: 10px;
+}
+
+.navigation button {
+  border: none;
+  background: transparent;
+  padding: 18px 22px;
+  cursor: pointer;
+  color: #667085;
+  font-weight: 600;
+}
+
+.navigation button.active {
+  color: #175cd3;
+  border-bottom: 3px solid #175cd3;
+}
+
+.container {
+  width: 86%;
+  max-width: 1250px;
+  margin: 35px auto;
+}
+
+.hero {
+  background: white;
+  border: 1px solid #dfe5ee;
+  border-radius: 16px;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.hero h2,
+.dashboard-title h2 {
+  margin: 0;
+  font-size: 25px;
+}
+
+.hero p,
+.dashboard-title p {
+  color: #667085;
+  max-width: 650px;
+}
+
+.agent-flow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #175cd3;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.card,
+.analysis-card,
+.architecture-preview {
+  background: white;
+  border: 1px solid #dfe5ee;
+  border-radius: 16px;
+  padding: 28px;
+  margin-bottom: 25px;
+}
+
+.card-title,
+.analysis-header,
+.dashboard-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.card-title h2 {
+  margin: 0;
+}
+
+.card-title span {
+  background: #eff8ff;
+  color: #175cd3;
+  padding: 7px 12px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin: 18px 0 8px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #175cd3;
+}
+
+.submit-button {
+  margin-top: 22px;
+  padding: 13px 22px;
+  border: none;
+  border-radius: 8px;
+  background: #175cd3;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.submit-button:hover {
+  background: #1849a9;
+}
+
+.submit-button:disabled {
+  opacity: 0.6;
+}
+
+.message {
+  margin-top: 18px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f2f4f7;
+}
+
+.analysis-header h2 {
+  margin: 5px 0 0;
+}
+
+.small-label {
+  font-size: 11px;
+  color: #667085;
+}
+
+.status,
+.table-status {
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  background: #ecfdf3;
+  color: #027a48;
+}
+
+.status.escalated {
+  background: #fef3f2;
+  color: #b42318;
+}
+
+.analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.analysis-item {
+  background: #f8fafc;
+  border: 1px solid #eaecf0;
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.analysis-item span {
+  display: block;
+  font-size: 12px;
+  color: #667085;
+  margin-bottom: 8px;
+}
+
+.analysis-item strong {
+  font-size: 15px;
+}
+
+.recommendation {
+  margin-top: 22px;
+  padding: 20px;
+  border-radius: 10px;
+  background: #f8fafc;
+}
+
+.recommendation h3 {
+  margin-top: 0;
+}
+
+.recommendation pre {
+  white-space: pre-wrap;
+  font-family: inherit;
+  line-height: 1.7;
+  color: #475467;
+}
+
+.agent-result {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.agent-result div {
+  border: 1px solid #d0d5dd;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.agent-result strong {
+  display: block;
+  color: #027a48;
+}
+
+.agent-result small {
+  color: #667085;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.metric {
+  background: white;
+  border: 1px solid #dfe5ee;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.metric span {
+  display: block;
+  font-size: 12px;
+  color: #667085;
+  margin-bottom: 10px;
+}
+
+.metric strong {
+  font-size: 28px;
+}
+
+.refresh-button,
+.resolve-button {
+  border: 1px solid #d0d5dd;
+  background: white;
+  padding: 9px 14px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.resolve-button {
+  color: #175cd3;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 15px 12px;
+  border-bottom: 1px solid #eaecf0;
+  text-align: left;
+  font-size: 13px;
+}
+
+th {
+  color: #667085;
+  font-size: 12px;
+}
+
+.priority {
+  padding: 5px 9px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.priority.high {
+  background: #fef3f2;
+  color: #b42318;
+}
+
+.priority.medium {
+  background: #fffaeb;
+  color: #b54708;
+}
+
+.priority.low {
+  background: #ecfdf3;
+  color: #027a48;
+}
+
+.empty {
+  text-align: center;
+  padding: 40px;
+  color: #667085;
+}
+
+.architecture-preview h2 {
+  margin-top: 0;
+}
+
+.workflow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  overflow-x: auto;
+}
+
+.workflow div {
+  min-width: 150px;
+  padding: 18px;
+  border: 1px solid #d0d5dd;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.workflow strong {
+  display: block;
+  margin-bottom: 7px;
+}
+
+.workflow small {
+  color: #667085;
+}
+
+.workflow > span {
+  font-size: 22px;
+  color: #175cd3;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  color: #667085;
+  font-size: 13px;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    display: block;
+  }
+
+  .agent-flow {
+    margin-top: 20px;
+  }
+
+  .analysis-grid,
+  .agent-result,
+  .metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    display: block;
+  }
+
+  .header-badge {
+    display: inline-block;
+    margin-top: 15px;
+  }
+
+  .container {
+    width: 94%;
+  }
+
+  .analysis-grid,
+  .agent-result,
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+}

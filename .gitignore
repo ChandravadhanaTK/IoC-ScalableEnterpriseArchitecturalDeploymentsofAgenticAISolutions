@@ -1,1 +1,13 @@
+2023103018-Swayamprabha-Narayanan-IOC
 .DS_Store
+=======
+node_modules/
+.env
+.env.*
+!.env.example
+dist/
+build/
+coverage/
+*.log
+.DS_Store
+main
