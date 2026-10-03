@@ -1,10 +1,3 @@
-IOC ASSIGNMENT:
-NAME: MAGESH GUMAR M
-ROLLNO: 2023103612
-PROJECT: College Academic Agent
-DEPLOYMENT LINK: https://ai-agent-magesh9.vercel.app?_vercel_share=wxA1AtpGHo1qoZzF6owOuV1lAcaRFgCV
-
-
 # College Academic Agent
 
 ## 1. Executive Summary
