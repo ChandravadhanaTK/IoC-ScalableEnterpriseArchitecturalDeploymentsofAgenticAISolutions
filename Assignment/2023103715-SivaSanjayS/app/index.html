@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NexusAI — Enterprise-grade Agentic Customer Support Assistant with multi-turn conversations, tool orchestration, and intelligent escalation workflows." />
+  <meta property="og:title" content="NexusAI — Agentic Customer Support" />
+  <meta property="og:description" content="AI-powered customer support agent with real-time tool use, ticket management, and smart escalation." />
+  <meta name="theme-color" content="#0f0c29" />
+  <title>NexusAI — Agentic Customer Support Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Animated background -->
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="grid-overlay" aria-hidden="true"></div>
+
+  <!-- App Shell -->
+  <div class="app-shell">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar" role="complementary" aria-label="Agent sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <circle cx="14" cy="14" r="13" stroke="url(#g1)" stroke-width="2"/>
+            <path d="M8 14l4 4 8-8" stroke="url(#g2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="28" y2="28">
+                <stop stop-color="#a78bfa"/>
+                <stop offset="1" stop-color="#38bdf8"/>
+              </linearGradient>
+              <linearGradient id="g2" x1="0" y1="0" x2="28" y2="28">
+                <stop stop-color="#a78bfa"/>
+                <stop offset="1" stop-color="#38bdf8"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">NexusAI</span>
+          <span class="brand-sub">Support Agent</span>
+        </div>
+      </div>
+
+      <!-- Agent Status -->
+      <div class="agent-status-card" id="agentStatusCard">
+        <div class="status-dot" id="statusDot"></div>
+        <div class="status-info">
+          <span class="status-label">Agent Status</span>
+          <span class="status-value" id="statusValue">Idle</span>
+        </div>
+        <div class="status-pulse" id="statusPulse" aria-hidden="true"></div>
+      </div>
+
+      <!-- Workflow State Tracker -->
+      <div class="workflow-tracker" aria-label="Conversation workflow states">
+        <h3 class="tracker-title">Workflow State</h3>
+        <div class="workflow-steps" id="workflowSteps">
+          <div class="wf-step active" id="wf-greeting" data-step="greeting">
+            <div class="wf-icon">👋</div>
+            <span>Greeting</span>
+          </div>
+          <div class="wf-connector"></div>
+          <div class="wf-step" id="wf-understanding" data-step="understanding">
+            <div class="wf-icon">🔍</div>
+            <span>Understanding</span>
+          </div>
+          <div class="wf-connector"></div>
+          <div class="wf-step" id="wf-resolving" data-step="resolving">
+            <div class="wf-icon">⚙️</div>
+            <span>Resolving</span>
+          </div>
+          <div class="wf-connector"></div>
+          <div class="wf-step" id="wf-followup" data-step="followup">
+            <div class="wf-icon">✅</div>
+            <span>Follow-Up</span>
+          </div>
+          <div class="wf-connector"></div>
+          <div class="wf-step" id="wf-escalation" data-step="escalation">
+            <div class="wf-icon">🚨</div>
+            <span>Escalation</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Tools Panel -->
+      <div class="tools-panel" aria-label="Available agent tools">
+        <h3 class="tracker-title">Agent Tools</h3>
+        <div class="tool-list" id="toolList">
+          <div class="tool-item" id="tool-order-lookup" aria-label="Order Lookup tool">
+            <span class="tool-icon">📦</span>
+            <span class="tool-name">Order Lookup</span>
+            <span class="tool-badge" id="badge-order-lookup">Ready</span>
+          </div>
+          <div class="tool-item" id="tool-ticket-create" aria-label="Ticket Creator tool">
+            <span class="tool-icon">🎫</span>
+            <span class="tool-name">Ticket Creator</span>
+            <span class="tool-badge" id="badge-ticket-create">Ready</span>
+          </div>
+          <div class="tool-item" id="tool-knowledge-base" aria-label="Knowledge Base tool">
+            <span class="tool-icon">📚</span>
+            <span class="tool-name">Knowledge Base</span>
+            <span class="tool-badge" id="badge-knowledge-base">Ready</span>
+          </div>
+          <div class="tool-item" id="tool-escalate" aria-label="Escalate to Human tool">
+            <span class="tool-icon">🔺</span>
+            <span class="tool-name">Escalate</span>
+            <span class="tool-badge" id="badge-escalate">Ready</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Session Stats -->
+      <div class="session-stats">
+        <h3 class="tracker-title">Session Stats</h3>
+        <div class="stat-grid">
+          <div class="stat-item">
+            <span class="stat-value" id="msgCount">0</span>
+            <span class="stat-label">Messages</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="toolCalls">0</span>
+            <span class="stat-label">Tool Calls</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="sessionTime">0:00</span>
+            <span class="stat-label">Duration</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="confScore">—</span>
+            <span class="stat-label">Confidence</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ===== MAIN CHAT AREA ===== -->
+    <main class="chat-main" role="main">
+
+      <!-- Chat Header -->
+      <header class="chat-header" role="banner">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle sidebar" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="chat-agent-info">
+          <div class="agent-avatar" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="6" width="18" height="13" rx="3" stroke="#a78bfa" stroke-width="1.5"/>
+              <circle cx="9" cy="12" r="1.5" fill="#a78bfa"/>
+              <circle cx="15" cy="12" r="1.5" fill="#38bdf8"/>
+              <path d="M8 4h8" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <h1 class="chat-agent-name">NexusAI Support Agent</h1>
+            <p class="chat-agent-desc" id="agentDesc">Powered by Gemini · Multi-tool orchestration enabled</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="header-btn" id="clearChatBtn" title="Clear conversation" aria-label="Clear chat">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 .49-3.51"></path></svg>
+          </button>
+          <button class="header-btn" id="exportBtn" title="Export conversation" aria-label="Export chat">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          </button>
+          <div class="gemini-badge" aria-label="Powered by Gemini AI">
+            <span>✦</span> Gemini
+          </div>
+        </div>
+      </header>
+
+      <!-- Messages Container -->
+      <div class="messages-container" id="messagesContainer" role="log" aria-live="polite" aria-label="Chat messages">
+        <!-- Welcome Screen -->
+        <div class="welcome-screen" id="welcomeScreen">
+          <div class="welcome-icon" aria-hidden="true">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="32" r="30" stroke="url(#wg1)" stroke-width="2" opacity="0.6"/>
+              <rect x="18" y="22" width="28" height="20" rx="5" stroke="url(#wg2)" stroke-width="2"/>
+              <circle cx="26" cy="32" r="2.5" fill="#a78bfa"/>
+              <circle cx="38" cy="32" r="2.5" fill="#38bdf8"/>
+              <path d="M20 18h24" stroke="url(#wg1)" stroke-width="2" stroke-linecap="round"/>
+              <path d="M24 42v4M40 42v4" stroke="url(#wg2)" stroke-width="2" stroke-linecap="round"/>
+              <defs>
+                <linearGradient id="wg1" x1="0" y1="0" x2="64" y2="64">
+                  <stop stop-color="#a78bfa"/><stop offset="1" stop-color="#38bdf8"/>
+                </linearGradient>
+                <linearGradient id="wg2" x1="0" y1="0" x2="64" y2="64">
+                  <stop stop-color="#a78bfa"/><stop offset="1" stop-color="#38bdf8"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <h2 class="welcome-title">Hello! I'm NexusAI</h2>
+          <p class="welcome-sub">Your intelligent customer support agent. I can look up orders, create tickets, search our knowledge base, and escalate complex issues to a human specialist.</p>
+          <div class="quick-prompts" role="list" aria-label="Quick starter prompts">
+            <button class="quick-prompt" role="listitem" data-prompt="Where is my order #ORD-2847? It's been 5 days and I haven't received it yet.">📦 Track my order</button>
+            <button class="quick-prompt" role="listitem" data-prompt="I received a damaged product and I need a replacement or refund as soon as possible.">🔄 Request a refund</button>
+            <button class="quick-prompt" role="listitem" data-prompt="I can't log into my account. It says my password is incorrect but I just reset it.">🔐 Account login issue</button>
+            <button class="quick-prompt" role="listitem" data-prompt="What is your return policy and how long does it take to process a return?">📋 Return policy</button>
+            <button class="quick-prompt" role="listitem" data-prompt="I want to cancel my subscription. Can you help me with that?">❌ Cancel subscription</button>
+            <button class="quick-prompt" role="listitem" data-prompt="My payment was charged twice for the same order. I need help getting a refund for the duplicate charge.">💳 Billing problem</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tool Activity Feed (slides in when tools run) -->
+      <div class="tool-activity" id="toolActivity" aria-live="polite" aria-label="Tool activity log">
+        <div class="tool-activity-inner" id="toolActivityInner"></div>
+      </div>
+
+      <!-- Input Area -->
+      <div class="input-area" role="form" aria-label="Message input">
+        <div class="input-wrapper">
+          <textarea
+            id="messageInput"
+            class="message-input"
+            placeholder="Ask me anything — order status, refunds, account issues..."
+            rows="1"
+            maxlength="2000"
+            aria-label="Type your message"
+            aria-multiline="true"
+          ></textarea>
+          <div class="input-actions">
+            <span class="char-count" id="charCount" aria-live="polite">0 / 2000</span>
+            <button class="send-btn" id="sendBtn" aria-label="Send message" disabled>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="input-footer">
+          <span class="input-hint">Press <kbd>Enter</kbd> to send, <kbd>Shift+Enter</kbd> for new line</span>
+          <span class="powered-by">Secured by enterprise guardrails ✦</span>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Notification Toast -->
+  <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+
+  <!-- Config Modal -->
+  <div class="modal-overlay" id="configModal" role="dialog" aria-modal="true" aria-label="API Configuration" style="display:none;">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2>⚙️ Configure Gemini API</h2>
+        <button class="modal-close" id="modalClose" aria-label="Close modal">✕</button>
+      </div>
+      <p class="modal-desc">Enter your <strong>Gemini API key</strong> to enable real AI responses. Get a free key at <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a>.</p>
+      <div class="modal-field">
+        <label for="apiKeyInput">API Key</label>
+        <input type="password" id="apiKeyInput" placeholder="AIza..." autocomplete="off" />
+      </div>
+      <div class="modal-field">
+        <label for="modelSelect">Model</label>
+        <select id="modelSelect">
+          <option value="gemini-3.6-flash">gemini-3.6-flash (Recommended — Latest Flash)</option>
+          <option value="gemini-3.5-flash-lite">gemini-3.5-flash-lite (Fastest)</option>
+          <option value="gemini-3.1-pro-preview">gemini-3.1-pro-preview (Most capable)</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" id="useDemoMode">Use Demo Mode</button>
+        <button class="btn-primary" id="saveConfig">Save & Connect</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
