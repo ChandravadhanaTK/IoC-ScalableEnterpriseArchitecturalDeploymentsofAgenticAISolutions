@@ -1,0 +1,13 @@
+# Backend Dependencies for IOC Sentinel
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.8.0
+pydantic-settings>=2.4.0
+google-genai>=2.3.0
+httpx>=0.27.0
+aiofiles>=24.1.0
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+python-multipart>=0.0.9
+pytest>=8.3.0
+pytest-asyncio>=0.24.0
