@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+<head>
+<meta charset="utf-8">
+<title>Capstone Enterprise Deliverables</title>
+<style>
+body { font-family: Calibri, Arial, sans-serif; margin: 40px; color: #1e293b; line-height: 1.6; }
+h1 { color: #06b6d4; font-size: 24pt; border-bottom: 2px solid #06b6d4; padding-bottom: 6px; margin-top: 24px; }
+h2 { color: #0f172a; font-size: 18pt; margin-top: 20px; }
+h3 { color: #8b5cf6; font-size: 14pt; margin-top: 16px; }
+table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+th, td { border: 1px solid #cbd5e1; padding: 10px; text-align: left; font-size: 10pt; }
+th { background-color: #0f172a; color: #ffffff; }
+tr:nth-child(even) { background-color: #f8fafc; }
+pre, code { font-family: Consolas, monospace; background-color: #0f172a; color: #38bdf8; padding: 12px; border-radius: 6px; font-size: 9.5pt; display: block; white-space: pre-wrap; }
+.meta { color: #64748b; font-size: 10pt; font-style: italic; text-align: center; margin-bottom: 30px; }
+.title-block { text-align: center; margin-bottom: 20px; }
+.alert-box { background-color: #eff6ff; border-left: 4px solid #3b82f6; padding: 12px; margin: 16px 0; }
+</style>
+</head>
+<body>
+
+<div class="title-block">
+  <h1 style="border:none; color:#0f172a; font-size:26pt; margin-bottom:4px;">Capstone Enterprise Deliverables</h1>
+  <div style="font-size:14pt; color:#06b6d4; font-weight:bold; margin-bottom:12px;">Scalable Enterprise Architectural Deployments of Agentic AI Solutions</div>
+  <div class="meta">
+    Author: Manikandan &nbsp;|&nbsp; Roll Number: 2023103519 &nbsp;|&nbsp; Directory: 2023103519-Manikandan &nbsp;|&nbsp; Date: October 2026
+  </div>
+</div>
+
+<hr style="border:0; border-top:1px solid #e2e8f0; margin:20px 0;" />
+
+<h2>Executive Summary</h2>
+<p>This document presents the complete set of five enterprise architectural deliverables required for the Capstone evaluation of scalable Agentic AI Solutions. The underlying platform—<strong>Enterprise Agentic Orchestration Platform (AgenticAI-Core)</strong>—is a production-ready, multi-agent AI system featuring autonomous task decomposition, tool execution, safety guardrails, human-in-the-loop (HITL) risk mitigation, and comprehensive telemetry tracking.</p>
+
+<hr style="border:0; border-top:1px solid #e2e8f0; margin:20px 0;" />
+
+<h1>Deliverable 1: Enterprise Architecture Diagram</h1>
+<p><em>Layers, components, trust boundaries, and integrations</em></p>
+
+<h3>1.1 Architectural Overview</h3>
+<p>The system follows a zero-trust, multi-layered architecture separating presentation, orchestration, execution, guardrails, and persistent storage.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Layer</th>
+      <th>Primary Components</th>
+      <th>Key Responsibilities</th>
+      <th>Trust Boundary Level</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Presentation Layer</strong></td>
+      <td>React UI, WebSocket Listener</td>
+      <td>Real-time agent status visualization, interactive HITL approvals, telemetry charts.</td>
+      <td>Public Internet (TLS 1.3)</td>
+    </tr>
+    <tr>
+      <td><strong>Ingress & Auth Layer</strong></td>
+      <td>API Gateway, JWT Middleware</td>
+      <td>Rate limiting, OAuth2 authentication, CORS validation, DDoS defense.</td>
+      <td>Perimeter DMZ</td>
+    </tr>
+    <tr>
+      <td><strong>Agentic Core</strong></td>
+      <td>Supervisor Agent, Worker Agents, Context Manager</td>
+      <td>Task breakdown (DAG), agent handoffs, memory synthesis, LLM prompt formatting.</td>
+      <td>Private Subnet (VPC)</td>
+    </tr>
+    <tr>
+      <td><strong>Security & Guardrail Layer</strong></td>
+      <td>Guardrail Engine, PII Sanitizer, HITL Gateway</td>
+      <td>Prompt injection scanning, data anonymization, risk scoring, manual operator intervention.</td>
+      <td>High-Security VPC Boundary</td>
+    </tr>
+    <tr>
+      <td><strong>Execution Layer</strong></td>
+      <td>Node VM Sandbox, External Connectors</td>
+      <td>Safe code execution, external API webhooks, database query runner.</td>
+      <td>Isolated Sandbox (gVisor/Docker)</td>
+    </tr>
+    <tr>
+      <td><strong>Data & Storage Layer</strong></td>
+      <td>Vector DB, Redis State Store, Telemetry Store</td>
+      <td>Embedding vector search, session state management, immutability audit logs.</td>
+      <td>Encrypted Persistent Storage</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr style="border:0; border-top:1px solid #e2e8f0; margin:20px 0;" />
+
+<h1>Deliverable 2: Agent Workflow Design</h1>
+<p><em>Roles, states, tools, handoffs, approvals, and failure paths</em></p>
+
+<h3>2.1 Failure Recovery & Self-Healing Matrix</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Failure Scenario</th>
+      <th>Detection Mechanism</th>
+      <th>Mitigation / Recovery Strategy</th>
+      <th>Max Retries</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Code Syntax / Runtime Error</strong></td>
+      <td>Sandbox Exception Stack Trace</td>
+      <td>Re-feed error log to Execution Agent with "Fix syntax & retry" instruction.</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td><strong>API Timeout / Rate Limit</strong></td>
+      <td>HTTP 429 / 504 Status</td>
+      <td>Exponential backoff retry with jitter; failover to secondary provider.</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td><strong>Hallucinated Output</strong></td>
+      <td>Quality Validation Agent score &lt; 0.7</td>
+      <td>Re-prompt supervisor to recalculate DAG step with tighter context bounds.</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td><strong>Human Rejection</strong></td>
+      <td>Operator clicks "Deny" in HITL modal</td>
+      <td>Abort specific sub-task, update context log, request alternative path from Supervisor.</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td><strong>Infinite Loop Detection</strong></td>
+      <td>Step Counter &gt; 15 steps</td>
+      <td>Force terminate state machine, return partial results with audit flag.</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr style="border:0; border-top:1px solid #e2e8f0; margin:20px 0;" />
+
+<h1>Deliverable 3: Deployment Strategy</h1>
+<p><em>Runtime, scaling, resilience, environments, and release management</em></p>
+
+<h3>3.1 Environments & Configuration</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Environment</th>
+      <th>Purpose</th>
+      <th>Infrastructure</th>
+      <th>Scaling Rules</th>
+      <th>Deployment Pipeline</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Development (DEV)</strong></td>
+      <td>Feature development & sandbox testing</td>
+      <td>Minikube / Single-node Docker</td>
+      <td>Fixed 1 Replica</td>
+      <td>Direct push on feature/*</td>
+    </tr>
+    <tr>
+      <td><strong>Staging (STG)</strong></td>
+      <td>Integration testing & load testing</td>
+      <td>K8s Cluster (Pre-prod DB copy)</td>
+      <td>2 Replicas</td>
+      <td>Automated merge to main</td>
+    </tr>
+    <tr>
+      <td><strong>Production (PRD)</strong></td>
+      <td>Live customer operations</td>
+      <td>Multi-AZ EKS Cluster</td>
+      <td>HPA (CPU &gt; 70%, Queue &gt; 15)</td>
+      <td>Blue/Green Deployment with Canary rollout</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr style="border:0; border-top:1px solid #e2e8f0; margin:20px 0;" />
+
+<h1>Deliverable 4: Security Model</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Domain</th>
+      <th>Control Mechanism</th>
+      <th>Implementation Standard</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Identity & Authentication</strong></td>
+      <td>JWT with short TTL (15m) + Refresh Tokens</td>
+      <td>OAuth 2.0 + OpenID Connect (OIDC) via Auth0/Cognito</td>
+    </tr>
+    <tr>
+      <td><strong>Role-Based Access Control (RBAC)</strong></td>
+      <td>Granular scopes (agent:read, agent:execute, hitl:approve)</td>
+      <td>Middleware scope validation on every API endpoint</td>
+    </tr>
+    <tr>
+      <td><strong>Secrets Management</strong></td>
+      <td>Zero plain-text secrets in code/env files</td>
+      <td>HashiCorp Vault / AWS Secrets Manager with auto-rotation</td>
+    </tr>
+    <tr>
+      <td><strong>Data Privacy & PII Scrubbing</strong></td>
+      <td>Regex + Presidio Analyzer for SSN, PCI-DSS, Email</td>
+      <td>Anonymize before LLM prompt assembly</td>
+    </tr>
+    <tr>
+      <td><strong>LLM Safety Guardrails</strong></td>
+      <td>Structural prompt isolation, delimiting, system overrides</td>
+      <td>Guardrails AI / Llama-Guard risk classification engine</td>
+    </tr>
+    <tr>
+      <td><strong>Audit Logging</strong></td>
+      <td>Cryptographically signed log records</td>
+      <td>CloudWatch / Elastic Stack (WORM storage compliance)</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr style="border:0; border-top:1px solid #e2e8f0; margin:20px 0;" />
+
+<h1>Deliverable 5: Monitoring Dashboard Design</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric Category</th>
+      <th>Metric Name</th>
+      <th>Target SLA / Threshold</th>
+      <th>Alert Trigger</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Health</strong></td>
+      <td>Agent Endpoint Uptime</td>
+      <td>&ge; 99.9%</td>
+      <td>Uptime &lt; 99.5% over 5m window</td>
+    </tr>
+    <tr>
+      <td><strong>Trace & Latency</strong></td>
+      <td>End-to-End Workflow Latency (p95)</td>
+      <td>&le; 3.5 seconds</td>
+      <td>Latency &gt; 6.0s over 10m window</td>
+    </tr>
+    <tr>
+      <td><strong>Quality</strong></td>
+      <td>Task Completion Accuracy Score</td>
+      <td>&ge; 95%</td>
+      <td>Accuracy &lt; 90% in daily batch</td>
+    </tr>
+    <tr>
+      <td><strong>Safety</strong></td>
+      <td>Prompt Injection Detection Count</td>
+      <td>0 Unhandled Breaches</td>
+      <td>Any unhandled guardrail bypass</td>
+    </tr>
+    <tr>
+      <td><strong>Cost</strong></td>
+      <td>LLM Token Expenditure</td>
+      <td>Within Daily Budget ($50.00)</td>
+      <td>80% daily budget reached</td>
+    </tr>
+    <tr>
+      <td><strong>Business Outcome</strong></td>
+      <td>Manual Task Time Saved</td>
+      <td>&ge; 85% efficiency gain</td>
+      <td>Efficiency gain &lt; 70%</td>
+    </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
