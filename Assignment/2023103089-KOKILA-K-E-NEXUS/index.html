@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXUS — Multi-Agent AI Productivity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+
+<nav>
+  <div class="nav-logo">NEXUS</div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#assistant">AI Chat</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#tasks-page">Tasks</a>
+    <a href="#notes-page">Notes</a>
+    <a href="#knowledge-page">Knowledge</a>
+  </div>
+  <button class="nav-cta" id="nav-auth-btn" onclick="openModal('signin')">Sign In</button>
+  <div class="nav-user" id="nav-user" style="display:none" onclick="handleLogout()">
+    <div class="nav-avatar" id="nav-avatar"></div>
+    <span class="nav-username" id="nav-username"></span>
+    <span class="nav-logout">↩</span>
+  </div>
+</nav>
+
+
+<div id="auth-modal" class="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+
+    
+    <div id="modal-signin" class="modal-panel">
+      <div class="modal-logo">NEXUS</div>
+      <div class="modal-title">Welcome back</div>
+      <div class="modal-sub">Sign in to your account</div>
+      <div class="input-group">
+        <label class="input-label">Email</label>
+        <input class="input-field" type="text" placeholder="you@example.com" id="signin-email" oninput="clearErr('signin-email-err')">
+        <span class="field-err" id="signin-email-err"></span>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Password</label>
+        <input class="input-field" type="password" placeholder="Min. 6 characters" id="signin-password" oninput="clearErr('signin-pass-err')">
+        <span class="field-err" id="signin-pass-err"></span>
+      </div>
+      <span class="field-err form-err" id="signin-form-err"></span>
+      <button class="btn-submit" onclick="handleSignIn()">Sign In →</button>
+      <div class="modal-switch">Don't have an account? <span onclick="switchModal('signup')">Sign Up</span></div>
+    </div>
+
+    
+    <div id="modal-signup" class="modal-panel" style="display:none">
+      <div class="modal-logo">NEXUS</div>
+      <div class="modal-title">Create account</div>
+      <div class="modal-sub">Start your AI productivity journey</div>
+      <div class="input-group">
+        <label class="input-label">Full Name</label>
+        <input class="input-field" type="text" placeholder="Your name" id="signup-name" oninput="clearErr('signup-name-err')">
+        <span class="field-err" id="signup-name-err"></span>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Email</label>
+        <input class="input-field" type="text" placeholder="you@example.com" id="signup-email" oninput="clearErr('signup-email-err')">
+        <span class="field-err" id="signup-email-err"></span>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Password</label>
+        <input class="input-field" type="password" placeholder="Min. 6 characters" id="signup-password" oninput="clearErr('signup-pass-err')">
+        <span class="field-err" id="signup-pass-err"></span>
+      </div>
+      <button class="btn-submit" onclick="handleSignUp()">Create Account →</button>
+      <div class="modal-switch">Already have an account? <span onclick="switchModal('signin')">Sign In</span></div>
+    </div>
+  </div>
+</div>
+
+
+<section id="hero">
+  <canvas id="three-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      AI Agents Active · Live System
+    </div>
+    <h1 class="hero-title">
+      <span class="line1">Multi-Agent</span>
+      <span class="line2">AI Productivity</span>
+    </h1>
+    <p class="hero-sub">One intelligent platform, six specialized AI agents. Manage tasks, notes, calendar, knowledge, and more — powered by Gemini.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('assistant').scrollIntoView({behavior:'smooth'})">▶ Open AI Assistant</button>
+      <button class="btn-secondary" onclick="document.getElementById('dashboard').scrollIntoView({behavior:'smooth'})">View Dashboard →</button>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    SCROLL
+  </div>
+</section>
+
+
+<section id="features">
+  <div class="section-label">Core Features</div>
+  <h2 class="section-title">Six Agents.<br>Infinite Potential.</h2>
+  <p class="section-sub">Each agent is a specialist, trained to excel at a specific domain of productivity.</p>
+  <div class="features-grid" id="features-grid"></div>
+</section>
+
+
+<section id="howitworks">
+  <div class="section-label">How It Works</div>
+  <h2 class="section-title">Simple. Powerful.<br>Intelligent.</h2>
+  <div class="steps">
+    <div class="step"><div class="step-num">01</div><div class="step-body"><div class="step-title">Type a Command</div><div class="step-desc">Use natural language to interact with any agent. No syntax required — just say what you need in plain English.</div></div></div>
+    <div class="step"><div class="step-num">02</div><div class="step-body"><div class="step-title">Agents Collaborate</div><div class="step-desc">The routing agent dispatches your request to the most suitable specialist agent — Task, Note, Calendar, or Knowledge.</div></div></div>
+    <div class="step"><div class="step-num">03</div><div class="step-body"><div class="step-title">AI Executes & Responds</div><div class="step-desc">Powered by Gemini API via FastAPI, your agent completes the action and returns a structured, intelligent response.</div></div></div>
+    <div class="step"><div class="step-num">04</div><div class="step-body"><div class="step-title">Dashboard Updates Live</div><div class="step-desc">Everything syncs in real-time across your productivity dashboard — tasks, notes, events, and knowledge base.</div></div></div>
+  </div>
+</section>
+
+
+<div id="stats">
+  <div class="stat-block"><div class="stat-val" id="sv1">0</div><div class="stat-label">Tasks Managed</div></div>
+  <div class="stat-block"><div class="stat-val" id="sv2">0</div><div class="stat-label">Notes Stored</div></div>
+  <div class="stat-block"><div class="stat-val" id="sv3">0</div><div class="stat-label">Events Scheduled</div></div>
+  <div class="stat-block"><div class="stat-val" id="sv4">0</div><div class="stat-label">Knowledge Items</div></div>
+</div>
+
+
+<section id="assistant">
+  <div class="section-label">AI Assistant</div>
+  <div class="assistant-wrapper">
+    <div class="assistant-info">
+      <h2 class="section-title">Talk to Your<br>AI Team</h2>
+      <p class="section-sub">Command your productivity stack with natural language. One chat interface connects you to all six specialized agents.</p>
+      <div class="agent-pills" id="agent-pills"></div>
+    </div>
+    <div class="chat-demo">
+      <div class="chat-header">
+        <div class="chat-dots"><span></span><span></span><span></span></div>
+        <div class="chat-title">nexus-ai-terminal</div>
+        <div class="chat-agent">● 6 AGENTS ONLINE</div>
+      </div>
+      <div class="chat-messages" id="chat-messages"></div>
+      <div class="chat-input-row">
+        <input class="chat-input" id="chat-input" placeholder="add task, add note, schedule event..." />
+        <button class="chat-send" id="chat-send">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="dashboard">
+  <div class="orb" style="width:400px;height:400px;background:rgba(0,212,255,0.04);top:-100px;right:-100px;"></div>
+  <div class="section-label">Live Dashboard</div>
+  <h2 class="section-title">Everything at<br>a Glance</h2>
+  <div class="dashboard-grid" id="dashboard-grid"></div>
+</section>
+
+
+<section id="tasks-page">
+  <div class="section-label">Task Manager</div>
+  <h2 class="section-title">Manage<br>Your Tasks</h2>
+  <div class="tasks-interface">
+    <div class="task-form">
+      <div class="form-title">Add New Task</div>
+      <div class="input-group">
+        <label class="input-label">Task Name</label>
+        <input class="input-field" id="task-name" placeholder="What needs to be done?">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Priority</label>
+        <select class="input-field" id="task-priority">
+          <option value="high">High Priority</option>
+          <option value="medium" selected>Medium Priority</option>
+          <option value="low">Low Priority</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Due Date</label>
+        <input class="input-field" id="task-due" type="date">
+      </div>
+      <button class="btn-submit" onclick="addTask()">+ Add Task</button>
+    </div>
+    <div>
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--text3);letter-spacing:2px;margin-bottom:20px;">ACTIVE TASKS — <span id="task-count">0</span></div>
+      <div class="tasks-list" id="tasks-list"></div>
+    </div>
+  </div>
+</section>
+
+
+<section id="notes-page">
+  <div class="section-label">Notes Manager</div>
+  <h2 class="section-title">Capture<br>Your Thoughts</h2>
+  <div class="notes-interface">
+    <div class="task-form">
+      <div class="form-title">New Note</div>
+      <div class="input-group">
+        <label class="input-label">Title</label>
+        <input class="input-field" id="note-title" placeholder="Note title...">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Content</label>
+        <textarea class="input-field" id="note-content" rows="5" placeholder="Write your note here..." style="resize:vertical;"></textarea>
+      </div>
+      <button class="btn-submit" onclick="addNote()">+ Save Note</button>
+    </div>
+    <div class="notes-grid" id="notes-grid"></div>
+  </div>
+</section>
+
+
+<section id="knowledge-page">
+  <div class="section-label">Knowledge Base</div>
+  <h2 class="section-title">Store &amp;<br>Retrieve</h2>
+  <div class="knowledge-interface">
+    <div class="task-form">
+      <div class="form-title">Add Knowledge</div>
+      <div class="input-group">
+        <label class="input-label">Topic</label>
+        <input class="input-field" id="kb-title" placeholder="Topic or title...">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Knowledge</label>
+        <textarea class="input-field" id="kb-content" rows="4" placeholder="Enter knowledge to store..." style="resize:vertical;"></textarea>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Tags (comma separated)</label>
+        <input class="input-field" id="kb-tags" placeholder="ai, productivity, notes...">
+      </div>
+      <button class="btn-submit" onclick="addKnowledge()">+ Store Knowledge</button>
+    </div>
+    <div id="kb-list"></div>
+  </div>
+</section>
+
+
+<section id="cta">
+  <div class="section-label" style="justify-content:center;">Get Started</div>
+  <h2 class="cta-title">Ready to be<br><span>10x Productive?</span></h2>
+  <p class="cta-sub">Deploy your multi-agent AI assistant today. No setup. No complexity. Just results.</p>
+  <div style="display:flex;gap:16px;justify-content:center;">
+    <button class="btn-primary" onclick="document.getElementById('assistant').scrollIntoView({behavior:'smooth'})">▶ Start Now — Free</button>
+    <button class="btn-secondary" onclick="document.getElementById('dashboard').scrollIntoView({behavior:'smooth'})">View Dashboard</button>
+  </div>
+</section>
+
+
+<footer>
+  <div class="footer-logo">NEXUS</div>
+  <div class="footer-copy">© 2026 NEXUS AI · Multi-Agent Productivity Platform</div>
+  <div class="footer-links">
+    <a href="#features">Features</a>
+    <a href="#assistant">Assistant</a>
+    <a href="#dashboard">Dashboard</a>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
