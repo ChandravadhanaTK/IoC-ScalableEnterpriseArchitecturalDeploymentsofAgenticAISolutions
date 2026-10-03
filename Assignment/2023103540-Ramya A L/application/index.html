@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f7f5f0" />
+  <meta name="description" content="StudyPilot helps students plan focused study sessions and keep track of assignments." />
+  <title>StudyPilot — Plan your progress</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#top" aria-label="StudyPilot home"><span class="brand-mark">s<span>✳</span></span><span>study<span class="brand-light">pilot</span></span></a>
+      <p class="side-label">YOUR SPACE</p>
+      <nav class="nav" aria-label="Study planner sections">
+        <button class="nav-link selected" data-filter="all"><span class="nav-icon">◫</span> My dashboard</button>
+        <button class="nav-link" data-filter="today"><span class="nav-icon">▣</span> Due today <span class="nav-badge" id="today-count">0</span></button>
+        <button class="nav-link" data-filter="completed"><span class="nav-icon">✓</span> Completed</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="offline-card"><span class="offline-icon">⌁</span><strong>Your work stays yours.</strong><p>Everything is saved on this device. No account or sign-in needed.</p><span class="saved-indicator"><i></i> Saved on this device</span></div>
+        <div class="student"><div class="student-avatar">AL</div><div><strong>Alex Lee</strong><small>My study space</small></div><span class="more">···</span></div>
+      </div>
+    </aside>
+    <main class="main" id="top">
+      <header class="topbar"><button class="menu-toggle" id="menu-toggle" aria-label="Open menu">☰</button><span class="crumb">My dashboard <span>/</span> Study plan</span><div class="top-right"><span class="local-chip"><i></i> Offline ready</span><span class="date-chip" id="today-date"></span></div></header>
+      <div class="content">
+        <section class="welcome"><div><div class="overline">YOUR STUDY SPACE <span>✳</span></div><h1>Make today count, Alex.</h1><p>Small steps add up. Here’s your plan for a good study day.</p></div><button class="add-button" id="add-task"><span>＋</span> Add a task</button></section>
+        <section class="hero">
+          <div class="hero-copy"><span class="hero-label"><span>✦</span> YOUR FOCUS MOMENT</span><h2>One thing at a time.<br/>You’ve got this.</h2><p>Pick a task, set a focus session, and give it your attention. Your progress is yours to keep.</p><button class="focus-button" id="focus-start">Start a focus session <span>→</span></button></div>
+          <div class="hero-art" aria-hidden="true"><div class="sun"></div><div class="art-book book-one"></div><div class="art-book book-two"></div><div class="art-book book-three"></div><div class="art-plant"><i></i><i></i><i></i><b></b></div><span class="art-star star-one">✳</span><span class="art-star star-two">✦</span><div class="art-note">progress<br/>over perfect <span>↗</span></div></div>
+          <div class="hero-count"><strong id="hero-complete">0</strong><span>tasks completed this week</span><div class="week-dots" id="week-dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+        </section>
+        <section class="stats"><article class="stat"><div class="stat-label">Tasks on your list <span class="stat-ico violet">▤</span></div><div class="stat-value" id="stat-total">0</div><div class="stat-note">A plan you can actually finish</div></article><article class="stat"><div class="stat-label">Completed today <span class="stat-ico green">✓</span></div><div class="stat-value" id="stat-done">0</div><div class="stat-note"><span class="green-text" id="progress-message">Your next win is waiting</span></div></article><article class="stat"><div class="stat-label">Focus time today <span class="stat-ico orange">◷</span></div><div class="stat-value"><span id="focus-minutes">0</span><small> min</small></div><div class="stat-note">Every focused minute counts</div></article></section>
+        <section class="work-grid"><article class="task-panel"><div class="panel-head"><div><div class="panel-title-line"><h2 id="list-title">Your study plan</h2><span class="task-count" id="task-count">0 tasks</span></div><p id="list-subtitle">A few good next steps, all in one place.</p></div><div class="panel-tools"><label class="search"><span>⌕</span><input id="task-search" placeholder="Find a task" aria-label="Search tasks" /></label><button class="filter-button" id="filter-button" aria-label="Show task filters">☷</button></div></div><div class="filters" id="filters"><button class="filter-chip active" data-filter="all">All tasks</button><button class="filter-chip" data-filter="today">Due today</button><button class="filter-chip" data-filter="completed">Completed</button></div><div class="task-list" id="task-list"></div><button class="add-inline" id="add-inline"><span>＋</span> Add another task</button></article>
+          <aside class="right-column"><article class="timer-card" id="timer-card"><div class="timer-head"><div><span class="mini-overline">FOCUS TIMER</span><h2>Find your flow</h2></div><span class="timer-spark">✳</span></div><p class="timer-hint">A little focus goes a long way.</p><div class="timer-ring" id="timer-ring"><div><strong id="timer-display">25:00</strong><small id="timer-mode">MINUTES</small></div></div><div class="timer-controls"><button class="timer-play" id="timer-toggle">Start focus</button><button class="timer-reset" id="timer-reset" aria-label="Reset timer">↺</button></div><div class="timer-foot"><span><i></i> 25 min focus</span><button id="short-break">Take a 5 min break</button></div></article>
+          <article class="tip-card"><div class="tip-icon">✦</div><div class="tip-label">A GENTLE REMINDER</div><h3>Done is better<br/>than perfect.</h3><p>Try a 25-minute focus sprint. You can do more than you think.</p><button id="tip-focus">Start a focus sprint <span>→</span></button><span class="tip-flower">✳</span></article></aside></section>
+        <footer class="footer"><span>Made for your learning journey <b>♥</b></span><span>Private by design · Saved locally on this device</span></footer>
+      </div>
+    </main>
+  </div>
+  <dialog id="task-dialog"><form id="task-form"><button type="button" class="dialog-close" id="close-dialog" aria-label="Close">×</button><div class="dialog-icon">✳</div><div class="overline">MAKE A LITTLE PROGRESS</div><h2>Add a study task</h2><p class="dialog-sub">Keep it clear and manageable. You can edit it later.</p><label for="task-name">What would you like to work on?</label><input id="task-name" maxlength="100" required placeholder="e.g. Review biology lecture notes" /><div class="form-row"><div><label for="task-subject">Subject</label><select id="task-subject"><option>General</option><option>Computer Science</option><option>Mathematics</option><option>Biology</option><option>Physics</option><option>Writing</option><option>Other</option></select></div><div><label for="task-due">Due</label><select id="task-due"><option value="today">Today</option><option value="tomorrow">Tomorrow</option><option value="week">This week</option></select></div></div><button class="add-button submit-task" type="submit">Add to my plan <span>→</span></button></form></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
