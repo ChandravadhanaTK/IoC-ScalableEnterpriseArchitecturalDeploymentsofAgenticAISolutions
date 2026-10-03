@@ -1,0 +1,24 @@
+# Queue-depth scaling for the worker (Module 6: "KEDA / queue depth").
+# Apply only on a cluster with KEDA and Prometheus installed:
+#   helm repo add kedacore https://kedacore.github.io/charts && helm install keda kedacore/keda -n keda --create-namespace
+# Scales one replica per 5 unconsumed events. minReplicaCount is 1, not 0: the
+# backlog gauge is exported by the worker itself, so a worker scaled to zero
+# could never report the backlog that should wake it.
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: copilot-worker
+  namespace: opscopilot
+spec:
+  scaleTargetRef:
+    name: copilot-worker
+  minReplicaCount: 1
+  maxReplicaCount: 4
+  cooldownPeriod: 120
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: http://prometheus.opscopilot.svc:9090
+        metricName: copilot_event_backlog
+        query: max(copilot_event_backlog)
+        threshold: "5"

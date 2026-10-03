@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #090a0f;
+    color: #f1f5f9;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #090a0f;
+}
+::-webkit-scrollbar-thumb {
+  background: #262a3a;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9D00FF;
+}
+
+/* Glassmorphism helpers */
+.glass-panel {
+  background: rgba(24, 27, 38, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(157, 0, 255, 0.15);
+}
+
+.glass-card {
+  background: rgba(18, 20, 28, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-input {
+  background: rgba(10, 12, 18, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transition: all 0.2s ease;
+}
+
+.glass-input:focus {
+  border-color: #9D00FF;
+  box-shadow: 0 0 14px rgba(157, 0, 255, 0.3);
+  outline: none;
+}
+
+.purple-glow-btn {
+  background: linear-gradient(135deg, #9D00FF 0%, #6e00b3 100%);
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(157, 0, 255, 0.35);
+}
+
+.purple-glow-btn:hover {
+  filter: brightness(1.15);
+  box-shadow: 0 0 25px rgba(157, 0, 255, 0.5);
+}
+
+/* Glow animation */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s infinite ease-in-out;
+}
