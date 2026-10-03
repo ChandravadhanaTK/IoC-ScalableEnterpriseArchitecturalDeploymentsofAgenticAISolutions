@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: servicedesk
+  namespace: servicedesk
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/limit-rps: "20"
+    nginx.ingress.kubernetes.io/proxy-body-size: 64k
+spec:
+  ingressClassName: nginx
+  tls: [{hosts: [servicedesk.example.com], secretName: servicedesk-tls}]
+  rules:
+    - host: servicedesk.example.com
+      http:
+        paths:
+          - {path: /api, pathType: Prefix, backend: {service: {name: backend, port: {number: 8000}}}}
+          - {path: /, pathType: Prefix, backend: {service: {name: frontend, port: {number: 80}}}}

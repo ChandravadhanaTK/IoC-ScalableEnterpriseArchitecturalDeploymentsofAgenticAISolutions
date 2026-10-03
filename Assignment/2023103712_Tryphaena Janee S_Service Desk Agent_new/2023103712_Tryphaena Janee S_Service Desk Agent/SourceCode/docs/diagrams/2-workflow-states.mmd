@@ -1,0 +1,23 @@
+stateDiagram-v2
+  [*] --> Guardian
+  Guardian --> Blocked: injection score >= 0.7, empty or too long
+  Guardian --> Escalation: follow-up says "didn't work"
+  Guardian --> Triage: allowed (PII redacted)
+  Triage --> Knowledge: category, intent, priority, confidence
+  Knowledge --> Resolver: KB hits + service status
+  Resolver --> Escalation: security incident / P1 outage / low confidence / no KB answer / not in catalog
+  Resolver --> Responder: how-to answered or policy denied
+  Resolver --> ApprovalGate: plan contains tool calls
+  ApprovalGate --> Responder: high-risk action - approval created (INTERRUPT)
+  ApprovalGate --> Executor: low/medium risk or already approved
+  ApprovalGate --> Responder: policy violation (scope / role)
+  Executor --> Responder: all tools succeeded
+  Executor --> Escalation: tool failed after retries
+  Escalation --> Responder: ITSM incident + handoff package
+  Responder --> [*]: reply passes output guardrail
+  Blocked --> [*]
+  note right of ApprovalGate
+    Human decision resumes the graph:
+    approve -> ApprovalGate -> Executor
+    reject  -> Responder (closed)
+  end note

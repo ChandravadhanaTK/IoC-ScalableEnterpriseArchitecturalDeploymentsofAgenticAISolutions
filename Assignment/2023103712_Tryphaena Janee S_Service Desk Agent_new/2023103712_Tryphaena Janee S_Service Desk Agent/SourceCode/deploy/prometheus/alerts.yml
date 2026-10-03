@@ -1,0 +1,35 @@
+# Alert rules mirror the SLOs shown on the in-app Monitoring dashboard.
+groups:
+  - name: servicedesk-agent
+    rules:
+      - alert: AgentHighLatencyP95
+        expr: histogram_quantile(0.95, sum by (le) (rate(request_latency_ms_bucket[10m]))) > 4000
+        for: 10m
+        labels: {severity: warning, pillar: health}
+        annotations: {summary: "Chat p95 latency above 4s"}
+      - alert: AgentErrorRate
+        expr: sum(rate(agent_errors_total[10m])) / clamp_min(sum(rate(tickets_outcome_total[10m])), 1) > 0.02
+        for: 10m
+        labels: {severity: critical, pillar: health}
+        annotations: {summary: "More than 2% of agent runs hit an internal error"}
+      - alert: LLMFallbackActive
+        expr: increase(llm_fallbacks_total[5m]) > 0
+        labels: {severity: critical, pillar: health}
+        annotations: {summary: "LLM unavailable - circuit breaker serving rules fallback"}
+      - alert: GuardrailBlockSpike
+        expr: increase(guardrail_blocks_total[15m]) > 10
+        labels: {severity: warning, pillar: safety}
+        annotations: {summary: "Spike in prompt-injection blocks - possible abuse"}
+      - alert: ToolFailures
+        expr: sum by (tool) (increase(tool_calls_total{ok="false"}[15m])) > 5
+        labels: {severity: warning, pillar: quality}
+        annotations: {summary: "Integration {{ $labels.tool }} failing"}
+      - alert: LowAutoResolution
+        expr: sum(increase(tickets_outcome_total{outcome="auto_resolved"}[1h])) / clamp_min(sum(increase(tickets_outcome_total[1h])), 1) < 0.4
+        for: 1h
+        labels: {severity: warning, pillar: business}
+        annotations: {summary: "Auto-resolution rate below 40% target"}
+      - alert: LLMSpendSpike
+        expr: increase(llm_cost_usd_total[1h]) > 5
+        labels: {severity: warning, pillar: cost}
+        annotations: {summary: "LLM spend above $5/hour"}

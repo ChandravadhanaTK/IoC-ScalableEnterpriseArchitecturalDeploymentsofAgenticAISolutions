@@ -1,0 +1,25 @@
+flowchart LR
+  REQ["User message"] --> L1
+  subgraph L1["1 Identity"]
+    SSO["OIDC SSO + MFA<br/>JWT: iss, aud, exp checked"]
+  end
+  L1 --> L2
+  subgraph L2["2 Authorization"]
+    RBAC["Route RBAC<br/>(permission strings)"] --> SCOPE["Tool scope: self-only<br/>risk tiers"] --> SOD["Approvals: separation<br/>of duties + expiry"]
+  end
+  L2 --> L3
+  subgraph L3["3 Input guardrails"]
+    INJ["Injection scoring<br/>block >= 0.7"] --> PII["PII + secret redaction<br/>before LLM and storage"]
+  end
+  L3 --> L4
+  subgraph L4["4 Model boundary"]
+    NARROW["LLM only classifies + writes;<br/>never authorizes"] --> CLAMP["Output schema clamped"]
+  end
+  L4 --> L5
+  subgraph L5["5 Output guardrails"]
+    OUT["Secret/PII scrub on reply"] --> REND["Safe rendering (no innerHTML)"]
+  end
+  L5 --> L6
+  subgraph L6["6 Audit"]
+    AUD2["Hash-chained, append-only<br/>tamper-evident log"]
+  end

@@ -1,0 +1,13 @@
+flowchart TB
+  AL["Alert banner - SLO breaches by pillar"]
+  subgraph B["6 Business outcomes (top, full width)"]
+    B1["Tickets"] --- B2["Auto-resolution %"] --- B3["Hours saved"] --- B4["Net cost avoided"] --- B5["MTTR auto / escalated"] --- B6["Approval wait"]
+    B7["Tickets per hour by outcome (stacked bars)"] --- B8["Volume by category"]
+  end
+  subgraph R2[" "]
+    H["1 Health: p95/p50 latency, error rate, LLM circuit"] --- TRC["2 Trace: mean latency per agent node"]
+  end
+  subgraph R3[" "]
+    Q["3 Quality: CSAT, tool success rate"] --- S["4 Safety: blocks, redactions, denials, approvals"] --- C["5 Cost: spend, per ticket, tokens"]
+  end
+  AL --> B --> R2 --> R3

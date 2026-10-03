@@ -1,0 +1,47 @@
+flowchart TB
+  subgraph Z0["Zone 0 - Untrusted: employees & devices"]
+    U["Employee browser / Teams / Slack"]
+  end
+  subgraph Z1["Zone 1 - Edge (TLS, WAF, rate limits)"]
+    ING["Ingress / API gateway<br/>TLS 1.2+, WAF, 20 rps/IP"]
+    IDP["Corporate IdP<br/>OIDC SSO + MFA"]
+  end
+  subgraph Z2["Zone 2 - Application (authenticated, RBAC)"]
+    UI["React SPA<br/>Assistant · Approvals · Tickets · Monitoring · Audit"]
+    API["FastAPI service<br/>JWT verify · RBAC · rate limit · security headers"]
+    subgraph ORCH["Agent orchestration - state graph"]
+      G["Guardrail Agent"] --> T["Triage Agent"] --> K["Knowledge Agent"] --> R["Resolver Agent"]
+      R --> PG["Approval Gate"] --> X["Executor Agent"] --> RS["Responder Agent"]
+      R --> E["Escalation Agent"] --> RS
+    end
+    TR["Tool registry<br/>risk · approval · scope checks"]
+  end
+  subgraph Z3["Zone 3 - Restricted data"]
+    DB[("Tickets · approvals · traces<br/>SQLite / Postgres")]
+    AUD[("Hash-chained audit log")]
+    KB[("Knowledge base index")]
+  end
+  subgraph Z4["Zone 4 - External / third-party"]
+    LLM["Claude API<br/>(redacted text only)"]
+    ITSM["ServiceNow / JSM"]
+    ENTRA["Entra ID / Okta"]
+    MDM["Intune / Company Portal"]
+    STAT["Status page"]
+  end
+  subgraph OBS["Observability"]
+    PROM["Prometheus /metrics"] --> GRAF["Grafana + alerts"]
+    LOGS["JSON logs + traces"]
+  end
+  U --> ING --> UI
+  ING --> API
+  U -. SSO .-> IDP -. ID token .-> API
+  API --> ORCH
+  T & RS -->|"redacted prompts"| LLM
+  K --> KB
+  X & E --> TR
+  TR --> ENTRA & MDM & ITSM & STAT
+  ORCH --> DB
+  API --> AUD
+  TR --> AUD
+  API --> PROM
+  ORCH --> LOGS

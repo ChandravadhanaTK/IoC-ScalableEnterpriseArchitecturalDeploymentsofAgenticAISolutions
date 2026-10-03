@@ -1,0 +1,22 @@
+sequenceDiagram
+  autonumber
+  actor A as Alice (employee)
+  participant API as API + Agent graph
+  participant LLM as Claude
+  participant DB as Store + Audit
+  actor M as Maya (manager)
+  participant MDM as Intune
+  A->>API: "Please install Tableau"
+  API->>API: Guardrails (redact, injection check)
+  API->>LLM: triage(redacted text)
+  LLM-->>API: software / request_software / P4 / 0.88
+  API->>API: Resolver plans assign_software(alice, tableau)
+  API->>DB: create approval APR-x (high risk, approver = manager)
+  API-->>A: "Needs sign-off from Maya - I'll finish when approved"
+  M->>API: Approve APR-x
+  API->>API: separation of duties + expiry check
+  API->>DB: approval APPROVED (audit entry, hash-chained)
+  API->>MDM: assign Tableau to alice (retry x2 on failure)
+  MDM-->>API: queued, ETA 30 min
+  API->>LLM: compose(reply grounded in tool result)
+  API-->>A: "Tableau has been assigned to you..."
