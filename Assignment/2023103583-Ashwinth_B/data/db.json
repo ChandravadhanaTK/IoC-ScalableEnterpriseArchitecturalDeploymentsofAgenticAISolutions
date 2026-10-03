@@ -1,0 +1,132 @@
+{
+  "profiles": [],
+  "applications": [
+    {
+      "id": "app_158e78f5-103a-4cba-92d1-ba6142f4a88c",
+      "company": "Demo Company",
+      "role": "Software Engineer",
+      "matchScore": 89,
+      "missingSkills": [
+        "System Design"
+      ],
+      "status": "SAVED",
+      "deadline": "",
+      "createdAt": "2026-10-03T14:33:29.988Z",
+      "updatedAt": "2026-10-03T14:33:29.988Z"
+    }
+  ],
+  "traces": [
+    {
+      "id": "trace_21031be4-085e-4caf-bac8-7906b2e99ea4",
+      "createdAt": "2026-10-03T14:24:04.328Z",
+      "status": "COMPLETED",
+      "totalDurationMs": 1,
+      "steps": [
+        {
+          "agent": "Resume Analysis Agent",
+          "state": "COMPLETED",
+          "timestamp": "2026-10-03T14:24:04.328Z",
+          "durationMs": 0,
+          "result": {
+            "skillsFound": 7,
+            "injectionDetected": false
+          }
+        },
+        {
+          "agent": "Job Matching Agent",
+          "state": "COMPLETED",
+          "timestamp": "2026-10-03T14:24:04.328Z",
+          "durationMs": 0,
+          "result": {
+            "score": 71,
+            "missing": 2
+          }
+        },
+        {
+          "agent": "Preparation Agent",
+          "state": "COMPLETED",
+          "timestamp": "2026-10-03T14:24:04.328Z",
+          "durationMs": 0,
+          "result": {
+            "weeks": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "trace_73669043-6d58-41ee-a0db-263e37bac96e",
+      "createdAt": "2026-10-03T14:32:55.388Z",
+      "status": "COMPLETED",
+      "totalDurationMs": 2,
+      "steps": [
+        {
+          "agent": "Resume Analysis Agent",
+          "state": "COMPLETED",
+          "timestamp": "2026-10-03T14:32:55.387Z",
+          "durationMs": 0,
+          "result": {
+            "skillsFound": 12,
+            "injectionDetected": false
+          }
+        },
+        {
+          "agent": "Job Matching Agent",
+          "state": "COMPLETED",
+          "timestamp": "2026-10-03T14:32:55.387Z",
+          "durationMs": 0,
+          "result": {
+            "score": 89,
+            "missing": 1
+          }
+        },
+        {
+          "agent": "Preparation Agent",
+          "state": "COMPLETED",
+          "timestamp": "2026-10-03T14:32:55.388Z",
+          "durationMs": 0,
+          "result": {
+            "weeks": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "trace_a1a1b51c-087d-4d8e-983a-d8735122e847",
+      "createdAt": "2026-10-03T14:33:23.431Z",
+      "status": "COMPLETED",
+      "totalDurationMs": 1,
+      "steps": [
+        {
+          "agent": "Resume Analysis Agent",
+          "state": "COMPLETED",
+          "timestamp": "2026-10-03T14:33:23.431Z",
+          "durationMs": 0,
+          "result": {
+            "skillsFound": 12,
+            "injectionDetected": false
+          }
+        },
+        {
+          "agent": "Job Matching Agent",
+          "state": "COMPLETED",
+          "timestamp": "2026-10-03T14:33:23.431Z",
+          "durationMs": 0,
+          "result": {
+            "score": 89,
+            "missing": 1
+          }
+        },
+        {
+          "agent": "Preparation Agent",
+          "state": "COMPLETED",
+          "timestamp": "2026-10-03T14:33:23.431Z",
+          "durationMs": 0,
+          "result": {
+            "weeks": 1
+          }
+        }
+      ]
+    }
+  ],
+  "notifications": []
+}

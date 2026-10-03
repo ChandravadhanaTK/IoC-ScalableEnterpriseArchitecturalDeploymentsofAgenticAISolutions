@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CampusHire AI</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">CampusHire <span>AI</span></div>
+    <nav>
+      <button data-page="dashboard">Dashboard</button>
+      <button data-page="applications">Applications</button>
+      <button data-page="monitoring">Monitoring</button>
+      <button data-page="architecture">Architecture</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="dashboard" class="page active">
+      <div class="hero">
+        <div>
+          <p class="eyebrow">AGENTIC AI PLACEMENT ASSISTANT</p>
+          <h1>Turn your skills into a placement plan.</h1>
+          <p class="muted">Analyze a resume, match it against a job, identify skill gaps and generate a preparation plan.</p>
+        </div>
+        <div class="state">State: <strong id="pipelineState">IDLE</strong></div>
+      </div>
+
+      <div class="grid two">
+        <div class="card">
+          <h2>1. Candidate Resume</h2>
+          <textarea id="resume" placeholder="Paste your resume text here...">Computer Science student with C++, Java, Python, JavaScript, React, Node.js, SQL, DBMS, OOPS and DSA. Built a SmartSpend financial health application using React, Node.js and machine learning.</textarea>
+        </div>
+        <div class="card">
+          <h2>2. Job Description</h2>
+          <textarea id="job" placeholder="Paste a job description here...">Software Engineer Intern. Requirements: C++, Java, DSA, SQL, DBMS, React, Node.js and System Design. Good communication and problem solving skills.</textarea>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="primary" id="runBtn">Run Agent Pipeline</button>
+        <span id="error" class="error"></span>
+      </div>
+
+      <div id="results" class="hidden">
+        <div class="grid three">
+          <div class="card metric"><span>Match Score</span><strong id="score">0%</strong></div>
+          <div class="card metric"><span>Skills Found</span><strong id="skillsCount">0</strong></div>
+          <div class="card metric"><span>Skill Gaps</span><strong id="gapsCount">0</strong></div>
+        </div>
+        <div class="grid two">
+          <div class="card"><h2>Resume Analysis Agent</h2><div id="skills" class="chips"></div><p id="summary" class="muted"></p></div>
+          <div class="card"><h2>Job Matching Agent</h2><p id="matchExplanation"></p><h3>Missing Skills</h3><div id="gaps" class="chips"></div></div>
+        </div>
+        <div class="card"><h2>Preparation Agent</h2><div id="plan"></div></div>
+        <div class="approval card">
+          <div><h2>Human-in-the-Loop Approval</h2><p class="muted">Review the generated plan before creating an application record.</p></div>
+          <button class="primary" id="approveBtn">Approve & Track Application</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="applications" class="page">
+      <div class="page-head"><div><p class="eyebrow">APPLICATION MANAGEMENT</p><h1>Applications</h1></div><button class="secondary" id="refreshApps">Refresh</button></div>
+      <div id="reminders" class="notice"></div>
+      <div class="card"><div class="table-wrap"><table><thead><tr><th>Company</th><th>Role</th><th>Match</th><th>Status</th><th>Deadline</th><th>Update</th></tr></thead><tbody id="appsBody"></tbody></table></div></div>
+    </section>
+
+    <section id="monitoring" class="page">
+      <div class="page-head"><div><p class="eyebrow">OBSERVABILITY</p><h1>Monitoring</h1></div><button class="secondary" id="refreshMonitor">Refresh</button></div>
+      <div class="grid four"><div class="card metric"><span>Total Runs</span><strong id="mRuns">0</strong></div><div class="card metric"><span>Success Rate</span><strong id="mSuccess">100%</strong></div><div class="card metric"><span>Applications</span><strong id="mApps">0</strong></div><div class="card metric"><span>Reminders</span><strong id="mReminders">0</strong></div></div>
+      <div class="card"><h2>Execution Trace</h2><div id="traces"></div></div>
+    </section>
+
+    <section id="architecture" class="page">
+      <div class="page-head"><div><p class="eyebrow">ENTERPRISE ARCHITECTURE</p><h1>CampusHire AI Architecture</h1></div></div>
+      <div class="architecture">
+        <div class="layer"><b>1. Presentation</b><span>HTML, CSS, JavaScript dashboard</span></div>
+        <div class="arrow">↓ HTTPS / JSON</div>
+        <div class="layer"><b>2. API Layer</b><span>Node.js HTTP server + validation</span></div>
+        <div class="arrow">↓</div>
+        <div class="layer"><b>3. Orchestrator</b><span>State management + trace ID + agent handoffs</span></div>
+        <div class="arrow">↓</div>
+        <div class="agent-row"><div class="agent blue">Resume Analysis Agent</div><div class="agent purple">Job Matching Agent</div><div class="agent green">Preparation Agent</div></div>
+        <div class="arrow">↓ Human approval</div>
+        <div class="agent-row"><div class="agent orange">Application Tracking Agent</div><div class="agent cyan">Reminder Logic</div></div>
+        <div class="arrow">↓</div>
+        <div class="layer"><b>4. Data Layer</b><span>Local JSON persistence — easy demo mode</span></div>
+        <div class="arrow">↓</div>
+        <div class="layer"><b>5. Observability</b><span>Health • Trace • Quality • Safety • Business outcomes</span></div>
+      </div>
+      <div class="grid two security-grid"><div class="card"><h2>Security</h2><ul><li>Input size limits</li><li>Prompt-injection screening</li><li>PII redaction before processing</li><li>Structured agent outputs</li><li>Human approval before application creation</li></ul></div><div class="card"><h2>Failure handling</h2><ul><li>Pipeline failures create a trace</li><li>Invalid requests return HTTP errors</li><li>Injection-like input is blocked</li><li>Application updates are state-controlled</li></ul></div></div>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
