@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: servicedesk-config, namespace: servicedesk}
+data:
+  APP_ENV: production
+  LOG_LEVEL: INFO
+  LLM_PROVIDER: anthropic
+  ANTHROPIC_MODEL: claude-sonnet-5-5
+  DEMO_LOGIN_ENABLED: "false"      # production uses SSO; flip to "true" only for a private pilot
+  CORS_ORIGINS: https://servicedesk.example.com
+  RATE_LIMIT_PER_MINUTE: "30"
+  DB_PATH: /data/servicedesk.db
+  SEED_DEMO_DATA: "false"
+---
+# Template only - create the real secret with your secret manager
+# (External Secrets Operator / Sealed Secrets / Vault). Never commit real values.
+apiVersion: v1
+kind: Secret
+metadata: {name: servicedesk-secrets, namespace: servicedesk}
+type: Opaque
+stringData:
+  JWT_SECRET: "REPLACE_WITH_64_RANDOM_CHARS"
+  ANTHROPIC_API_KEY: "REPLACE_ME"

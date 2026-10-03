@@ -1,0 +1,6 @@
+apiVersion: 1
+providers:
+  - name: servicedesk
+    folder: Service Desk Agent
+    type: file
+    options: {path: /var/lib/grafana/dashboards}

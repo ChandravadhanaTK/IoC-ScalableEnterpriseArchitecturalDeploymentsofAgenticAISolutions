@@ -1,0 +1,47 @@
+# One-command local / single-VM deployment:
+#   cp backend/.env.example backend/.env   (optionally add ANTHROPIC_API_KEY)
+#   docker compose up --build
+# UI: http://localhost:8080   API docs: http://localhost:8000/api/docs
+# Prometheus: http://localhost:9090   Grafana: http://localhost:3000 (admin/admin)
+services:
+  backend:
+    build: ./backend
+    env_file: ./backend/.env
+    environment:
+      DB_PATH: /data/servicedesk.db
+      CORS_ORIGINS: http://localhost:8080
+    volumes:
+      - sd-data:/data
+    ports: ["8000:8000"]
+    read_only: true
+    tmpfs: ["/tmp"]
+    security_opt: ["no-new-privileges:true"]
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    depends_on: [backend]
+    ports: ["8080:8080"]
+    security_opt: ["no-new-privileges:true"]
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    volumes:
+      - ./deploy/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./deploy/prometheus/alerts.yml:/etc/prometheus/alerts.yml:ro
+    ports: ["9090:9090"]
+    profiles: ["observability"]
+
+  grafana:
+    image: grafana/grafana:12.1.0
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+    volumes:
+      - ./deploy/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./deploy/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    ports: ["3000:3000"]
+    profiles: ["observability"]
+
+volumes:
+  sd-data:

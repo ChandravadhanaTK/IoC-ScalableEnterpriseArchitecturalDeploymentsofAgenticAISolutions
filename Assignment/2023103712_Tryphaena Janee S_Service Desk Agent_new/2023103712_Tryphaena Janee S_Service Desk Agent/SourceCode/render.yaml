@@ -1,0 +1,18 @@
+# Render Blueprint: New > Blueprint > pick this repo. Builds the root Dockerfile.
+services:
+  - type: web
+    name: it-service-desk-agent
+    runtime: docker
+    plan: starter            # a persistent disk needs a paid plan; free plan works without `disk` (data resets on deploy)
+    healthCheckPath: /healthz
+    envVars:
+      - {key: APP_ENV, value: pilot}
+      - {key: DEMO_LOGIN_ENABLED, value: "true"}
+      - {key: SEED_DEMO_DATA, value: "true"}
+      - {key: JWT_SECRET, generateValue: true}
+      - {key: ANTHROPIC_API_KEY, sync: false}     # optional - leave empty to run on the rules model
+      - {key: CORS_ORIGINS, value: "https://it-service-desk-agent.onrender.com"}
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 1

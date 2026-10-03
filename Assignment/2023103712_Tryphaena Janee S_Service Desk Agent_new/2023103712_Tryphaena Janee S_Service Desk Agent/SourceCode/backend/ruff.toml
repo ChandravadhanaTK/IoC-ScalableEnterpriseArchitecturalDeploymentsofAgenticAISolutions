@@ -1,0 +1,11 @@
+line-length = 150
+target-version = "py312"
+
+[lint]
+select = ["E", "F", "W", "I", "B", "S"]
+# S101 asserts / S311 non-crypto random (simulated IDs) / S105 dev default secret is validated at startup /
+# S310 urlopen to a fixed https base URL / B008 FastAPI Depends defaults
+ignore = ["S101", "S311", "S105", "S310", "B008"]
+
+[lint.per-file-ignores]
+"tests/*" = ["S", "B"]

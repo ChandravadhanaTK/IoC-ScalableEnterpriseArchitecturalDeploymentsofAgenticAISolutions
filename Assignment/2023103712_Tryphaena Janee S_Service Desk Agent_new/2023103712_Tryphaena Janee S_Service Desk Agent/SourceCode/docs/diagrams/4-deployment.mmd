@@ -1,0 +1,18 @@
+flowchart LR
+  subgraph CI["GitHub Actions"]
+    PR["PR: ruff + pytest + pip-audit + UI build"] --> IMG["Build images<br/>Trivy scan"] --> REG[("GHCR")]
+  end
+  REG --> STG
+  subgraph STG["Staging cluster"]
+    S1["kubectl apply + set image"] --> S2["Smoke test + golden-set eval"]
+  end
+  S2 -->|"manual approval"| PRD
+  subgraph PRD["Production cluster (namespace: servicedesk)"]
+    direction TB
+    IN["Ingress-nginx + cert-manager TLS"] --> FE["frontend x2-6<br/>HPA, PDB, zone spread"]
+    IN --> BE["backend<br/>non-root, read-only FS, probes"]
+    BE --> PVC[("PVC / Postgres")]
+    BE -->|"egress 443 only"| EXT["Claude API + enterprise APIs"]
+    PROM2["Prometheus"] -->|scrape /metrics| BE
+  end
+  PRD -->|"rollout fails"| RB["kubectl rollout undo"]
