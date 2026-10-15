@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trip Planner Agent</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <h1>🌍 Trip Planner Agent</h1>
+      <p>An agentic itinerary planner &mdash; running locally &amp; fully offline.</p>
+      <span class="offline-badge">● Offline mode · mock data</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- ---------------- Preferences form ---------------- -->
+    <section class="panel form-panel">
+      <h2>Plan your trip</h2>
+      <form id="trip-form">
+        <label class="field">
+          <span>Destination</span>
+          <input type="text" id="location" name="location"
+                 placeholder="e.g. San Francisco, CA" value="San Francisco, CA" required />
+        </label>
+
+        <div class="grid-2">
+          <label class="field">
+            <span>Start date</span>
+            <input type="date" id="start_date" name="start_date" />
+          </label>
+          <label class="field">
+            <span>Duration (days)</span>
+            <input type="number" id="duration_days" name="duration_days"
+                   min="1" max="14" value="1" />
+          </label>
+          <label class="field">
+            <span>Budget (USD)</span>
+            <input type="number" id="budget" name="budget"
+                   min="0" step="5" value="150" />
+          </label>
+          <label class="field">
+            <span>Party size</span>
+            <input type="number" id="party_size" name="party_size"
+                   min="1" max="20" value="2" />
+          </label>
+          <label class="field">
+            <span>Day starts</span>
+            <input type="time" id="start_time" name="start_time" value="09:00" />
+          </label>
+          <label class="field">
+            <span>Day ends</span>
+            <input type="time" id="end_time" name="end_time" value="21:00" />
+          </label>
+        </div>
+
+        <fieldset class="field">
+          <legend>Interests</legend>
+          <div id="interests" class="chips"></div>
+        </fieldset>
+
+        <div class="grid-2">
+          <label class="field">
+            <span>Transportation</span>
+            <select id="transportation" name="transportation"></select>
+          </label>
+          <label class="field">
+            <span>Pace</span>
+            <select id="pace" name="pace"></select>
+          </label>
+        </div>
+
+        <button type="submit" id="plan-btn" class="primary-btn">✨ Generate itinerary</button>
+        <p id="form-error" class="error-text" hidden></p>
+      </form>
+    </section>
+
+    <!-- ---------------- Results ---------------- -->
+    <section class="panel results-panel">
+      <div id="empty-state" class="empty-state">
+        <div class="empty-icon">🗺️</div>
+        <p>Fill in your preferences and hit <strong>Generate itinerary</strong>.<br />
+           The agent will search, filter, optimize and schedule your day.</p>
+      </div>
+
+      <div id="loading" class="loading" hidden>
+        <div class="spinner"></div>
+        <p>Agent is thinking&hellip;</p>
+      </div>
+
+      <div id="results" hidden>
+        <div class="results-head">
+          <h2 id="results-title">Your itinerary</h2>
+          <div class="actions">
+            <button type="button" id="copy-btn" class="ghost-btn">Copy Markdown</button>
+            <button type="button" id="download-btn" class="ghost-btn">Download .md</button>
+            <button type="button" id="print-btn" class="ghost-btn">Print</button>
+          </div>
+        </div>
+
+        <div id="summary" class="summary"></div>
+        <div id="timeline" class="timeline"></div>
+
+        <div id="alternatives-wrap" class="alternatives-wrap" hidden>
+          <h3>Alternative activities</h3>
+          <div id="alternatives" class="alternatives"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Trip Planner Agent &mdash; local demo. No data leaves your machine.</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
