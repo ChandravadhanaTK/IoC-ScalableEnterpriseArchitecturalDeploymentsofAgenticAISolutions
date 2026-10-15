@@ -1,0 +1,9 @@
+{"ts":"2026-10-03T15:17:12.754382Z","agent":"supervisor","action":"clarification_requested","status":"ok","detail":"Agricultural research is broad. Could you specify particular areas of interest, such as precision agriculture, crop yield optimization, sustainable farming practices, or pest control?"}
+{"ts":"2026-10-03T15:17:12.758812Z","agent":"supervisor","action":"clarification_needed","status":"waiting","detail":"Agricultural research is broad. Could you specify particular areas of interest, such as precision agriculture, crop yield optimization, sustainable farming practices, or pest control?"}
+{"ts":"2026-10-03T15:17:32.665960Z","agent":"supervisor","action":"clarification_needed","status":"waiting","detail":"Agricultural research is broad. Could you specify particular areas of interest, such as precision agriculture, crop yield optimization, sustainable farming practices, or pest control?"}
+{"ts":"2026-10-03T15:17:32.675591Z","agent":"supervisor","action":"clarification_received","status":"ok","detail":"User answered: crop optimization"}
+{"ts":"2026-10-03T15:17:39.406538Z","agent":"supervisor","action":"plan_created","status":"ok","detail":"Research plan generated"}
+{"ts":"2026-10-03T15:18:06.776339Z","agent":"search_agent","action":"search_complete","status":"ok","detail":"Found 15 papers"}
+{"ts":"2026-10-03T15:18:06.781014Z","agent":"checkpoint","action":"human_approval_1","status":"waiting","detail":"Waiting for user to approve from 15 candidates"}
+{"ts":"2026-10-03T15:18:21.925486Z","agent":"checkpoint","action":"human_approval_1","status":"waiting","detail":"Waiting for user to approve from 15 candidates"}
+{"ts":"2026-10-03T15:18:21.927013Z","agent":"checkpoint","action":"papers_approved","status":"ok","detail":"User approved 15 papers"}
