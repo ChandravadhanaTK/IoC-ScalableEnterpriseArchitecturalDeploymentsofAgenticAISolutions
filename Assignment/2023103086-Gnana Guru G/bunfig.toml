@@ -1,0 +1,11 @@
+[test]
+preload = ["./src/test/test-preload.ts"]
+
+# Reduce memory usage during test runs to prevent WSL2 crashes
+smol = true
+
+# Reduce concurrency to help with Windows file system contention
+# Note: This is a future-proofing setting as Bun may add concurrency controls
+
+[serve.static]
+plugins = ["bun-plugin-tailwind"]

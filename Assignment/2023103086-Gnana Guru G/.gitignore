@@ -1,0 +1,83 @@
+# dependencies (bun install)
+node_modules
+
+# output
+out
+dist
+cli
+*.tgz
+
+# code coverage
+coverage
+*.lcov
+
+# logs
+logs
+_.log
+report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
+
+# dotenv environment variable files
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# caches
+.eslintcache
+.cache
+*.tsbuildinfo
+
+# bun build artifacts
+*.bun-build
+.*.bun-build
+
+# IntelliJ based IDEs
+.idea
+
+# Finder (MacOS) folder config
+.DS_Store
+
+# Claude Code session data
+.claude
+# But include the agents directory
+!.claude/agents
+!.claude/agents/**
+# and include the skills directory
+!.claude/skills
+!.claude/skills/**
+
+# Gemini CLI session data
+.gemini
+
+# Example project folder
+example-project/
+
+# blessed resources
+
+# Test temp directories created by bun tests
+tmp/
+.tmp-test-*
+
+# Local files
+*.local.*
+
+# Performance benchmark artifacts
+test-benchmark-report.json
+
+.conductor
+
+# TUI screenshot captures
+.tui-screenshots
+
+# Binary media files (rejected by Hugging Face Spaces git hook)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.mp4
+*.webp
+*.ico
+.github/
+backlog/assets/
+

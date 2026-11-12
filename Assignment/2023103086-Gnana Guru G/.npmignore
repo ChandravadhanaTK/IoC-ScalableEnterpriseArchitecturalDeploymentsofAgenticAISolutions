@@ -1,0 +1,33 @@
+# Source files
+src/
+scripts/
+test-npm-package/
+
+# Build artifacts
+backlog
+*.bun-build
+.*.bun-build
+
+# Development files
+.github/
+.backlog/
+.claude/
+.git/
+.gitignore
+.npmignore
+biome.json
+bun.lock
+tsconfig.json
+
+# Tests
+*.test.ts
+*.test.js
+
+# Other
+.DS_Store
+*.log
+node_modules/
+.env*
+
+# Keep only essential files for npm package
+# package.json, README.md, LICENSE, and cli.js are included by default
